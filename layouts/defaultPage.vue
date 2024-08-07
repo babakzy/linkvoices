@@ -4,7 +4,7 @@
         <div class="md:container md:mx-auto">
             <slot />
         </div>
-        <div class="py-10"></div>
+      
         <Footer />
     </div>
 </template>
