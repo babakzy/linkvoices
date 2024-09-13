@@ -48,7 +48,7 @@
                                 alt="USDT WALLET"
                             >
                             <input
-                                v-model="usdtrc20Wallet"
+                                v-model="usdttrc20Wallet"
                                 type="text"
                                 class="grow"
                                 placeholder="Tether wallet address"
@@ -87,7 +87,7 @@ const user = useSupabaseUser()
 const userProfile =  ref(null)
 const btcWallet =  ref("")
 const ethWallet =  ref("")
-const usdtrc20Wallet =  ref("")
+const usdttrc20Wallet =  ref("")
 const daiWallet =  ref("")
 const xrpWallet =  ref("")
 const dogeWallet =  ref("")
@@ -109,7 +109,7 @@ let { data: profile, error } = await supabase
     btcWallet.value=profile[0].btc_wallet
     ethWallet.value=profile[0].eth_wallet
     daiWallet.value=profile[0].dai_wallet
-    usdtrc20Wallet.value=profile[0].usd_trc20_wallet
+    usdttrc20Wallet.value=profile[0].usdt_trc20_wallet
 }
 
 async function updateWallets() {
@@ -117,12 +117,14 @@ async function updateWallets() {
     
 const { data, error } = await supabase
   .from('profiles')
-  .update({ btc_wallet: btcWallet.value })
+  .update({ btc_wallet: btcWallet.value , eth_wallet: ethWallet.value ,dai_wallet: daiWallet.value, usdt_trc20_wallet: usdttrc20Wallet.value })
   .eq('id', user.value.id)
   .select()
 
   console.log(error);
   console.log(data);
+
+  alert("Your wallet addresses updated Successfully.")
           
     
 }
