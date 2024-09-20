@@ -218,7 +218,7 @@
                                     <th>Item Name</th>
                                     <th>Quantity</th>
                                     <th>Rate</th>
-                                    <th>Tax 😒</th>
+                                    <th>Tax</th>
                                     <th>Amount</th>
                                 </tr>
                             </thead>

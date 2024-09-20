@@ -1,227 +1,98 @@
 <template>
     <div>
-    <div class="flex flex-wrap justify-center bg-slate-600">
-        <div class=" basis-full md:basis-8/12  p-3">
-            
-            <div class="bg-slate-100 max-w-full rounded-lg  p-4 md:p-8 m-2 ">
+        <div class=" bg-gradient-to-br from-blue-900 bg-slate-600  py-8">
+            <div class=" md:max-w-[1024px] mx-auto p-3">
 
-                <div class="flex">
-                        <div class="basis-full md:basis-1/3 p-2">
-                            <label class="form-control w-full m-1">
-                                <div class="label">
-                                    <span class="label-text">Invoice Number:</span>
-                                </div>
-                                <input
-                                    v-model="invoiceNumber"
-                                    type="text"
-                                    placeholder="00001"
-                                    class="input rounded-md py-3 input-bordered  w-full"
-                                />
-                            </label>
+                <div v-if="invoiceInfo" class="bg-slate-50 max-w-full rounded-lg  p-4  md:p-16 m-2 ">
+
+                    <div class="flex flex-wrap">
+                        <div class="basis-full">
+                            <h1 class="text-5xl text-slate-800 mb-5 uppercase">Invoice</h1>
                         </div>
                         <div class="basis-full md:basis-1/3 p-2">
-                            <label class="form-control w-full m-1">
-                                <div class="label">
-                                    <span class="label-text">Date Issued:</span>
-                                </div>
-                                <VueDatePicker v-model="issueDate" :enable-time-picker="false" ></VueDatePicker>
-                            </label>          
+                            <b class="block text-slate-800">{{ invoiceInfo.from_info.name }}</b>
+                            <span class="block text-slate-600">{{ invoiceInfo.from_info.country }}</span>
+                            <p class="block text-slate-600">{{ invoiceInfo.from_info.city }}</p>
+                            <p class="block text-slate-600">{{ invoiceInfo.from_info.address }}</p>
                         </div>
                         <div class="basis-full md:basis-1/3 p-2">
-                            <label class="form-control w-full m-1">
-                                <div class="label">
-                                    <span class="label-text">Due Date:</span>
-                                </div>
-                                <VueDatePicker v-model="dueDate" :enable-time-picker="false" ></VueDatePicker>
-                            </label>
+                            <label class="label-text block text-slate-400 font-light">Issued Date:</label>
+                            <b>{{ convertToSimpleDate(issueDate) }}</b>
+                        </div>
+                        <div class="basis-full md:basis-1/3 p-2 text-right font-light">
+                            <label class="label-text text-slate-400">Invoice #:</label>
+                            <b>{{ invoiceNumber }}</b>
+                            <!-- <label class="label-text block text-slate-400">Due Date:</label>
+                            <b>{{convertToSimpleDate(dueDate) }}</b>     -->
                         </div>
 
                     </div>
-                    <div class="flex">
+                    <div class="flex flex-wrap">
+                        <div class="basis-full">
+                            <hr class=" border-b w-full my-4" />
+                        </div>
                         <div class="basis-full md:basis-1/2 p-2">
-                            <div class="bg-slate-200 rounded-lg p-4">
-                                <!-- <h4 class="inline-block mr-2 text-xl">From</h4>
-                                <select
-                                    v-model="senderType"
-                                    class="select select-bordered inline-block"
-                                >
-                                    <option
-                                        disabled
-                                        selected
-                                    >Company / Person</option>
-                                    <option value="personal">Person</option>
-                                    <option value="company">Company</option>
-                                </select> -->
-                                <!-- <div class="label">
-                                    <span class="label-text">Logo:</span>
-                                </div>
-                                <input
-                                    type="file"
-                                    class="file-input file-input-bordered w-full max-w-xs"
-                                /> -->
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">E-mail:</span>
-                                    </div>
-                                    <input
-                                       required                         
-                                        v-model="senderEmail"
-                                        type="text"
-                                        placeholder=""
-                                        class="input input-bordered w-full"
-                                    />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">Company/Person Name:</span>
-                                    </div>
-                                    <input
-                                      
-                                        v-model="senderName"
-                                        type="text"
-                                        placeholder=""
-                                        class="input input-bordered w-full"
-                                    />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">Address:</span>
-                                    </div>
-                                    <input
-                                        v-model="senderAddress"
-                                        type="text"
-                                        placeholder=""
-                                        class="input input-bordered w-full"
-                                    />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">City, State, ZIP:</span>
-                                    </div>
-                                    <input
-                                        v-model="senderCity"
-                                        type="text"
-                                        placeholder=""
-                                        class="input input-bordered w-full"
-                                    />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">Country:</span>
-                                    </div>
-                                    <input
-                                        v-model="senderCountry"
-                                        type="text"
-                                        placeholder=""
-                                        class="input input-bordered w-full"
-                                    />
-                                </label>
+                            <h3 class="text-2xl text-slate-600">Bill To</h3>
+                            <b class="block text-slate-800">{{ invoiceInfo.to_info.name }}</b>
+                            <span class="block text-slate-600">{{ invoiceInfo.to_info.country }}</span>
+                            <p class="block text-slate-600">{{ invoiceInfo.to_info.city }}</p>
+                            <p class="block text-slate-600">{{ invoiceInfo.to_info.address }}</p>
 
-                            </div>
                         </div>
 
-                        <div class="basis-full md:basis-1/2 p-2">
-                            <div class="bg-slate-200 rounded-lg p-4">
-                                <!-- <h4 class="inline-block mr-2 text-xl">Bill To</h4>
-                                <select
-                                    v-model="recieverType"
-                                    class="select select-bordered inline-block"
-                                >
-                                    <option
-                                        disabled
-                                        selected
-                                    >Company / Person</option>
-                                    <option value="personal">Person</option>
-                                    <option value="company">Company</option>
-                                </select> -->
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">E-mail:</span>
-                                    </div>
-                                    <input
-                                        v-model="recieverEmail"
-                                        type="text"
-                                        placeholder=""
-                                        class="input input-bordered w-full"
-                                    />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">Company/person Name:</span>
-                                    </div>
-                                    <input
-                                        v-model="recieverName"
-                                        type="text"
-                                        placeholder=""
-                                        class="input input-bordered w-full"
-                                    />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">Address:</span>
-                                    </div>
-                                    <input
-                                        v-model="recieverAddress"
-                                        type="text"
-                                        placeholder=""
-                                        class="input input-bordered w-full"
-                                    />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">City, State, ZIP:</span>
-                                    </div>
-                                    <input
-                                        v-model="recieverCity"
-                                        type="text"
-                                        placeholder=""
-                                        class="input input-bordered w-full"
-                                    />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">Country:</span>
-                                    </div>
-                                    <input
-                                        v-model="recieverCountry"
-                                        type="text"
-                                        placeholder=""
-                                        class="input input-bordered w-full"
-                                    />
-                                </label>
-
+                        <div class="basis-full p-2">
+                            <div class=" border-2 border-slate-200 rounded-lg p-4">
+                                <table class="table">
+                                    <!-- head -->
+                                    <thead>
+                                        <tr class=" ">
+                                            <th class="font-light">#</th>
+                                            <th class="font-light">Item Name</th>
+                                            <th class="font-light">Quantity</th>
+                                            <th class="font-light">Rate</th>
+                                            <th class="font-light">Tax</th>
+                                            <th class="font-light">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- row  -->
+                                        <tr v-for="(item, index) in invoiceInfo.items" :key="index">
+                                            <th class=" text-slate-500 font-light">{{ index + 1 }}</th>
+                                            <td>
+                                                {{ item.name }}
+                                            </td>
+                                            <td>
+                                                {{ item.quantity }}
+                                            </td>
+                                            <td>
+                                                {{ item.rate }}
+                                            </td>
+                                            <td>
+                                                {{ item.tax }}
+                                            </td>
+                                            <td>
+                                                {{ item.amount }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
                     </div>
-                    <div class="bg-slate-200 rounded-lg m-2 p-4 md:p-8">
+                    <div class=" bg-gradient-to-br from-green-100 to-slate-100 rounded-lg m-2 p-4 md:p-8">
                         <h4 class="inline-block mr-2 text-xl">Currency</h4>
-                        <select
-                            v-model="invoiceCurrency"
-                            class="select select-bordered inline-block"
-                        >
-                            <option
-                                disabled
-                                selected
-                            >Select Base Currency</option>
-                            <option value="btc">Bitcoin (BTC)</option>
-                            <option value="ethtrc20">Etherium (ETH) _ TRC20 Network</option>
-                            <option value="usdt">Tether (USDT)</option>
-                            <option value="dai">Dai (DAI)</option>
-                        </select>
+                        {{ invoiceInfo.currency }}
                     </div>
 
-        </div>
-        </div>
+                </div>
+            </div>
 
+        </div>
     </div>
-</div>
 </template>
 
-<script
-    setup
-    lang="js"
->
+<script setup lang="js">
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import convertToSimpleDate from '~/utils';
@@ -243,26 +114,27 @@ const recieverCity = ref("")
 const recieverCountry = ref("")
 const invoiceCurrency = ref("")
 let invoiceItems = []
+const invoiceInfo = ref(null)
 
-
-async function getInvoiceById(id){
-    let { data , error } = await supabase
-  .from('invoices')
-  .select("*")
-  // Filters
-  .eq('invoice_uuid', id)
-  console.log(error);
-  console.log(data);
-  if (data){
-    invoiceNumber.value = data[0].number;
-    senderEmail.value = data[0].from;
-    recieverEmail.value = data[0].to;
-    invoiceNumber.value = data[0].number;
-  }
+async function getInvoiceById(id) {
+    let { data, error } = await supabase
+        .from('invoices')
+        .select("*")
+        // Filters
+        .eq('invoice_uuid', id)
+    console.log(error);
+    console.log(data);
+    if (data) {
+        invoiceInfo.value = data[0]
+        invoiceNumber.value = data[0].number;
+        senderEmail.value = data[0].from;
+        recieverEmail.value = data[0].to;
+        invoiceNumber.value = data[0].number;
+    }
 }
 
-onMounted(()=>{
-getInvoiceById(route.params.id)
+onMounted(() => {
+    getInvoiceById(route.params.id)
 })
 
 
