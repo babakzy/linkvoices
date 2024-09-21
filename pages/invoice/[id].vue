@@ -2,8 +2,8 @@
     <div>
         <div class=" bg-gradient-to-br from-blue-900 bg-slate-600  py-8">
             <div class=" md:max-w-[1024px] mx-auto p-3">
-
-                <div v-if="invoiceInfo" class="bg-slate-50 max-w-full rounded-lg  p-4  md:p-16 m-2 ">
+<div class="m-2 text-right"><button @click="downloadInvoice" class="btn btn-primary "> Download  </button></div>
+                <div ref="invoicePaper" v-if="invoiceInfo" class="bg-slate-50 max-w-full rounded-lg  p-4  md:p-16 m-2 ">
 
                     <div class="flex flex-wrap">
                         <div class="basis-full">
@@ -97,7 +97,7 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import convertToSimpleDate from '~/utils';
 const route = useRoute();
-
+import { jsPDF } from "jspdf";
 const supabase = useSupabaseClient()
 const invoiceNumber = ref("001")
 const issueDate = ref(new Date())
@@ -115,6 +115,7 @@ const recieverCountry = ref("")
 const invoiceCurrency = ref("")
 let invoiceItems = []
 const invoiceInfo = ref(null)
+const invoicePaper = ref(null)
 
 async function getInvoiceById(id) {
     let { data, error } = await supabase
@@ -124,13 +125,26 @@ async function getInvoiceById(id) {
         .eq('invoice_uuid', id)
     console.log(error);
     console.log(data);
-    if (data) {
+    if (data.length) {
         invoiceInfo.value = data[0]
         invoiceNumber.value = data[0].number;
         senderEmail.value = data[0].from;
         recieverEmail.value = data[0].to;
         invoiceNumber.value = data[0].number;
     }
+}
+
+function downloadInvoice(){
+    const doc = new jsPDF();
+console.log(invoicePaper.value);
+doc.html(invoicePaper.value, {
+   callback: function (doc) {
+     doc.save();
+   },
+   x: 10,
+   y: 10
+});
+//doc.save("a4.pdf");
 }
 
 onMounted(() => {

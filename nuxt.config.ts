@@ -17,5 +17,14 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
+  },  supabase: {
+    redirectOptions: {
+      login: '/login',
+      callback: '/confirm',
+      include: undefined,
+      exclude: ['/invoice/*','/'],
+      cookieRedirect: false,
+    }
   }
+   
 })
