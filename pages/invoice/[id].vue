@@ -1,13 +1,14 @@
 <template>
     <div>
-        <div class=" bg-gradient-to-br from-blue-900 bg-slate-600  py-8">
+        <div class=" bg-gradient-to-br from-blue-900 bg-slate-600  py-8 pb-16">
             <div class=" md:max-w-[1024px] mx-auto p-3">
-<div class="m-2 text-right"><button @click="downloadInvoice" class="btn btn-primary "> Download  </button></div>
+                <div class="m-2 text-right"><button @click="downloadInvoice" class="btn btn-primary "> Download
+                    </button></div>
                 <div ref="invoicePaper" v-if="invoiceInfo" class="bg-slate-50 max-w-full rounded-lg  p-4  md:p-16 m-2 ">
 
                     <div class="flex flex-wrap">
                         <div class="basis-full">
-                            <h1 class="text-5xl text-slate-800 mb-5 uppercase">Invoice</h1>
+                            <h1 class=" text-3xl md:text-5xl text-slate-800 mb-5 uppercase">Invoice</h1>
                         </div>
                         <div class="basis-full md:basis-1/3 p-2">
                             <b class="block text-slate-800">{{ invoiceInfo.from_info.name }}</b>
@@ -40,8 +41,8 @@
 
                         </div>
 
-                        <div class="basis-full p-2">
-                            <div class=" border-2 border-slate-200 rounded-lg p-4">
+                        <div class="basis-full max-w-full p-2">
+                            <div class=" border-2 border-slate-200 rounded-lg p-4 w-full overflow-x-scroll">
                                 <table class="table">
                                     <!-- head -->
                                     <thead>
@@ -80,16 +81,66 @@
                         </div>
 
                     </div>
-                    <div class=" bg-gradient-to-br from-green-100 to-slate-100 rounded-lg m-2 p-4 md:p-8">
-                        <h4 class="inline-block mr-2 text-xl">Currency</h4>
-                        {{ invoiceInfo.currency }}
-                    </div>
+                    <div class="border-2 border-slate-200 border-t-0 rounded-lg mt-0 m-2 p-4 md:p-8">
+                        <div class="flex flex-wrap justify-end">
+                            <div class=" basis-full md:basis-1/4">
+                                <h4 class="inline-block mr-2 text-md font-light text-slate-500 mb-2">Currency:</h4>
+                                <div v-if="invoiceInfo.currency == 'btc'" class="invoice-currency-item">
+                                    <img src="/assets/images/bitcoin-btc-logo.svg" class="inline-block w-7 h-7"
+                                        alt="BTC">
+                                    Bitcoin (BTC)
 
+                                </div>
+                                <div v-else-if="invoiceInfo.currency == 'ethtrc20'" class="invoice-currency-item">
+                                    <img src="/assets/images/ethereum-eth-logo.svg" class="inline-block w-7 h-7"
+                                        alt="ETH">
+                                    Etherium (ETH) _ TRC20 Network
+
+                                </div>
+                                <div v-else-if="invoiceInfo.currency == 'usdt'" class="invoice-currency-item">
+                                    <img src="/assets/images/tether-usdt-logo.svg" class="inline-block w-7 h-7"
+                                        alt="USDT">
+                                    Tether (USDT)
+
+                                </div>
+                                <div v-else-if="invoiceInfo.currency == 'dai'" class="invoice-currency-item">
+                                    <img src="/assets/images/multi-collateral-dai-dai-logo.svg"
+                                        class="inline-block w-7 h-7" alt="DAI">
+                                    Dai (DAI)
+
+                                </div>
+                            </div>
+                            <div class=" basis-full md:basis-1/4">
+                                <h4 class="inline-block mr-2 text-md font-light text-slate-500 mb-1">Total:</h4>
+                                <h3 class="text-2xl font-bold text-slate-900">{{ invoiceTotal }} <span
+                                        class="text-sm font-normal text-slate-600">{{ invoiceInfo.currency }}</span>
+                                </h3>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class=" bg-gradient-to-br from-green-100 to-slate-100 rounded-lg m-2 p-4 md:p-8">
+                        <div class="flex flex-wrap">
+                            <h2 class="mr-2 text-xl  text-slate-800 mb-1">Payment Information</h2>
+                            <div class=" basis-full  max-w-full md:basis-3/4">
+                                <h4 class=" mr-2 text-md font-light text-slate-500 mt-3">Wallet Address:</h4>
+                                <b
+                                    class="text-md max-w-full break-words inline-block bg-green-50 border-2 border-slate-700 px-3 py-2 rounded-xl font-normal text-slate-900">{{
+                                    invoiceWalletAddress }} <button
+                                        class="btn btn-neutral blcok w-full md:inline-block md:w-auto text-md h-auto md:ml-2 mt-3 md:mt-0 min-h-4 py-2">Copy</button></b>
+
+                            </div>
+                            <div class=" basis-full md:basis-1/4">
+                                <h4 class=" mr-2 text-md font-light text-slate-500 mt-3">Status:</h4>
+                                <span class="bg-slate-200 inline-block mt-2 rounded-full p-2 px-4 text-slate-700">Not Paid</span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-
+            </div>
         </div>
-    </div>
 </template>
 
 <script setup lang="js">
@@ -116,6 +167,16 @@ const invoiceCurrency = ref("")
 let invoiceItems = []
 const invoiceInfo = ref(null)
 const invoicePaper = ref(null)
+const invoiceTotal = ref(0)
+const invoiceWalletAddress = ref("")
+
+definePageMeta({
+  layout: null
+})
+useHead({
+  title: 'Nuxt Boilerplate - First Page'
+})
+
 
 async function getInvoiceById(id) {
     let { data, error } = await supabase
@@ -131,20 +192,22 @@ async function getInvoiceById(id) {
         senderEmail.value = data[0].from;
         recieverEmail.value = data[0].to;
         invoiceNumber.value = data[0].number;
+        invoiceTotal.value = data[0].total;
+        invoiceWalletAddress.value = data[0].wallet_address;
     }
 }
 
-function downloadInvoice(){
+function downloadInvoice() {
     const doc = new jsPDF();
-console.log(invoicePaper.value);
-doc.html(invoicePaper.value, {
-   callback: function (doc) {
-     doc.save();
-   },
-   x: 10,
-   y: 10
-});
-//doc.save("a4.pdf");
+    console.log(invoicePaper.value);
+    doc.html(invoicePaper.value, {
+        callback: function (doc) {
+            doc.save();
+        },
+        x: 10,
+        y: 10
+    });
+    //doc.save("a4.pdf");
 }
 
 onMounted(() => {
