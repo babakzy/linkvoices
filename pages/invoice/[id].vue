@@ -2,8 +2,8 @@
     <div>
         <div class=" bg-gradient-to-br from-blue-900 bg-slate-600  py-8 pb-16">
             <div class=" md:max-w-[1024px] mx-auto p-3">
-                <div class="m-2 text-right"><button @click="downloadInvoice" class="btn btn-primary "> Download
-                    </button></div>
+                <!-- <div class="m-2 text-right"><button @click="downloadInvoice" class="btn btn-primary "> Download
+                    </button></div> -->
                 <div ref="invoicePaper" v-if="invoiceInfo" class="bg-slate-50 max-w-full rounded-lg  p-4  md:p-16 m-2 ">
 
                     <div class="flex flex-wrap">
@@ -116,14 +116,14 @@
                                         class="text-sm font-normal text-slate-600">{{ invoiceInfo.currency }}</span>
                                 </h3>
                             </div>
-                                                        <div class=" basis-full md:basis-1/4">
+                                                        <!-- <div class=" basis-full md:basis-1/4">
                                 <div class="md:ml-4">
                                     <h4 class=" mr-2 text-md font-light text-slate-500 mt-3">Status:</h4>
                                     <span
                                         class="bg-slate-200 inline-block mt-2 rounded-full p-2 px-4 text-slate-700">Not
                                         Paid</span>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class=" basis-full md:basis-1/4">
                                 <button @click="showPaymentInfo = true" class="btn btn-success w-full">Pay</button>
                             </div>
@@ -159,14 +159,14 @@
                                     <span class="label-text">Transcation_id/TxId (Optional)</span>
                                 </div>
                                 <label class="input input-bordered flex items-center gap-2">
-                                    <input v-model="daiWallet" type="text" class="grow"
+                                    <input v-model="transactionID" type="text" class="grow"
                                         placeholder="Enter transcation ID code here" />
                                 </label>
                             </div>
 
                         </div>
                         <div class=" mt-6">
-                            <button class="btn btn-success w-40">Paid</button>
+                            <button @click="paymentSubmited" class="btn btn-success w-40">Paid</button>
                         </div>
 
                     </div>
@@ -203,6 +203,7 @@ const invoicePaper = ref(null)
 const invoiceTotal = ref(0)
 const invoiceWalletAddress = ref("")
 const showPaymentInfo = ref(false)
+const transactionID = ref("")
 
 definePageMeta({
     layout: null
@@ -247,6 +248,25 @@ function downloadInvoice() {
 onMounted(() => {
     getInvoiceById(route.params.id)
 })
+
+async function paymentSubmited(){
+
+    const { data, error } = await supabase
+  .from('transactions')
+  .insert([
+    { transaction_id: transactionID.value, invoice_id: route.params.id},
+  ])
+  .select()
+  console.log(error);
+  console.log(data);
+  if (data){
+    alert("Thanks for the payment")
+  }
+  if (error){
+    alert("Problem to submit the information.")
+  }
+          
+}
 
 
 
