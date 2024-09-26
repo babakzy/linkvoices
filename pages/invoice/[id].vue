@@ -82,7 +82,7 @@
 
                     </div>
                     <div class="border-2 border-slate-200 border-t-0 rounded-lg mt-0 m-2 p-4 md:p-8">
-                        <div class="flex flex-wrap justify-end">
+                        <div class="flex flex-wrap justify-end items-end">
                             <div class=" basis-full md:basis-1/4">
                                 <h4 class="inline-block mr-2 text-md font-light text-slate-500 mb-2">Currency:</h4>
                                 <div v-if="invoiceInfo.currency == 'btc'" class="invoice-currency-item">
@@ -116,31 +116,64 @@
                                         class="text-sm font-normal text-slate-600">{{ invoiceInfo.currency }}</span>
                                 </h3>
                             </div>
+                                                        <div class=" basis-full md:basis-1/4">
+                                <div class="md:ml-4">
+                                    <h4 class=" mr-2 text-md font-light text-slate-500 mt-3">Status:</h4>
+                                    <span
+                                        class="bg-slate-200 inline-block mt-2 rounded-full p-2 px-4 text-slate-700">Not
+                                        Paid</span>
+                                </div>
+                            </div>
+                            <div class=" basis-full md:basis-1/4">
+                                <button @click="showPaymentInfo = true" class="btn btn-success w-full">Pay</button>
+                            </div>
                         </div>
 
                     </div>
-                    <div class=" bg-gradient-to-br from-green-100 to-slate-100 rounded-lg m-2 p-4 md:p-8">
-                        <div class="flex flex-wrap">
-                            <h2 class="mr-2 text-xl  text-slate-800 mb-1">Payment Information</h2>
+                    <div v-if="showPaymentInfo" class=" bg-gradient-to-br from-green-100 to-slate-100 rounded-lg m-2 p-4 md:p-8">
+
+                        <div class="flex flex-wrap mt-4">
+                            <p class="mr-2 text-xl font-bold  text-slate-800 mb-1"> <span
+                                    class="h-7 w-7 text-center inline-block bg-slate-800 text-white rounded-full">1</span>
+                                Send {{ invoiceTotal }}<span class="">{{ invoiceInfo.currency }}</span> to address below
+                            </p>
                             <div class=" basis-full  max-w-full md:basis-3/4">
-                                <h4 class=" mr-2 text-md font-light text-slate-500 mt-3">Wallet Address:</h4>
-                                <b
-                                    class="text-md max-w-full break-words inline-block bg-green-50 border-2 border-slate-700 px-3 py-2 rounded-xl font-normal text-slate-900">{{
-                                    invoiceWalletAddress }} <button
+                                <div class="label mt-4">
+                                    <span class="label-text">Sender wallet address:</span>
+                                </div> <b
+                                    class="text-md max-w-full break-words inline-block bg-green-50 border border-slate-300 px-3 py-2 rounded-md font-normal text-slate-900">{{
+                                        invoiceWalletAddress }} <button
                                         class="btn btn-neutral blcok w-full md:inline-block md:w-auto text-md h-auto md:ml-2 mt-3 md:mt-0 min-h-4 py-2">Copy</button></b>
 
                             </div>
                             <div class=" basis-full md:basis-1/4">
-                                <h4 class=" mr-2 text-md font-light text-slate-500 mt-3">Status:</h4>
-                                <span class="bg-slate-200 inline-block mt-2 rounded-full p-2 px-4 text-slate-700">Not Paid</span>
                             </div>
+                        </div>
+
+                        <div class="flex flex-wrap items-end mt-14">
+                            <p class="mr-2 text-xl font-bold   text-slate-800 mb-1"> <span
+                                    class="h-7 w-7 text-center inline-block bg-slate-800 text-white rounded-full">2</span>
+                                Enter payments Transcation ID </p>
+                            <div class=" basis-full  max-w-full md:basis-3/4">
+                                <div class="label mt-4">
+                                    <span class="label-text">Transcation_id/TxId (Optional)</span>
+                                </div>
+                                <label class="input input-bordered flex items-center gap-2">
+                                    <input v-model="daiWallet" type="text" class="grow"
+                                        placeholder="Enter transcation ID code here" />
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class=" mt-6">
+                            <button class="btn btn-success w-40">Paid</button>
                         </div>
 
                     </div>
                 </div>
             </div>
-            </div>
         </div>
+    </div>
 </template>
 
 <script setup lang="js">
@@ -169,12 +202,13 @@ const invoiceInfo = ref(null)
 const invoicePaper = ref(null)
 const invoiceTotal = ref(0)
 const invoiceWalletAddress = ref("")
+const showPaymentInfo = ref(false)
 
 definePageMeta({
-  layout: null
+    layout: null
 })
 useHead({
-  title: 'Nuxt Boilerplate - First Page'
+    title: 'Nuxt Boilerplate - First Page'
 })
 
 

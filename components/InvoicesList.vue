@@ -18,8 +18,8 @@
                     <tr v-for="(invoiceItem, index) in currentUserInvoices" v-bind:key="index">
                         <th >{{ index+1 }}</th>
                         <td>{{ convertToSimpleDate(invoiceItem.created_at) }}</td>
-                        <th >{{ invoiceItem.from }}</th>
-                        <td>{{ invoiceItem.to }}</td>
+                        <td >{{ invoiceItem.from }}</td>
+                        <td><b>{{ invoiceItem.to }}</b></td>
                         <td>{{ invoiceItem.status }}</td>
                         <td>{{ invoiceItem.id }}</td>                  
                     </tr>
