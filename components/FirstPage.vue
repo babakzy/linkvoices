@@ -35,9 +35,9 @@
         <div class="basis-full md:basis-6/12">
             <div class="bg-green-50 text-green-800 rounded p-5 m-2">
                 <ul>
-                    <li>No extra fee (just network fee)</li>
-                    <li>Empower people ✊🏼</li>
                     <li>Privacy and freedom</li>
+                    <li>No extra fee (just network fee)</li>
+                    <li>Empower people ✊🏼</li>            
                     <li>Multiple cryptocurrencies</li>
                 </ul>
             </div>

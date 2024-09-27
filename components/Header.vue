@@ -1,17 +1,14 @@
 <template>
-    <div class=" bg-slate-200 " >
+    <div class=" border-b " >
 <div class="md:container md:mx-auto py-3">
     <div class="flex items-center">
-        <div class="basis-1/4"> <span class="text-slate-600">Nuxt 3 Minimal Boilerplate</span> </div>
+        <div class="basis-1/4"> <nuxt-link  to="/">Home</nuxt-link> </div>
         <div class="basis-3/4 text-right text-blue-800 "> <ul>
           <li v-if="user" class="mx-4 inline-block">
                 <nuxt-link to="/dashboard" class="py-1 px-2 bg-slate-300 rounded-md">Dashboard</nuxt-link>
             </li>
             <li class="mx-4 inline-block">
-                <a href="">Create Invoice</a>  
-            </li>
-            <li class="mx-4 inline-block">
-                <a href="">CryptoPay Profile</a>
+              <nuxt-link to="/help">How to?</nuxt-link>  
             </li>
             <li  v-if="user" class="mx-4 inline-block">
       
@@ -19,7 +16,7 @@
             
             </li>
             <li v-else class="mx-4 inline-block">
-                <a class="btn btn-primary" href="">Login</a>           
+              <nuxt-link class="btn btn-primary" to="/login">Login </nuxt-link>         
             </li>
 
         </ul> </div>

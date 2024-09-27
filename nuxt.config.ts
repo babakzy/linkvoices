@@ -22,7 +22,7 @@ export default defineNuxtConfig({
       login: '/login',
       callback: '/confirm',
       include: undefined,
-      exclude: ['/invoice/*','/'],
+      exclude: ['/invoice/*','/','/help'],
       cookieRedirect: false,
     }
   }
