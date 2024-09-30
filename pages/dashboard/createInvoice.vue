@@ -284,9 +284,14 @@
             </div>
             <div class="basis-full md:basis-1/4">
                 <div class="bg-slate-100 rounded-lg  p-4 md:p-8 m-2 ">
-                    <button class="btn btn-primary" @click="createInvoice">Create</button>
-                    <VueDatePicker v-model="date" :enable-time-picker="false"></VueDatePicker>
-                    {{date}}
+                    <button class="btn btn-primary px-14" @click="createInvoice">Save</button>
+                    <button  class="btn btn-outline ml-2" @click="createInvoice">Priview</button>
+                    <div class="mt-2">
+                        <a :href="'mailto:' + recieverEmail +'?subject=Invoice From:' + senderName + '&body=Hi, You have a new unpaid invoice %0D%0A%0D%0A' + ''" class="btn btn-secondary w-full" @click="createInvoice">Send</a>
+                    </div>
+                    <div class="mt-2">
+                        <a class="text-left btn btn-outline w-full" @click="createInvoice">@vuepic/vue-datepcker/dist/maicker/dist/maiicker/dist/main.css'</a>
+                    </div>
                 </div>
             </div>
         </div>

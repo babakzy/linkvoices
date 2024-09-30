@@ -20,10 +20,12 @@
             <button class="btn btn-outline">See Demo Invoice</button>
         </div>
         <div class="basis-full  py-12 mt-20">
-            <h2 class="text-4xl text-slate-900">Why not push every one to use cryptocurrency to transfer money</h2>
+            <h2 class="text-4xl text-slate-900 p-3">Why not push every one to use cryptocurrency to transfer money</h2>
         </div>
-        <div class="basis-full md:basis-6/12">
-            <div class="bg-red-50 text-red-800 rounded p-5 m-2">
+        <div class="basis-full md:basis-6/12 p-3">
+            <h4 class="text-slate-900 text-2xl ">Used way</h4>
+            <p class="text-slate-600">(Paypal, Stripe , Wise , etc)</p>
+            <div class="bg-red-50 text-red-800 rounded p-5 mt-3 ">
                 <ul>
                     <li>Platforms or bank fee</li>
                     <li>Central control (banks, governments)</li>
@@ -32,8 +34,10 @@
                 </ul>
             </div>
         </div>
-        <div class="basis-full md:basis-6/12">
-            <div class="bg-green-50 text-green-800 rounded p-5 m-2">
+        <div class="basis-full md:basis-6/12 p-3">
+            <h4 class="text-slate-900 text-2xl ">Linkvoices</h4>
+            <p class="text-slate-600 ">Use cryptocurrencies as payment</p>
+            <div class="bg-green-50 text-green-800 rounded p-5  mt-3 ">
                 <ul>
                     <li>Privacy and freedom</li>
                     <li>No extra fee (just network fee)</li>
@@ -42,7 +46,7 @@
                 </ul>
             </div>
         </div>
-        <div class="mt-4">
+        <div class="mt-8">
             <p>
                 <b>Lower fees and faster transaction:</b> Cryptocurrency transactions typically involve lower fees
                 compared to traditional bank transfers or payment services, especially for international transfers.

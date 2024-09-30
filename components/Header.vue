@@ -1,11 +1,11 @@
 <template>
     <div class=" border-b " >
-<div class="md:container md:mx-auto py-3">
+<div class="md:container md:mx-auto py-4">
     <div class="flex items-center">
-        <div class="basis-1/4"> <nuxt-link  to="/">Home</nuxt-link> </div>
+        <div class="basis-1/4"> <nuxt-link  to="/"><img src="@/assets/images/linkvoices logo.svg" alt=""></nuxt-link> </div>
         <div class="basis-3/4 text-right text-blue-800 "> <ul>
           <li v-if="user" class="mx-4 inline-block">
-                <nuxt-link to="/dashboard" class="py-1 px-2 bg-slate-300 rounded-md">Dashboard</nuxt-link>
+                <nuxt-link to="/dashboard" class="py-2 px-2 bg-blue-100 hover:bg-blue-200 rounded-md">Dashboard</nuxt-link>
             </li>
             <li class="mx-4 inline-block">
               <nuxt-link to="/help">How to?</nuxt-link>  

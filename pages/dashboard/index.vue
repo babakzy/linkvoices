@@ -7,16 +7,18 @@
                 </div>
             </div>
             <div class="basis-full md:basis-1/3">
-                <div class="crypto-pay-profile-card py-10 pl-40 pr-5 m-2 rounded-lg">
+                <!-- <div class="crypto-pay-profile-card py-10 pl-40 pr-5 m-2 rounded-lg">
                     <p class="text-purple-800 text-xl">Create</p>
                     <h2 class="text-4xl text-purple-900">CryptoPay Profile</h2>
-                </div>
-
-                <div class="create-invoice-card mt-5 m-2 py-10 pl-40 pr-5 rounded-lg">
+                </div> -->
+<nuxt-link to="/dashboard/createInvoice">
+                <div class="create-invoice-card m-2 py-10 pl-40 pr-5 rounded-lg">
                     <p class="text-green-800 text-xl">Create New</p>
                     <h2 class="text-4xl text-green-900">Crypto Invoice</h2>
                 </div>
+            </nuxt-link>
             </div>
+            
         </div>
         <div class="flex flex-wrap my-8">
             <div class="basis-full md:basis-2/3">
