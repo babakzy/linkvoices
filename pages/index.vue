@@ -11,7 +11,7 @@ definePageMeta({
   layout: 'default-page'
 })
 useHead({
-  title: 'Octavoice - Login'
+  title: 'Linkvoices - Create and send cryptocurrency invoices for free'
 })
 </script>
 

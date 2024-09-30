@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-slate-100 pt-[calc(50vh-300px)] min-h-[100vh] ">
+    <div class=" bg-gradient-to-b from-slate-200 to-slate-50 pt-[calc(50vh-300px)] md:pt-[calc(50vh-200px)] min-h-[90vh] ">
 <LoginForm></LoginForm>
     </div>
 </template>

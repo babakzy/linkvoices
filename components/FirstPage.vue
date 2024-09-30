@@ -1,26 +1,26 @@
 <template>
-    <div class="flex flex-wrap items-center justify-around pt-12">
-        <div class="basis-full md:basis-1/2">
-            <h1 class="text-6xl text-slate-900">
+    <div class="flex flex-wrap items-center justify-around pt-12 mb-14 mx-4">
+        <div class="basis-full md:basis-1/2 ">
+            <h1 class=" text-5xl md:text-6xl text-slate-900 ">
                 Create and send instance crypto invoice for <span class="">free</span>
             </h1>
             <ul class="my-3 text-slate-600">
                 <li
-                    class="bg-gradient-to-br ml-4 from-green-100 to-green-300 px-4 py-1 text-green-950  inline-block rounded-full">
+                    class=" bg-gradient-to-br ml-4 my-1 from-green-100 to-green-300 px-4 py-1 text-green-950  inline-block rounded-full">
                     No Fee/Commesion</li>
                 <li
-                    class="bg-gradient-to-br ml-4 from-green-100 to-green-300 px-4 py-1 text-green-950  inline-block rounded-full">
+                    class="bg-gradient-to-br ml-4 my-1 from-green-100 to-green-300 px-4 py-1 text-green-950  inline-block rounded-full">
                     With your prefered wallet</li>
             </ul>
         </div>
-        <div class="basis-full md:basis-1/2">
+        <div class="basis-full md:basis-1/2 ">
             <img src="../assets/images/hero-crypro-invoice.png" alt="send cryprocurrency invoice">
         </div>
-        <div class="basis-full text-center">
+        <div class="basis-full text-center my-6 md:my-0">
             <button class="btn btn-outline">See Demo Invoice</button>
         </div>
-        <div class="basis-full  py-12 mt-20">
-            <h2 class="text-4xl text-slate-900 p-3">Why not push every one to use cryptocurrency to transfer money</h2>
+        <div class="basis-full  py-12 md:mt-20">
+            <h2 class="text-3xl md:text-4xl text-slate-900 capitalize">Why not push every one to use cryptocurrency to transfer money</h2>
         </div>
         <div class="basis-full md:basis-6/12 p-3">
             <h4 class="text-slate-900 text-2xl ">Used way</h4>

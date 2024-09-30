@@ -1,8 +1,8 @@
 <template>
     <div class="my-16">
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap mx-4">
             <div class="basis-full md:basis-2/3">
-                <div class="bg-slate-100 rounded-lg  p-4 md:p-8 m-2 ">
+                <div class="bg-slate-100 rounded-lg  p-4 md:p-8">
                    <UserWallets/>
                 </div>
             </div>
@@ -12,7 +12,7 @@
                     <h2 class="text-4xl text-purple-900">CryptoPay Profile</h2>
                 </div> -->
 <nuxt-link to="/dashboard/createInvoice">
-                <div class="create-invoice-card m-2 py-10 pl-40 pr-5 rounded-lg">
+                <div class="create-invoice-card md:ml-5 py-10 pl-20 md:pl-40 pr-5 rounded-lg">
                     <p class="text-green-800 text-xl">Create New</p>
                     <h2 class="text-4xl text-green-900">Crypto Invoice</h2>
                 </div>
@@ -20,7 +20,7 @@
             </div>
             
         </div>
-        <div class="flex flex-wrap my-8">
+        <div class="flex flex-wrap my-8 mx-4">
             <div class="basis-full md:basis-2/3">
             <InvoicesList/>
             </div>

@@ -1,7 +1,7 @@
 <template>
-    <div class="">
+    <div class=" mb-28 mx-4">
         <div class="py-4 mt-10">
-            <h2 class="text-4xl text-slate-900">If you have a crypto wallet</h2>
+            <h2 class=" text-3xl md:text-4xl text-slate-900">If you have a crypto wallet</h2>
             <ol class="text-lg">
                 <li>
                     1. Register
@@ -18,7 +18,7 @@
             </ol>
         </div>
         <div class="mt-8">
-            <h2 class="text-4xl text-slate-900">If you don't have a crypto wallet</h2>
+            <h2 class="text-3xl md:text-4xl text-slate-900">If you don't have a crypto wallet</h2>
             <p>To get a cryptocurrency wallet using a <strong>software/online wallet</strong>, follow these steps:</p>
         <ol>
             <li>
