@@ -1,9 +1,16 @@
 <template>
     <div>
-        <div class=" bg-gradient-to-br from-blue-900 bg-slate-600  py-8 pb-16">
+        <div class=" bg-gradient-to-br from-blue-900 bg-slate-600 h-[100vh]  py-8 pb-16">
+            
             <div class=" md:max-w-[1024px] mx-auto p-3">
                 <!-- <div class="m-2 text-right"><button @click="downloadInvoice" class="btn btn-primary "> Download
                     </button></div> -->
+                    <div v-if="!invoiceInfo">
+                        <div class="text-center mt-[40vh]">
+                            <span class="loading loading-ring loading-lg text-white"></span>
+                            <p class="text-slate-300">Loading Invoice</p>
+                        </div>
+                    </div>
                 <div ref="invoicePaper" v-if="invoiceInfo" class="bg-slate-50 max-w-full rounded-lg  p-4  md:p-16 m-2 ">
 
                     <div class="flex flex-wrap">
