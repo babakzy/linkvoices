@@ -55,7 +55,7 @@ definePageMeta({
   layout: 'default-page'
 })
 useHead({
-  title: 'Octavoice - Login'
+  title: 'Linkvoices - Help'
 })
 </script>
 

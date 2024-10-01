@@ -75,18 +75,6 @@
 
                         <div class="basis-full md:basis-1/2 p-2">
                             <div class="bg-slate-200 rounded-lg p-4">
-                                <!-- <h4 class="inline-block mr-2 text-xl">Bill To</h4>
-                                <select
-                                    v-model="recieverType"
-                                    class="select select-bordered inline-block"
-                                >
-                                    <option
-                                        disabled
-                                        selected
-                                    >Company / Person</option>
-                                    <option value="personal">Person</option>
-                                    <option value="company">Company</option>
-                                </select> -->
                                 <label class="form-control w-full m-1">
                                     <div class="label">
                                         <span class="label-text">E-mail:</span>
@@ -122,10 +110,8 @@
                                     <input v-model="recieverCountry" type="text" placeholder=""
                                         class="input input-bordered w-full" />
                                 </label>
-
                             </div>
                         </div>
-
                     </div>
                     <div class="bg-slate-200 rounded-lg m-2 p-4 md:p-8">
                         <h4 class="inline-block mr-2 text-xl">Currency</h4>
@@ -191,29 +177,18 @@
                                 -
                             </button>
                         </div>
-
-
                     </div>
                     <div class="basis-full">
                         <div class="flex">
                             <div class="basis-full md:basis-3/4">
-
                             </div>
                             <div class="basis-full md:basis-1/4 ">
-
-
                                 <h2 class="text-xl my-0 font-bold mt-5">Total:</h2>
-
                                 <input type="text" v-model="invoiceTotal" placeholder=""
                                     class="input input-bordered w-full md:mr-2" />
                             </div>
-
                         </div>
-
-
                     </div>
-                    <!-- <button @click="getInvoiceItems" class="btn btn-circle"> TEST </button> -->
-
                 </div>
             </div>
 
@@ -238,8 +213,9 @@
                                 invoice_uuid }}</a>
                     </div>
                     <div v-if="invoice_uuid" class="my-2">
-                        <button @click="copyToClipboard('http://localhost:3000/invoice/'+invoice_uuid)"
-                            class="btn btn-neutral blcok w-full md:inline-block md:w-auto text-md h-auto min-h-4 py-2">Copy URL</button>
+                        <button @click="copyToClipboard('http://localhost:3000/invoice/' + invoice_uuid)"
+                            class="btn btn-neutral blcok w-full md:inline-block md:w-auto text-md h-auto min-h-4 py-2">Copy
+                            URL</button>
                     </div>
                 </div>
             </div>
@@ -264,12 +240,10 @@ const issueDate = ref(new Date())
 const dueDate = ref(new Date())
 const senderEmail = ref("")
 const recieverEmail = ref("")
-const senderType = ref("")
 const senderName = ref("")
 const senderAddress = ref("")
 const senderCity = ref("")
 const senderCountry = ref("")
-const recieverType = ref("")
 const recieverName = ref("")
 const recieverAddress = ref("")
 const recieverCity = ref("")
@@ -279,7 +253,6 @@ let invoiceItems = []
 const itemsForm = ref(null)
 const formRow = ref(['', ''])
 const invoiceTotal = ref("")
-
 const btcWallet = ref("")
 const ethWallet = ref("")
 const usdttrc20Wallet = ref("")
@@ -304,9 +277,9 @@ async function readProfile() {
     usdttrc20Wallet.value = profile[0].usdt_trc20_wallet
 }
 
-function copyToClipboard(textToCopy){
-   navigator.clipboard.writeText(textToCopy);
-   alert("Copied to clipboard");
+function copyToClipboard(textToCopy) {
+    navigator.clipboard.writeText(textToCopy);
+    alert("Copied to clipboard");
 }
 
 const addField = () => {
@@ -317,7 +290,7 @@ const removeField = () => {
 }
 
 function getInvoiceSelectedWalletAddress() {
-    console.log(invoiceCurrency.value);
+
     switch (invoiceCurrency.value) {
         case 'btc':
             invoiceWalletAddress = btcWallet.value;
@@ -334,6 +307,7 @@ function getInvoiceSelectedWalletAddress() {
         default:
             invoiceWalletAddress = "";
     }
+
 }
 
 let invoiceItemsNameArray = []
@@ -342,12 +316,10 @@ let invoiceItemsRateArray = []
 let invoiceItemsTaxArray = []
 let invoiceItemsAmountArray = []
 function getInvoiceItems() {
-    // const invoiceItemsConverted
-    //   if (itemsForm.value != null) {
-    console.log(itemsForm);
+
     const formData = new FormData(itemsForm.value)
     for (const [fieldName, fieldValue] of formData.entries()) {
-        console.log(`${fieldName} :`, fieldValue)
+
         if (fieldName.includes('item-name')) {
             invoiceItemsNameArray.push(fieldValue)
         }
@@ -376,8 +348,6 @@ function getInvoiceItems() {
         })
 
     }
-    console.log(invoiceItems);
-
 
 }
 
@@ -385,8 +355,6 @@ async function createInvoice() {
 
     let issueDateConverted = convertToSimpleDate(issueDate)
     let dueDateConverted = convertToSimpleDate(dueDate)
-    console.log(issueDateConverted);
-    console.log(dueDateConverted);
     getInvoiceSelectedWalletAddress()
     getInvoiceItems();
     const { data, error } = await supabase
@@ -408,9 +376,7 @@ async function createInvoice() {
             },
         ])
         .select()
-    console.log(error);
-    console.log(data);
-    //  itemsForm.value.reset()
+    // itemsForm.value.reset()
     invoice_uuid.value = data[0].invoice_uuid
 
 }
@@ -420,8 +386,6 @@ async function updateInvoice() {
 
     let issueDateConverted = convertToSimpleDate(issueDate)
     let dueDateConverted = convertToSimpleDate(dueDate)
-    console.log(issueDateConverted);
-    console.log(dueDateConverted);
     getInvoiceItems();
 
     const { data, error } = await supabase
@@ -442,50 +406,15 @@ async function updateInvoice() {
         ])
         .eq('invoice_uuid', invoice_uuid.value)
         .select()
-    console.log(error);
-    console.log(data);
-
 
 }
+
 function previewInvoice() {
     window.open('http://localhost:3000/invoice/' + invoice_uuid.value, '_blank').focus();
 }
 
-
-
-
 </script>
 
-<style scoped lang="scss">
-.crypto-pay-profile-card {
-    background-color: rgb(237, 238, 248);
-    background-image: url(/assets/images/Crypto-Profile-Link.svg);
-    background-position: 10px bottom;
-    background-repeat: no-repeat;
-    background-size: 140px;
-    transition: 0.3s;
-    cursor: pointer;
+<style scoped>
 
-    &:hover {
-        background-color: rgb(222, 225, 245);
-    }
-}
-
-.create-invoice-card {
-    background-color: #e5eee9;
-    background-image: url(/assets/images/Crypto-Invoice.svg);
-    background-position: 10px bottom;
-    background-repeat: no-repeat;
-    background-size: 140px;
-    transition: 0.3s;
-    cursor: pointer;
-
-    &:hover {
-        background-color: #cbdad0;
-    }
-}
-
-.crypto-wallet-input input {
-    font-weight: 300;
-}
 </style>

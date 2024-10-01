@@ -4,7 +4,7 @@
       <div class="flex flex-wrap items-center mx-4">
         <div class=" basis-1/2 md:basis-1/4">
           <nuxt-link to="/">
-            <img class=" max-w-full w-60" src="@/assets/images/linkvoices logo.svg" alt="">
+            <img class=" max-w-full w-60" src="@/assets/images/linkvoices logo.svg" alt="linkvoices - crypto invoices">
           </nuxt-link>
         </div>
         <div class=" basis-1/2 md:basis-3/4 text-right text-blue-800">
@@ -31,25 +31,18 @@
 
 <script setup>
 const supabase = useSupabaseClient()
-const loading = ref(true)
-const email = ref('')
+const user = useSupabaseUser()
 
 async function signOut() {
-  console.log("signOut");
   try {
-    loading.value = true
     const { error } = await supabase.auth.signOut()
     if (error) throw error
     user.value = null
   } catch (error) {
     alert(error.message)
   } finally {
-    loading.value = false
   }
 }
-
-loading.value = true
-const user = useSupabaseUser()
 
 </script>
 
