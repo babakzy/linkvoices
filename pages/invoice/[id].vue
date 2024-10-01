@@ -142,7 +142,7 @@
                                     <span class="label-text">Sender wallet address:</span>
                                 </div> <b
                                     class="text-md max-w-full break-words inline-block bg-green-50 border border-slate-300 px-3 py-2 rounded-md font-normal text-slate-900">{{
-                                        invoiceWalletAddress }} <button
+                                        invoiceWalletAddress }} <button @click="copyToClipboard(invoiceWalletAddress)"
                                         class="btn btn-neutral blcok w-full md:inline-block md:w-auto text-md h-auto md:ml-2 mt-3 md:mt-0 min-h-4 py-2">Copy</button></b>
 
                             </div>
@@ -243,6 +243,10 @@ function downloadInvoice() {
         y: 10
     });
     //doc.save("a4.pdf");
+}
+function copyToClipboard(textToCopy){
+   navigator.clipboard.writeText(textToCopy);
+   alert("Copied to clipboard");
 }
 
 onMounted(() => {
