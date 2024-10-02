@@ -200,16 +200,14 @@ const showPaymentInfo = ref(false)
 const transactionID = ref("")
 
 definePageMeta({
-    layout: null
+    layout: false
 })
 useHead({
     title: 'Linkvoicses - Invoice'
 })
 
 onMounted(() => {
-
 getInvoiceById(route.params.id)
-
 })
 
 
@@ -230,30 +228,15 @@ async function getInvoiceById(id) {
     }
 }
 
-// function downloadInvoice() {
-//     const doc = new jsPDF();
-//     console.log(invoicePaper.value);
-//     doc.html(invoicePaper.value, {
-//         callback: function (doc) {
-//             doc.save();
-//         },
-//         x: 10,
-//         y: 10
-//     });
-//     //doc.save("a4.pdf");
-// }
 
 function copyToClipboard(textToCopy) {
-
     navigator.clipboard.writeText(textToCopy);
     alert("Copied to clipboard");
-
 }
 
 
 
 async function paymentSubmited() {
-
     const { data, error } = await supabase
         .from('transactions')
         .insert([
@@ -266,7 +249,6 @@ async function paymentSubmited() {
     if (error) {
         alert("Problem to submit the information.")
     }
-
 }
 
 </script>

@@ -53,7 +53,6 @@ const btcWallet = ref("")
 const ethWallet = ref("")
 const usdttrc20Wallet = ref("")
 const daiWallet = ref("")
-
 // currencies to add later
 //const xrpWallet =  ref("")
 //const dogeWallet =  ref("")
@@ -65,7 +64,6 @@ onMounted(() => {
 })
 
 async function readProfile() {
-
     let { data: profile, error } = await supabase
         .from('profiles')
         .select('*')
@@ -77,14 +75,12 @@ async function readProfile() {
 }
 
 async function updateWallets() {
-
     const { data, error } = await supabase
         .from('profiles')
         .update({ btc_wallet: btcWallet.value, eth_wallet: ethWallet.value, dai_wallet: daiWallet.value, usdt_trc20_wallet: usdttrc20Wallet.value })
         .eq('id', user.value.id)
         .select()
     alert("Your wallet addresses updated successfully.")
-
 }
 </script>
 

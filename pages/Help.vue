@@ -51,9 +51,6 @@
 </template>
 
 <script setup>
-definePageMeta({
-  layout: 'default-page'
-})
 useHead({
   title: 'Linkvoices - Help'
 })

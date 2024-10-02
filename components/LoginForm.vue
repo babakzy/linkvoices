@@ -23,7 +23,6 @@ const password = ref('')
 const router = useRouter()
 
 const handleLogin = async () => {
-
     try {
         loading.value = true
         let { data, error } = await supabase.auth.signInWithPassword({
@@ -37,11 +36,9 @@ const handleLogin = async () => {
     } finally {
         loading.value = false
     }
-
 }
 
 const handleRegister = async () => {
-
     try {
         loading.value = true
         let { data, error } = await supabase.auth.signUp({
@@ -55,7 +52,6 @@ const handleRegister = async () => {
     } finally {
         loading.value = false
     }
-
 }
 </script>
 

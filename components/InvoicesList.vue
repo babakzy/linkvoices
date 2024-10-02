@@ -39,12 +39,10 @@ onMounted(() => {
 })
 
 async function readInvoices() {
-
     let { data: invoices, error } = await supabase
         .from('invoices')
         .select('*')
     currentUserInvoices.value=invoices;
-
 }
 
 </script>

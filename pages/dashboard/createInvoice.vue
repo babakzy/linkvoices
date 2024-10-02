@@ -200,20 +200,16 @@
                     <button :disabled="!invoice_uuid" class="btn btn-secondary ml-2"
                         @click="previewInvoice">Preview</button>
                     <p class="text-slate-400 text-sm font-light mt-2">* Saving won't send the invoice.</p>
-                    <!-- <button :disabled="!invoice_uuid"
-                        :href="'mailto:' + recieverEmail + '?subject=Invoice From:' + senderName + '&body=Hi, You have a new unpaid invoice %0D%0A%0D%0A' + ''"
-                        class="btn btn-secondary ml-2" @click="createInvoice">Send</button> -->
                     <div class="mt-2">
-
                     </div>
                     <div v-if="invoice_uuid" class="my-2">
                         <span class="text-sm text-slate-700">URL:</span> <a
-                            :href="'http://localhost:3000/invoice/' + invoice_uuid" v-if="invoice_uuid" target="_blank"
-                            class="text-left text-sm text-blue-500 link w-full">http://localhost:3000/invoice/{{
+                            :href="runtimeConfig.public.baseURL+'invoice/' + invoice_uuid" v-if="invoice_uuid" target="_blank"
+                            class="text-left text-sm text-blue-500 link w-full">{{runtimeConfig.public.baseURL}}invoice/{{
                                 invoice_uuid }}</a>
                     </div>
                     <div v-if="invoice_uuid" class="my-2">
-                        <button @click="copyToClipboard('http://localhost:3000/invoice/' + invoice_uuid)"
+                        <button @click="copyToClipboard(runtimeConfig.public.baseURL+ 'invoice/' + invoice_uuid)"
                             class="btn btn-neutral blcok w-full md:inline-block md:w-auto text-md h-auto min-h-4 py-2">Copy
                             URL</button>
                     </div>
@@ -224,16 +220,13 @@
 </template>
 
 <script setup lang="js">
-definePageMeta({
-    layout: 'default-page'
-})
 useHead({
     title: 'Dashboard - Create Crypto Invoice'
 })
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import convertToSimpleDate from '~/utils';
-
+const runtimeConfig = useRuntimeConfig()
 const supabase = useSupabaseClient()
 const invoiceNumber = ref("001")
 const issueDate = ref(new Date())
@@ -265,7 +258,6 @@ onMounted(() => {
 })
 
 async function readProfile() {
-
     let { data: profile, error } = await supabase
         .from('profiles')
         .select('*')
@@ -285,12 +277,12 @@ function copyToClipboard(textToCopy) {
 const addField = () => {
     formRow.value.push('');
 }
+
 const removeField = () => {
     formRow.value.pop()
 }
 
 function getInvoiceSelectedWalletAddress() {
-
     switch (invoiceCurrency.value) {
         case 'btc':
             invoiceWalletAddress = btcWallet.value;
@@ -307,7 +299,6 @@ function getInvoiceSelectedWalletAddress() {
         default:
             invoiceWalletAddress = "";
     }
-
 }
 
 let invoiceItemsNameArray = []
@@ -315,8 +306,8 @@ let invoiceItemsQuantityArray = []
 let invoiceItemsRateArray = []
 let invoiceItemsTaxArray = []
 let invoiceItemsAmountArray = []
-function getInvoiceItems() {
 
+function getInvoiceItems() {
     const formData = new FormData(itemsForm.value)
     for (const [fieldName, fieldValue] of formData.entries()) {
 
@@ -335,9 +326,7 @@ function getInvoiceItems() {
         else if (fieldName.includes('item-amount')) {
             invoiceItemsAmountArray.push(fieldValue)
         }
-
     }
-
     for (let itemIndex in invoiceItemsNameArray) {
         invoiceItems.push({
             'name': invoiceItemsNameArray[itemIndex],
@@ -346,13 +335,10 @@ function getInvoiceItems() {
             'tax': invoiceItemsTaxArray[itemIndex],
             'amount': invoiceItemsAmountArray[itemIndex],
         })
-
     }
-
 }
 
 async function createInvoice() {
-
     let issueDateConverted = convertToSimpleDate(issueDate)
     let dueDateConverted = convertToSimpleDate(dueDate)
     getInvoiceSelectedWalletAddress()
@@ -376,18 +362,17 @@ async function createInvoice() {
             },
         ])
         .select()
+        console.log(data);
+        console.log(error);
     // itemsForm.value.reset()
     invoice_uuid.value = data[0].invoice_uuid
-
 }
 
 
 async function updateInvoice() {
-
     let issueDateConverted = convertToSimpleDate(issueDate)
     let dueDateConverted = convertToSimpleDate(dueDate)
     getInvoiceItems();
-
     const { data, error } = await supabase
         .from('invoices')
         .update([
@@ -406,11 +391,10 @@ async function updateInvoice() {
         ])
         .eq('invoice_uuid', invoice_uuid.value)
         .select()
-
 }
 
 function previewInvoice() {
-    window.open('http://localhost:3000/invoice/' + invoice_uuid.value, '_blank').focus();
+    window.open(runtimeConfig.public.baseURL+'invoice/' + invoice_uuid.value, '_blank').focus();
 }
 
 </script>
