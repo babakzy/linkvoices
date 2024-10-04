@@ -18,10 +18,12 @@
                             <h1 class=" text-3xl md:text-5xl text-slate-800 mb-5 uppercase">Invoice</h1>
                         </div>
                         <div class="basis-full md:basis-1/3 p-2">
-                            <b class="block text-slate-800">{{ invoiceInfo.from_info.name }}</b>
-                            <span class="block text-slate-600">{{ invoiceInfo.from_info.country }}</span>
-                            <p class="block text-slate-600">{{ invoiceInfo.from_info.city }}</p>
+           <h2 class=" text-xl md:text-2xl text-slate-400 font-normal">Frrom</h2>
+                            <b class="block text-xl text-slate-800">{{ invoiceInfo.from_info.name }}</b>
+                            <span class="block text-slate-600">{{ senderEmail }}</span>
                             <p class="block text-slate-600">{{ invoiceInfo.from_info.address }}</p>
+                            <p class="block text-slate-600">{{ invoiceInfo.from_info.city }}</p>
+                            <span class="block text-slate-600">{{ invoiceInfo.from_info.country }}</span>
                         </div>
                         <div class="basis-full md:basis-1/3 p-2">
                             <label class="label-text block text-slate-400 font-light">Issued Date:</label>
@@ -40,11 +42,14 @@
                             <hr class=" border-b w-full my-4" />
                         </div>
                         <div class="basis-full md:basis-1/2 p-2">
-                            <h3 class="text-2xl text-slate-600">Bill To</h3>
+                            <h3 class="text-xl md:text-2xl text-slate-400 font-normal">Bill To</h3>
                             <b class="block text-slate-800">{{ invoiceInfo.to_info.name }}</b>
-                            <span class="block text-slate-600">{{ invoiceInfo.to_info.country }}</span>
-                            <p class="block text-slate-600">{{ invoiceInfo.to_info.city }}</p>
+                            <p class="block text-slate-600">{{ recieverEmail }}</p>
                             <p class="block text-slate-600">{{ invoiceInfo.to_info.address }}</p>
+                            <p class="block text-slate-600">{{ invoiceInfo.to_info.city }}</p>
+                            <span class="block text-slate-600">{{ invoiceInfo.to_info.country }}</span>
+                         
+            
 
                         </div>
 

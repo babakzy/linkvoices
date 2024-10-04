@@ -19,13 +19,13 @@
             <img src="@/assets/images/hero-crypro-invoice.png" alt="send cryprocurrency invoice">
         </div>
         <div class="basis-full text-center my-6 md:my-0">
-            <button class="btn btn-outline">See Demo Invoice</button>
+            <nuxt-link class="btn btn-outline" :to="runtimeConfig.public.baseURL+'invoice/fff45e65-9088-4928-9261-38abe1944cec'" >See Demo Invoice</nuxt-link> 
         </div>
     </div>
 </template>
 
 <script setup>
-
+const runtimeConfig = useRuntimeConfig()
 </script>
 
 <style lang="scss" scoped>
