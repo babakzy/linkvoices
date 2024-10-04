@@ -3,7 +3,7 @@
         <div class="flex flex-wrap mx-4">
             <div class="basis-full md:basis-2/3">
                 <div class="bg-slate-100 rounded-lg  p-4 md:p-8">
-                   <UserWallets/>
+                    <UserWallets />
                 </div>
             </div>
             <div class="basis-full md:basis-1/3">
@@ -11,39 +11,30 @@
                     <p class="text-purple-800 text-xl">Create</p>
                     <h2 class="text-4xl text-purple-900">CryptoPay Profile</h2>
                 </div> -->
-<nuxt-link to="/dashboard/createInvoice">
-                <div class="create-invoice-card md:ml-5 py-10 pl-20 md:pl-40 pr-5 rounded-lg">
-                    <p class="text-green-800 text-xl">Create New</p>
-                    <h2 class="text-4xl text-green-900">Crypto Invoice</h2>
-                </div>
-            </nuxt-link>
+                <nuxt-link to="/dashboard/createInvoice">
+                    <div class="create-invoice-card md:ml-5 py-10 pl-20 md:pl-40 pr-5 rounded-lg">
+                        <p class="text-green-800 text-xl">Create New</p>
+                        <h2 class="text-4xl text-green-900">Crypto Invoice</h2>
+                    </div>
+                </nuxt-link>
             </div>
-            
+
         </div>
         <div class="flex flex-wrap my-8 mx-4">
             <div class="basis-full md:basis-2/3">
-            <InvoicesList/>
+                <InvoicesList />
             </div>
         </div>
     </div>
 </template>
 
-<script
-    setup
-    lang="js"
->
-definePageMeta({
-    layout: 'default-page'
-})
+<script setup lang="js">
 useHead({
     title: 'Dashboard - Home'
 })
 </script>
 
-<style
-    scoped
-    lang="scss"
->
+<style scoped lang="scss">
 .crypto-pay-profile-card {
     background-color: rgb(237, 238, 248);
     background-image: url(/assets/images/Crypto-Profile-Link.svg);
@@ -71,7 +62,8 @@ useHead({
         background-color: #cbdad0;
     }
 }
-.crypto-wallet-input input{
+
+.crypto-wallet-input input {
     font-weight: 300;
 }
 </style>

@@ -29,26 +29,19 @@
     </div>
 </template>
 
-<script setup lang="js">
+<script setup>
 import convertToSimpleDate from '~/utils';
-
 const supabase = useSupabaseClient()
 const currentUserInvoices = ref([])
 
 onMounted(() => {
- 
     readInvoices();
-
 })
 
 async function readInvoices() {
-
     let { data: invoices, error } = await supabase
         .from('invoices')
         .select('*')
-
-    console.log(error);
-    console.log(invoices);
     currentUserInvoices.value=invoices;
 }
 
