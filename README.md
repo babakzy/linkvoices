@@ -4,12 +4,12 @@
 
 ![Linkvoices](https://github.com/babakzy/linkvoices/blob/main/assets/images/linkvoice-logo-bg.png?raw=true)
 
-**The most popular, free and open-source component library for Tailwind CSS**
+** Let's decenterlize power and authorities by using cryptocurrencies in our daily payments **
 
 
 </div>
 
-## Let's decenterlize power and authorities by using cryptocurrencies in our daily payments
+## Send crypto invoices for free with no extra fee - directly in your wallet
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
