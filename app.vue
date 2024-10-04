@@ -9,8 +9,10 @@
   </NuxtLayout>
 </template>
 
-<script setup lang="ts">
-const user = useSupabaseUser()
+<script setup>
+//const route = useRoute()
+//const user = useSupabaseUser()
+
 </script>
 
 <style lang="scss">
