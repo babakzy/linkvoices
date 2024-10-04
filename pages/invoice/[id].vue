@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class=" bg-gradient-to-br from-blue-900 bg-slate-600 h-[100vh]  py-8 pb-16">
+        <div class=" bg-gradient-to-br from-blue-900 bg-slate-600 min-h-[100vh]  py-8 pb-16">
 
             <div class=" md:max-w-[1024px] mx-auto p-3">
                 <!-- <div class="m-2 text-right"><button @click="downloadInvoice" class="btn btn-primary "> Download
