@@ -35,6 +35,7 @@
                         <div class="basis-full md:basis-1/2 p-2">
                             <div class="bg-slate-200 rounded-lg p-4">
                                 <label class="form-control w-full m-1">
+                                    <h3 class=" text-2xl text-slate-500">From:</h3>
                                     <div class="label">
                                         <span class="label-text">E-mail:</span>
                                     </div>
@@ -75,6 +76,7 @@
 
                         <div class="basis-full md:basis-1/2 p-2">
                             <div class="bg-slate-200 rounded-lg p-4">
+                                <h3 class=" text-2xl text-slate-500">Bill To:</h3>
                                 <label class="form-control w-full m-1">
                                     <div class="label">
                                         <span class="label-text">E-mail:</span>

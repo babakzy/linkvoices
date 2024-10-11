@@ -33,15 +33,17 @@
 import convertToSimpleDate from '~/utils';
 const supabase = useSupabaseClient()
 const currentUserInvoices = ref([])
-
+const user = useSupabaseUser()
 onMounted(() => {
     readInvoices();
+    console.log(user.value.id);
 })
 
 async function readInvoices() {
     let { data: invoices, error } = await supabase
         .from('invoices')
         .select('*')
+        .eq('user_id', user.value.id)
     currentUserInvoices.value=invoices;
 }
 

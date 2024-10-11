@@ -33,6 +33,9 @@
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
+onMounted(()=>{
+  console.log(user);
+})
 async function signOut() {
   try {
     const { error } = await supabase.auth.signOut()
