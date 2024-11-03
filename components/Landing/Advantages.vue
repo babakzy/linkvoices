@@ -9,11 +9,11 @@
             <h4 class="text-slate-900 text-2xl ">Used way</h4>
             <p class="text-slate-600">(Paypal, Stripe , Wise , etc)</p>
             <div class="bg-red-50 text-red-800 rounded p-5 mt-3 ">
-                <ul>
-                    <li>Platforms or bank fee</li>
-                    <li>Central control (banks, governments)</li>
-                    <li>Limited currencies</li>
-                    <li>Empower authorities</li>
+                <ul class="text-xl font-medium" >
+                    <li class="my-2">Platforms or bank fee</li>
+                    <li class="my-2">Central control (banks, governments)</li>
+                    <li class="my-2">Limited currencies</li>
+                    <li class="my-2">Empower authorities</li>
                 </ul>
             </div>
         </div>
@@ -21,11 +21,11 @@
             <h4 class="text-slate-900 text-2xl ">Linkvoices</h4>
             <p class="text-slate-600 ">Use cryptocurrencies as payment</p>
             <div class="bg-green-50 text-green-800 rounded p-5  mt-3 ">
-                <ul>
-                    <li>Privacy and freedom</li>
-                    <li>No extra fee (just network fee)</li>
-                    <li>Empower people ✊🏼</li>
-                    <li>Multiple cryptocurrencies</li>
+                <ul class="text-xl font-medium">
+                    <li class="my-2">No extra fee (just network fee)</li>
+                    <li class="my-2">Privacy and freedom</li>
+                    <li class="my-2">Empower people ✊🏼</li>
+                    <li class="my-2">Multiple cryptocurrencies</li>
                 </ul>
             </div>
         </div>

@@ -9,9 +9,13 @@
         </div>
         <div class=" basis-1/2 md:basis-3/4 text-right text-blue-800">
           <ul>
+            <li v-if="user" class="md:mx-4  block md:inline-block">
+              <nuxt-link class="px-2 py-2 rounded-md bg-blue-50 hover:bg-blue-200 " to="/dashboard/createInvoice">
+                New Invoice
+              </nuxt-link>
+            </li>
             <li v-if="user" class="md:mx-4 block md:inline-block">
-              <nuxt-link to="/dashboard"
-                class="py-2 px-2 bg-blue-100 hover:bg-blue-200 rounded-md">Dashboard</nuxt-link>
+              <nuxt-link to="/dashboard" class=" py-2 px-2 rounded-md ">Dashboard</nuxt-link>
             </li>
             <li class="mx-4 inline-block">
               <nuxt-link to="/help">How to?</nuxt-link>
@@ -19,8 +23,13 @@
             <li v-if="user" class="mx-1 md:mx-4 inline-block">
               <button class=" cursor-pointer" @click="signOut()">Sign Out</button>
             </li>
-            <li v-else class="ml-1  md:mx-4 inline-block">
+            <li v-else class="mx-1  md:mx-4 inline-block">
               <nuxt-link class="btn btn-primary" to="/login">Login </nuxt-link>
+            </li>
+            <li class="ml-1 md:mx-4 align-middle  inline-block">
+              <github-button class="mt-1" href="https://github.com/babakzy/linkvoices"
+                data-color-scheme="no-preference: light; light: light; dark: light;" data-icon="octicon-star"
+                data-size="large" aria-label="Star babakzy/linkvoices on GitHub">Star</github-button>
             </li>
           </ul>
         </div>
@@ -32,8 +41,8 @@
 <script setup>
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
-
-onMounted(()=>{
+import GithubButton from 'vue-github-button'
+onMounted(() => {
   console.log(user);
 })
 async function signOut() {
