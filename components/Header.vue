@@ -26,11 +26,6 @@
             <li v-else class="mx-1  md:mx-4 inline-block">
               <nuxt-link class="btn btn-primary" to="/login">Login </nuxt-link>
             </li>
-            <li class="ml-1 md:mx-4 align-middle  inline-block">
-              <github-button class="mt-1" href="https://github.com/babakzy/linkvoices"
-                data-color-scheme="no-preference: light; light: light; dark: light;" data-icon="octicon-star"
-                data-size="large" aria-label="Star babakzy/linkvoices on GitHub">Star</github-button>
-            </li>
           </ul>
         </div>
       </div>
@@ -41,7 +36,6 @@
 <script setup>
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
-import GithubButton from 'vue-github-button'
 onMounted(() => {
   console.log(user);
 })
