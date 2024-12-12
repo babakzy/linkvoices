@@ -1,5 +1,5 @@
 <template>
-    <div class=" border-t py-3">
+    <div class="border-t py-3">
         <div class="md:container md:mx-auto ">
             <div class="flex flex-wrap items-center mx-3">
                 <div class="basis-full md:basis-1/2">

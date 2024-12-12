@@ -1,6 +1,7 @@
 <template>
-    <div class="my-14 mx-4">
+    <div id="pageWrap" class="my-14 mx-4">
         <LandingHero />
+        <LandingHero2 />
         <LandingAdvantages />
         <LandingSteps />
     </div>

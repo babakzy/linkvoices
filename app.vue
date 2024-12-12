@@ -12,7 +12,7 @@
 <script setup>
 //const route = useRoute()
 //const user = useSupabaseUser()
-
+const { $gsap: gsap, $Draggable: Draggable } = useNuxtApp();
 </script>
 
 <style lang="scss">

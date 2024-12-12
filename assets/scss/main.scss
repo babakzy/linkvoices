@@ -1,5 +1,5 @@
 body{
-    background-color: #fff;
+    @apply bg-spring-wood-50;
     max-width: 100vw;
     overflow-x: hidden;
 }
@@ -7,6 +7,10 @@ html{
     max-width: 100vw;
 }
 h1,h2,h3,h4,h5,h6{
-    font-family: "Archivo", sans-serif;
-    font-weight: 700;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 600;
+}
+p{
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 400;
 }
