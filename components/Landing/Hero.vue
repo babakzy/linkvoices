@@ -6,7 +6,7 @@
             </h1>
             <div class="relative mt-20">
                 <div id="bank-icon"  class="inline-block absolute w-[120px] z-10 top-[50%] mt-[-30px] md:mt-0 md:top-[-60px] right-0 left-0 m-auto bg-spring-wood-50 p-5 rounded-full ">
-                    <img  class="w-full"  src="@/assets/images/bank-icon.svg" alt="Central Bank">
+                    <img  class="w-full"  src="@/assets/images/Bank-icon.svg" alt="Central Bank">
                 </div>
                
                 <img class="w-full hidden md:block relative z-0" src="@/assets/images/hero-people.svg" alt="">
