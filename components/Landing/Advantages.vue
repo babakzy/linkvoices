@@ -1,16 +1,17 @@
 <template>
+    <div class="md:container md:mx-auto px-4">
     <div class="flex flex-wrap">
         <div class="basis-full  py-12 md:mt-20">
-            <h2 class="text-3xl md:text-4xl text-spring-wood-900 capitalize">Why not push every one to use
+            <h2 class="text-3xl md:text-4xl text-cerulean-blue-950 capitalize">Why not push every one to use
                 cryptocurrency to
                 transfer money
             </h2>
         </div>
         <div class="basis-full md:basis-6/12 py-3 px-0 md:pr-3 ">
-            <h4 class="text-spring-wood-900 text-2xl ">Used way</h4>
-            <p class="text-sgray-600">(Paypal, Stripe , Wise , etc)</p>
-            <div class="bg-spring-wood-200 text-gray-800 rounded p-5 mt-3 ">
-                <ul class="text-xl font-medium">
+            <h4 class=" text-black-900 text-2xl ">Used way</h4>
+            <p class="text-black-600">(Paypal, Stripe , Wise , etc)</p>
+            <div class="bg-white text-black-700 rounded p-5 mt-3 ">
+                <ul class="">
                     <li class="my-2">Platforms or bank fee</li>
                     <li class="my-2">Central control (banks, governments)</li>
                     <li class="my-2">Limited currencies</li>
@@ -19,10 +20,10 @@
             </div>
         </div>
         <div class="basis-full md:basis-6/12 py-3 px-0 md:pl-3">
-            <h4 class="text-spring-wood-900 text-2xl ">Linkvoices</h4>
-            <p class="text-gray-600 ">Use cryptocurrencies as payment</p>
-            <div class="bg-spring-wood-200 text-gray-800 rounded p-5  mt-3 ">
-                <ul class="text-xl font-medium">
+            <h4 class="text-black-900 text-2xl ">Linkvoices</h4>
+            <p class="text-black-600 ">Use cryptocurrencies as payment</p>
+            <div class="bg-white text-black-800 rounded p-5  mt-3 ">
+                <ul class="text-green-700">
                     <li class="my-2">No extra fee (just network fee)</li>
                     <li class="my-2">Privacy and freedom</li>
                     <li class="my-2">Empower people ✊🏼</li>
@@ -179,6 +180,7 @@
             </p>
         </div>
     </div>
+</div>
 </template>
 
 <script setup>

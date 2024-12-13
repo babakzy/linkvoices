@@ -1,9 +1,10 @@
 <template>
-    <div id="pageWrap" class="my-14 mx-4">
+    <div id="pageWrap" class="">
         <LandingHero />
         <LandingHero2 />
         <LandingAdvantages />
-        <LandingSteps />
+        <!-- <LandingSteps /> -->
+        <Footer />
     </div>
 </template>
 
