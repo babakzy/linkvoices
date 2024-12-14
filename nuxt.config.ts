@@ -28,8 +28,8 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: '/login',
       callback: '/confirm',
-      include: undefined,
-      exclude: ['/invoice/*','/','/help'],
+      include: ['/dashboard/*'],
+      exclude: ['*'],
       cookieRedirect: false,
     }
   }

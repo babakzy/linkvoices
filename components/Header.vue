@@ -4,7 +4,7 @@
       <div class="flex flex-wrap items-center mx-4">
         <div class=" basis-1/2 md:basis-1/4">
           <nuxt-link to="/">
-            <img class=" max-w-full w-60" src="@/assets/images/linkvoices-logo.png" alt="linkvoices - crypto invoices">
+            <img class=" max-w-full w-60" src="@/assets/images/mainlogo.svg" alt="linkvoices - crypto invoices">
           </nuxt-link>
         </div>
         <div class=" basis-1/2 md:basis-3/4 text-right text-blue-800">
