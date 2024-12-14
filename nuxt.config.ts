@@ -11,6 +11,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'stylesheet', href: 'https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600&display=swap' },
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com' },
         { rel: 'stylesheet', href: 'https://fonts.gstatic.com' },
