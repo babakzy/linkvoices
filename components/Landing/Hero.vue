@@ -1,49 +1,45 @@
 <template>
-    <div id="textWrap" class=" bg-cerulean-blue-700 min-h-screen  md:min-h-[70vh]  ">
-        <div class="md:container mx-auto flex flex-wrap items-center justify-around">
-            <div class="basis-full my-10 md:basis-3/4 relative ">
-            <div class=" absolute h-auto top-0 left-0 right-0 text-center">
-                <h1 class=" text-4xl md:text-6xl text-spring-wood-50 my-16 capitalize ">
-                    We dont't need central banks anymore
-                </h1>
-                <div class="relative my-10">
-                    <div id="bank-icon"
-                        class="inline-block absolute w-[120px] z-10 top-[50%] mt-[-30px] md:mt-0 md:top-[-60px] right-0 left-0 m-auto  bg-cerulean-blue-700 p-5 rounded-full ">
-                        <img class="w-full" src="@/assets/images/Bank-icon.svg" alt="Central Bank">
-                    </div>
+    <div class=" bg-spring-wood-100 py-16 md:py-32">
 
-                    <img class="w-full hidden md:block relative z-0" src="@/assets/images/hero-people.svg" alt="">
-                    <img class="w-full p-4 md:hidden relative z-0" src="@/assets/images/mobile-people.svg" alt="">
-                </div>
-            </div>
-        </div>
+
+    <div class="flex flex-wrap items-center justify-around hero2bg min-h-[200px]  md:min-h-[360px]">
+        <div class=" basis-full md:basis-9/12 text-center relative">
+            <h1 class="inline-block text-4xl z-10 md:text-6xl text-cerulean-blue-900 capitalize ">
+                Send direct crypto invoices for free
+            </h1>
         </div>
     </div>
+    <div class="flex flex-col md:flex-row justify-center items-center gap-2 text-cerulean-blue-900 my-8 px-4 md:px-0">
+        <span class="inline-block">Direct transfer</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-cerulean-blue-900 hidden md:inline-block"></span>
+        <span class="inline-block">Zero platform fees (just low network fee)</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-cerulean-blue-900 hidden md:inline-block"></span>
+        <span class="inline-block">Privacy</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-cerulean-blue-900 hidden md:inline-block"></span>
+        <span class="inline-block">Global access</span>
+    </div>
+    <div class="basis-full text-center md:my-0">
+        <nuxt-link class="btn bg-cerulean-blue-50 border-cerulean-blue-700 !hover:bg-white text-cerulean-blue-900"
+            :to="runtimeConfig.public.baseURL + 'invoice/fff45e65-9088-4928-9261-38abe1944cec'">See Demo
+            Invoice</nuxt-link>
+    </div>
+    <div class="text-center mt-20 hidden">
+<img class=" w-10 inline-block mx-1" src="@/assets/images/btc-logo-blue.svg" alt="BTC crypto logo">
+<img class=" w-10 inline-block mx-1" src="@/assets/images/eth-logo-blue.svg" alt="BTC crypto logo">
+<img class=" w-10 inline-block mx-1" src="@/assets/images/dai-logo-blue.svg" alt="BTC crypto logo">
+<img class=" w-10 inline-block mx-1" src="@/assets/images/litecoin-ltc-logo-blue.svg" alt="BTC crypto logo">
+    </div>
+</div>
 </template>
 
 <script setup>
 const runtimeConfig = useRuntimeConfig()
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+
 
 
 onMounted(() => {
     //gsap.set('#textWrap', {xPercent:-50, yPercent:-50})
     //gsap.set('#textWrap #bank-icon', {y:'+=50'})
-
-
-    var hero = gsap.timeline({
-        scrollTrigger: {
-            trigger: "#pageWrap",
-            pin: true,
-            start: "top top",
-            end: "+=230",
-            scrub: true,
-        }
-    })
-        .to('#textWrap #bank-icon', { duration: 0.5, stagger: 1, opacity: 0, y: -20 })
-
 
 
 })
@@ -55,4 +51,14 @@ onMounted(() => {
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.hero2bg{
+    background-image: url('@/assets/images/hero2bg.svg');
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+// .btn-outline{
+//     @apply .borde
+// }
+</style>

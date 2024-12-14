@@ -8,7 +8,7 @@
                     transfer money
                 </h2>
             </div>
-            <div class="basis-full md:basis-2/3">
+            <div class="basis-full md:basis-2/3 w-screen ">
                 <div class="overflow-x-auto">
                     <table class="w-full bg-white rounded mb-8">
                         <thead>

@@ -1,7 +1,7 @@
 <template>
-    <div id="pageWrap" class="">
+    <div  class="">
         <LandingHero />
-        <LandingHero2 />
+        <LandingHero1 />
         <LandingAdvantages />
         <!-- <LandingSteps /> -->
          <LandingFaq/>
