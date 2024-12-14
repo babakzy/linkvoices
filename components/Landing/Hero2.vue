@@ -9,6 +9,15 @@
             </h2>
         </div>
     </div>
+    <div class="flex justify-center items-center gap-2 text-cerulean-blue-900 my-8">
+        <span>Direct transfer</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-cerulean-blue-900"></span>
+        <span>Zero platform fees (just low network fee) </span>
+        <span class="w-1.5 h-1.5 rounded-full bg-cerulean-blue-900"></span>
+        <span>Privacy</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-cerulean-blue-900"></span>
+        <span>Global access</span>
+    </div>
     <div class="basis-full text-center md:my-0">
         <nuxt-link class="btn bg-cerulean-blue-50 border-cerulean-blue-700 !hover:bg-white text-cerulean-blue-900"
             :to="runtimeConfig.public.baseURL + 'invoice/fff45e65-9088-4928-9261-38abe1944cec'">See Demo

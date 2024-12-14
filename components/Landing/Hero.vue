@@ -1,5 +1,5 @@
 <template>
-    <div id="textWrap" class=" bg-cerulean-blue-700 min-h-screen  md:min-h-[70vh] h-auto  ">
+    <div id="textWrap" class=" bg-cerulean-blue-700 min-h-screen  md:min-h-[70vh]  ">
         <div class="md:container mx-auto flex flex-wrap items-center justify-around">
             <div class="basis-full my-10 md:basis-3/4 relative ">
             <div class=" absolute h-auto top-0 left-0 right-0 text-center">

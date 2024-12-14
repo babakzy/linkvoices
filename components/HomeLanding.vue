@@ -4,6 +4,7 @@
         <LandingHero2 />
         <LandingAdvantages />
         <!-- <LandingSteps /> -->
+         <LandingFaq/>
         <Footer />
     </div>
 </template>
