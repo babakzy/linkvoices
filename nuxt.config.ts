@@ -10,6 +10,9 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss",'@nuxtjs/supabase'],
   app: {
     head: {
+      script: [
+        { src: 'https://cloud.umami.is/script.js', defer: true, 'data-website-id': 'a7338219-eaed-40da-8a1c-7b80d07747f7' }
+      ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'stylesheet', href: 'https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600&display=swap' },
