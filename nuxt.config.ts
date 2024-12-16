@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss",'@nuxtjs/supabase'],
+  modules: ["@nuxtjs/tailwindcss", '@nuxtjs/supabase', "@nuxtjs/seo"],
   app: {
     head: {
       script: [
@@ -35,6 +35,29 @@ export default defineNuxtConfig({
       exclude: ['*'],
       cookieRedirect: false,
     }
+  },
+  sitemap: {
+    exclude: [
+      '/confirm',
+      '/Confirm',
+      '/dashboard'
+    ]
+  },
+  site: {
+    url: process.env.BASE_URL,
+    name: 'Linkvoices',
+    description: 'send direct crypto invoices',
+    defaultLocale: 'en',
+    identity: {
+      type: 'Organization'
+    },
+    // twitter: {
+    //   card: 'summary_large_image',
+    //   site: '@yourtwitterhandle',
+    // }
+  },
+  ogImage: {
+    enabled: true
   }
    
 })

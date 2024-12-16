@@ -10,7 +10,7 @@ definePageMeta({
   layout: false
 })
 useHead({
-  title: 'Linkvoices - Send Direct Cryptocurrency Invoices for Free',
+  title: 'Send Direct Cryptocurrency Invoices for Free',
   meta: [
     {
       name: 'description',
