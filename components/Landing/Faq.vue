@@ -1,5 +1,5 @@
 <template>
-    <div class="md:container md:mx-auto px-4">
+    <section class="md:container md:mx-auto px-4">
         <div class="flex flex-wrap content-center justify-center">
             <div class="basis-full md:basis-5/6 mt-12 md:mt-28">
                 <h3 class="text-3xl text-spring-wood-900 mb-6">Frequently Asked Questions</h3>
@@ -30,7 +30,7 @@
                             <p class="text-gray-700">We currently support multiple cryptocurrencies, including Bitcoin,
                                 Ethereum, Tether (USDT), and DAI.</p>
                         </div>
-                    </div>
+                    </div>xw
 
                     <div class="bg-spring-wood-100 rounded overflow-hidden">
                         <button @click="toggleFaq(3)" class="w-full p-5 text-left flex justify-between items-center">
@@ -42,7 +42,7 @@
                         <div v-show="activeFaq === 3" class="p-5 pt-0">
                             <p class="text-gray-700">
                                 1. Register: Sign up for an account.<br>
-                                2. Add Wallet: Add your preferred wallet address for receiving payments.<br>
+                                2. Add Wallet: Add your preferred wallet address for receiving payments.  ( <NuxtLink class=" text-cerulean-blue-600" to="blog/setup-crypto-wallet">Create a crypto wallet</NuxtLink> )<br>
                                 3. Send Invoices: Create and send invoices to your clients or customers.<br>
                                 4. Notifications: Get notified as soon as the payment is received.
                             </p>
@@ -159,7 +159,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script setup>

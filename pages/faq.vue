@@ -1,11 +1,12 @@
 <template>
     <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-      <div class="max-w-7xl mx-auto">
-        <div class="text-center">
-          <h2 class="text-3xl mt-20 font-bold text-black-900 sm:text-4xl lg:text-5xl">Frequently Asked Questions</h2>
-          <p class="mt-4 text-xl text-black-600">Find answers to common questions about our service</p>
-        </div>
-        <div class="basis-full md:basis-5/6 mt-12 md:mt-28">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center">
+                <h2 class="text-3xl mt-20 font-bold text-black-900 sm:text-4xl lg:text-5xl">Frequently Asked Questions
+                </h2>
+                <p class="mt-4 text-xl text-black-600">Find answers to common questions about our service</p>
+            </div>
+            <div class="basis-full md:basis-5/6 mt-12 md:mt-28">
                 <h3 class="text-3xl text-spring-wood-900 mb-6">FAQ</h3>
                 <div class="space-y-4">
                     <div class="bg-spring-wood-100 rounded overflow-hidden">
@@ -46,7 +47,7 @@
                         <div v-show="activeFaq === 3" class="p-5 pt-0">
                             <p class="text-gray-700">
                                 1. Register: Sign up for an account.<br>
-                                2. Add Wallet: Add your preferred wallet address for receiving payments.<br>
+                                2. Add Wallet: Add your preferred wallet address for receiving payments. ( <NuxtLink class=" text-cerulean-blue-600" to="blog/setup-crypto-wallet">Create a crypto wallet</NuxtLink> )<br>
                                 3. Send Invoices: Create and send invoices to your clients or customers.<br>
                                 4. Notifications: Get notified as soon as the payment is received.
                             </p>
@@ -162,7 +163,7 @@
                     </div>
                 </div>
             </div>
-      </div>
+        </div>
     </div>
 </template>
 
@@ -170,6 +171,4 @@
 
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -139,7 +139,7 @@
                             <div class=" basis-full md:basis-1/4">
                                 <button @click="showPaymentInfo = true" class="btn bg-cerulean-blue-400 hover:bg-cerulean-blue-500 w-full">Pay</button>
                             </div>
-                        </div>
+                        </div> 
 
                     </div>
                     <div v-if="showPaymentInfo"

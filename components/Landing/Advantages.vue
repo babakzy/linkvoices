@@ -1,5 +1,5 @@
 <template>
-    <div class="md:container md:mx-auto px-4">
+    <section class="md:container md:mx-auto px-4">
         <div class="flex flex-wrap content-center justify-center">
             <div class="basis-full  py-12 md:mt-20">
                 <h2 class="text-3xl md:text-4xl text-cerulean-blue-900 text-center capitalize">Why not push every one to
@@ -24,14 +24,9 @@
                         </thead>
                         <tbody class="">
                             <tr class="border-b border-spring-wood-200">
-                                <td class="p-4">Transaction Fees</td>
-                                <td class="p-4">2.9% + $0.30 per transaction</td>
-                                <td class="p-4 text-green-700">Only network fees</td>
-                            </tr>
-                            <tr class="border-b border-spring-wood-200">
-                                <td class="p-4">Processing Time</td>
-                                <td class="p-4">2-3 business days</td>
-                                <td class="p-4 text-green-700">Minutes</td>
+                                <td class="p-4 font-bold">$1000 International Transfer (PayPal)</td>
+                                <td class="p-4"><span class="text-red-700">~$35-60 in fees</span> + poor exchange rate</td>
+                                <td class="p-4 text-green-600">~$1-5 network fee</td>
                             </tr>
                             <tr class="border-b border-spring-wood-200">
                                 <td class="p-4">Geographic Restrictions</td>
@@ -54,19 +49,14 @@
                                 <td class="p-4 text-green-700"> People </td>
                             </tr>
                             <tr class="border-b border-spring-wood-200">
-                                <td class="p-4">Privacy & Freedom</td>
-                                <td class="p-4">Limited privacy, subject to regulations</td>
-                                <td class="p-4 text-green-700">Full financial freedom & privacy</td>
-                            </tr>
-                            <tr class="border-b border-spring-wood-200">
-                                <td class="p-4">$1000 International Transfer (PayPal)</td>
-                                <td class="p-4">~$35-60 in fees + poor exchange rate</td>
-                                <td class="p-4 text-green-700">~$1-5 network fee</td>
-                            </tr>
-                            <tr class="border-b border-spring-wood-200">
                                 <td class="p-4">Limitation</td>
                                 <td class="p-4">may holds up to 21 days, strict amount limits</td>
                                 <td class="p-4 text-green-700">No holds, no amount limits</td>
+                            </tr>
+                            <tr class="border-b border-spring-wood-200">
+                                <td class="p-4">Transaction Fees</td>
+                                <td class="p-4">2.9% + $0.30 per transaction</td>
+                                <td class="p-4 text-green-700">Only network fees</td>
                             </tr>
                         </tbody>
                     </table>
@@ -100,7 +90,7 @@
             </p>
         </div> -->
         </div>
-    </div>
+    </section>
 </template>
 
 <script setup>

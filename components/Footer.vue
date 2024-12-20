@@ -1,5 +1,5 @@
 <template>
-    <div class="border-t py-8 bg-gray-50 mt-32">
+    <footer class="border-t py-8 bg-gray-50 mt-32">
         <div class="md:container md:mx-auto">
             <div class="flex flex-wrap mx-3">
                 <div class="basis-full md:basis-1/4 mb-6">
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <template>
-    <div  id="pageWrap" class=" bg-cerulean-blue-700 min-h-screen md:min-h-[80vh] py-16 md:py-32 ">
+    <section  id="pageWrap" class=" bg-cerulean-blue-700 min-h-screen md:min-h-[80vh] py-16 md:py-32 ">
         <div id="textWrap" class="md:container mx-auto flex flex-wrap items-center justify-around">
             <div class="basis-full md:basis-3/4 relative ">
             <div class=" absolute h-auto top-0 left-0 right-0 text-center">
@@ -19,7 +19,7 @@
             </div>
         </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script setup>
