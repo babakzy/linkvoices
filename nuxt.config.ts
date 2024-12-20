@@ -20,6 +20,9 @@ export default defineNuxtConfig({
         { rel: 'stylesheet', href: 'https://fonts.gstatic.com' },
         { rel: "stylesheet", href: 'https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap' }
       ],
+      meta: [
+        { name: "msvalidate.01", content: "1352DC4C86BE1B9F6608A54EA2C5F285" }
+      ]
     },
   },
   postcss: {
@@ -63,5 +66,4 @@ export default defineNuxtConfig({
   ogImage: {
     enabled: true
   }
-   
 })

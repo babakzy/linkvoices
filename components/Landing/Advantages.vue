@@ -28,6 +28,7 @@
                                 <td class="p-4"><span class="text-red-700">~$35-60 in fees</span> + poor exchange rate</td>
                                 <td class="p-4 text-green-600">~$1-5 network fee</td>
                             </tr>
+
                             <tr class="border-b border-spring-wood-200">
                                 <td class="p-4">Geographic Restrictions</td>
                                 <td class="p-4">Country-specific limitations</td>
