@@ -7,9 +7,9 @@
             <submit v-if="!itsLoginForm" @click="handleRegister" class="btn btn-primary w-full mt-4">Register</submit>
             <submit v-if="itsLoginForm" @click="handleLogin" class="btn btn-primary w-full mt-4">Login</submit>
             <p v-if="itsLoginForm" class="text-base-400 font-light mt-4 mx-1 text-left text-sm">Don't have account yet,
-                you can <a class=" cursor-pointer text-blue-600" @click="itsLoginForm = false">Register Here</a></p>
+                you can <button class=" cursor-pointer text-blue-600" @click="itsLoginForm = false">Register Here</button></p>
             <p v-if="!itsLoginForm" class="text-base-400 font-light mt-4 mx-1 text-left text-sm">You already have an
-                account <a class="cursor-pointer text-blue-600" @click="itsLoginForm = true">Login Here</a></p>
+                account <button class="cursor-pointer text-blue-600" @click="itsLoginForm = true">Login Here</button></p>
         </form>
     </div>
 </template>

@@ -27,7 +27,7 @@
             <li class="md:mx-2  inline-block">
               <nuxt-link to="/contact">Contact</nuxt-link>
             </li>
-            <li v-if="user" class="mx-1 md:mx-4 b inline-lock">
+            <li v-if="user" class="mx-1 md:mx-4 b inline-block">
               <button class="cursor-pointer" @click="signOut()">Sign Out</button>
             </li>
 
