@@ -30,7 +30,7 @@ const handleLogin = async () => {
             password: password.value
         })
         if (error) throw error
-        router.replace('/dashboard')
+        router.replace('/dashboard/wallets')
     } catch (error) {
         alert(error.error_description || error.message)
     } finally {

@@ -1,7 +1,6 @@
 <template>
     <div>
-        <h2 class="text-2xl font-normal text-slate-700 my-4">Last Invoices</h2>
-        <div class="overflow-x-auto">
+        <div v-if="currentUserInvoices.length" class="overflow-x-auto">
             <table class="table">
                 <!-- head -->
                 <thead>
@@ -26,6 +25,10 @@
                 </tbody>
             </table>
         </div>
+        <div v-else class="py-14 text-center">
+<h2 class="text-2xl text-black-400">No invoices yet</h2>
+<NuxtLink class="btn btn-primary mt-4" to="/dashboard/createInvoice">New Invoice</NuxtLink>
+        </div>
     </div>
 </template>
 
@@ -45,7 +48,11 @@ async function readInvoices() {
         .select('*')
         .eq('user_id', user.value.id)
     currentUserInvoices.value=invoices;
+   
 }
+onMounted(()=>{
+    console.log(currentUserInvoices.value)
+})
 
 </script>
 

@@ -12,9 +12,9 @@
             <div class="px-6 py-8">
               <h3 class="text-2xl font-bold text-black-900">Free Plan</h3>
               <p class="mt-4 text-black-600">Perfect for everyone</p>
-              <p class="mt-8">
+              <div class="mt-8">
                 <h1 class="text-green-500 md:text-3xl">Free Forever</h1>
-              </p>
+              </div>
               <ul class="mt-8 space-y-4">
                 <li class="flex items-center">
                   <svg class="h-5 w-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">

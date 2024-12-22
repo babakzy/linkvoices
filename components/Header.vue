@@ -13,7 +13,7 @@
           
           <ul class="hidden md:inline-block md:flex-row md:items-center">
             <li v-if="user" class="md:mx-4 inline-block">
-              <nuxt-link class="px-2 py-2 rounded-md bg-blue-50 hover:bg-blue-200" to="/dashboard/createInvoice">
+              <nuxt-link class="px-2 py-2 bg-spring-wood-100 rounded-md bg-blue-50 hover:bg-blue-200" to="/dashboard/createInvoice">
                 New Invoice
               </nuxt-link>
             </li>

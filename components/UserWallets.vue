@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h2 class="text-2xl font-normal text-slate-700 my-3">My Wallet Addresses</h2>
         <div class="crypto-wallet-input mb-3">
             <div class="label">
                 <span class="label-text">Bitcoin (BTC)</span>

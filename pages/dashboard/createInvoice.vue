@@ -1,8 +1,16 @@
 <template>
     <div class="my-16">
         <div class="flex flex-wrap">
+            <div class="basis-full m-2">
+                <NuxtLink class="btn btn-ghost bg-black-100 flex items-center w-32" to="/dashboard/invoices">
+                    <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m0 0l6-6m-6 6l6 6" />
+                    </svg>
+                    back
+                </NuxtLink>
+            </div>
             <div class="basis-full md:basis-3/4">
-                <div class="bg-slate-100 rounded-lg  p-4 md:p-8 m-2 ">
+                <div class="bg-black-100 rounded-lg  p-4 md:p-8 m-2 ">
                     <div class="flex">
                         <div class="basis-full md:basis-1/3 p-2">
                             <label class="form-control w-full m-1">

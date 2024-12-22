@@ -30,7 +30,7 @@
                             <p class="text-gray-700">We currently support multiple cryptocurrencies, including Bitcoin,
                                 Ethereum, Tether (USDT), and DAI.</p>
                         </div>
-                    </div>xw
+                    </div>
 
                     <div class="bg-spring-wood-100 rounded overflow-hidden">
                         <button @click="toggleFaq(3)" class="w-full p-5 text-left flex justify-between items-center">

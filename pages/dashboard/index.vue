@@ -32,6 +32,11 @@
 useHead({
     title: 'Dashboard - Home'
 })
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+router.push('/dashboard/wallets');
+
 </script>
 
 <style scoped lang="scss">
