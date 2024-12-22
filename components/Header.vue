@@ -12,11 +12,6 @@
   
           
           <ul class="hidden md:inline-block md:flex-row md:items-center">
-            <li v-if="user" class="md:mx-4 inline-block">
-              <nuxt-link class="px-2 py-2 bg-spring-wood-100 rounded-md bg-blue-50 hover:bg-blue-200" to="/dashboard/createInvoice">
-                New Invoice
-              </nuxt-link>
-            </li>
 
             <li class="md:mx-2 inline-block">
               <nuxt-link to="/blog" class="py-2 px-2 rounded-md">Blog</nuxt-link>
@@ -27,14 +22,11 @@
             <li class="md:mx-2  inline-block">
               <nuxt-link to="/contact">Contact</nuxt-link>
             </li>
-            <li v-if="user" class="mx-1 md:mx-4 b inline-block">
-              <button class="cursor-pointer" @click="signOut()">Sign Out</button>
-            </li>
 
           </ul>
           <ul class="inline-block">
             <li v-if="user" class="md:mx-4  inline-block">
-              <nuxt-link to="/dashboard" class="py-2 px-2 rounded-md">Dashboard</nuxt-link>
+              <nuxt-link to="/dashboard" class="py-2 px-2 bg-spring-wood-200 rounded-md">Dashboard</nuxt-link>
             </li>
             <li v-else class=" inline-block md:ml-4">
               <nuxt-link class="btn btn-primary" to="/login">Login</nuxt-link>
@@ -46,11 +38,6 @@
               <span class="material-icons">menu</span>
             </button>
             <ul v-show="isMenuOpen" class="absolute bg-cerulean-blue-700 text-lg text-cerulean-blue-50 pr-10 py-10 top-24 z-10 left-0 right-0 shadow-md">
-              <li v-if="user" class="block">
-                <nuxt-link class="px-2 py-2 rounded-md bg-blue-50 hover:bg-blue-200" to="/dashboard/createInvoice">
-                  New Invoice
-                </nuxt-link>
-              </li>
               <li class="block my-4">
                 <nuxt-link to="/blog" class="py-2 px-2 rounded-md">Blog</nuxt-link>
               </li>
@@ -59,9 +46,6 @@
               </li>
               <li class="block my-4">
                 <nuxt-link to="/contact">Contact</nuxt-link>
-              </li>
-              <li v-if="user" class="block my-4">
-                <button class="cursor-pointer" @click="signOut()">Sign Out</button>
               </li>
             </ul>
           </div>

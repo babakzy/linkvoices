@@ -147,7 +147,7 @@
                         <div class="flex flex-wrap mt-4">
                             <p class="mr-2 text-xl font-bold  text-black-800 mb-1"> <span
                                     class="h-7 w-7 text-center inline-block bg-black-800  text-spring-wood-100 rounded-full">1</span>
-                                Send {{ invoiceTotal }}<span class="">{{ invoiceInfo.currency }}</span> to address below
+                                Send {{ invoiceTotal }} <span class=" uppercase"> {{ invoiceInfo.currency }}</span> to address below
                             </p>
                             <div class=" basis-full  max-w-full md:basis-3/4">
                                 <div class="label mt-4">
@@ -178,6 +178,7 @@
                             <button @click="paymentSubmited" class="btn bg-cerulean-blue-400 hover:bg-cerulean-blue-500 w-40">Paid</button>
                         </div>
                     </div>
+                    <button @click="downloadInvoicePDF" class="btn m-2 bg-black-100 hover:bg-cerulean-blue-500 w-40 mt-4">Download PDF</button>
                 </div>
             </div>
         </div>
@@ -203,6 +204,84 @@ const invoiceTotal = ref(0)
 const invoiceWalletAddress = ref("")
 const showPaymentInfo = ref(false)
 const transactionID = ref("")
+const downloadInvoicePDF = () => {
+    const doc = new jsPDF();
+
+    // Set global styles
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(24);
+    doc.text("Invoice", 105, 20, { align: "center" });
+
+    // Invoice details section
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Invoice Number: ${invoiceNumber.value}`, 10, 40);
+    doc.text(`Issue Date: ${convertToSimpleDate(issueDate.value)}`, 10, 50);
+    doc.text(`Due Date: ${convertToSimpleDate(dueDate.value)}`, 10, 60);
+
+    // Sender and receiver section
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("From:", 10, 75);
+    doc.setFont("helvetica", "normal");
+    doc.text(senderEmail.value, 25, 75);
+
+    doc.setFont("helvetica", "bold");
+    doc.text("To:", 10, 85);
+    doc.setFont("helvetica", "normal");
+    doc.text(recieverEmail.value, 25, 85);
+
+    // Wallet and total section
+    doc.setFont("helvetica", "bold");
+    doc.text("Wallet Address:", 10, 100);
+    doc.setFont("helvetica", "normal");
+    doc.text(invoiceWalletAddress.value, 50, 100);
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Total Amount:", 10, 110);
+    doc.setFont("helvetica", "normal");
+    doc.text(`$${invoiceTotal.value.toFixed(2)}`, 50, 110);
+
+    // Add invoice items in table format
+    const startY = 130;
+    doc.setFont("helvetica", "bold");
+    doc.text("Invoice Items:", 10, startY - 10);
+
+    // Table headers
+    const headers = ["Quantity", "Name", "Quantity", "Price"];
+    let colX = [10, 50, 120, 150];
+    headers.forEach((header, i) => {
+        doc.text(header, colX[i], startY);
+    });
+
+    // Table data
+    doc.setFont("helvetica", "normal");
+    let rowY = startY + 10;
+    invoiceItems.forEach((item) => {
+        doc.text(item.quantity, colX[0], rowY);
+        doc.text(item.name, colX[1], rowY);
+        doc.text(item.rate, colX[2], rowY);
+        doc.text(`$${item.amount}`, colX[3], rowY);
+        rowY += 10;
+    });
+
+    // Draw a border for the table
+    doc.line(10, startY - 5, 200, startY - 5); // Header line
+    doc.line(10, startY - 5, 10, rowY); // Left border
+    doc.line(200, startY - 5, 200, rowY); // Right border
+    doc.line(10, rowY, 200, rowY); // Bottom border
+
+    // Footer or notes
+    doc.setFontSize(10);
+    doc.setTextColor(100);
+    doc.text("Thank you for your business!", 105, rowY + 20, { align: "center" });
+
+    // Save the PDF
+    doc.save(`invoice_${invoiceNumber.value}.pdf`);
+};
+
+// Add the button in the template
+
 
 definePageMeta({
     layout: false
@@ -230,6 +309,9 @@ async function getInvoiceById(id) {
         invoiceNumber.value = data[0].number;
         invoiceTotal.value = data[0].total;
         invoiceWalletAddress.value = data[0].wallet_address;
+        console.log(data[0])
+        invoiceItems = data[0].items
+        console.log(invoiceItems)
     }
 }
 
