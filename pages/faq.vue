@@ -165,6 +165,88 @@
 <script setup>
 
 
+const faqSchema = ref({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Is there any fee to use this tool?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No, we don't charge any extra fees for creating or sending invoices. You only pay the standard network fee for cryptocurrency transactions."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Which cryptocurrencies are supported?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We currently support multiple cryptocurrencies, including Bitcoin, Ethereum, Tether (USDT), and DAI."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How do I get started?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "1. Register: Sign up for an account. 2. Add Wallet: Add your preferred wallet address for receiving payments. (Create a crypto wallet) 3. Send Invoices: Create and send invoices to your clients or customers. 4. Notifications: Get notified as soon as the payment is received."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How does this tool ensure privacy?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Your transactions are managed directly on the blockchain, ensuring a high level of privacy and security. No sensitive information is stored or shared."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Can I use this tool for international payments?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! Since it's based on cryptocurrencies, you can send and receive payments globally without worrying about exchange rates or banking restrictions."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Why choose this tool over traditional invoicing platforms?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "This tool is simple, clear, and empowers you with privacy and freedom. Unlike traditional systems, it doesn't rely on banks or centralized authorities and has no hidden fees."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How much is the crypto payment network fee?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The typical network fees vary by cryptocurrency. For example, Bitcoin (BTC) fees range from $2 - $8, Ethereum (ETH) fees range from $2 - $15, Tether (USDT) fees range from $0.1 - $1, and DAI fees range from $2 - $15."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How will I know when I've been paid?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You'll receive a notification as soon as the payment is confirmed on the blockchain."
+            }
+        }
+    ]
+});
+
+// Use Nuxt SEO to add the schema to the head
+useHead({
+    script: [
+        {
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify(faqSchema.value)
+        }
+    ]
+});
+
+
 </script>
 
 <style lang="scss" scoped></style>
