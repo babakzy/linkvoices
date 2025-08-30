@@ -11,7 +11,16 @@ export default defineNuxtConfig({
   app: {
     head: {
       script: [
-        { src: 'https://cloud.umami.is/script.js', defer: true, 'data-website-id': 'a7338219-eaed-40da-8a1c-7b80d07747f7' }
+        { src: 'https://cloud.umami.is/script.js', defer: true, 'data-website-id': 'a7338219-eaed-40da-8a1c-7b80d07747f7' },
+        { src: 'https://www.googletagmanager.com/gtag/js?id=G-L61C9SR4CR', async: true },
+        {
+          innerHTML: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-L61C9SR4CR');
+          `
+        }
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
