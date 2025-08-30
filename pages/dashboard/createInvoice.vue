@@ -1,231 +1,377 @@
 <template>
-    <div class="my-16">
-        <div class="flex flex-wrap">
-            <div class="basis-full m-2">
-                <NuxtLink class="btn btn-ghost bg-black-100 flex items-center w-32" to="/dashboard/invoices">
-                    <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m0 0l6-6m-6 6l6 6" />
-                    </svg>
-                    back
-                </NuxtLink>
-            </div>
-            <div class="basis-full md:basis-3/4">
-                <div class="bg-black-100 rounded-lg  p-4 md:p-8 m-2 ">
-                    <div class="flex">
-                        <div class="basis-full md:basis-1/3 p-2">
-                            <label class="form-control w-full m-1">
-                                <div class="label">
-                                    <span class="label-text">Invoice Number:</span>
+    <div class="min-h-screen bg-gray-50">
+        <main class="p-8">
+            <div class="max-w-7xl mx-auto">
+                    <!-- Header -->
+                    <div class="flex items-center mb-8">
+                        <NuxtLink 
+                            to="/dashboard/invoices" 
+                            class="inline-flex items-center text-gray-600 hover:text-gray-900 mr-4">
+                            <span class="material-symbols-outlined mr-2">arrow_back</span>
+                            Back to Invoices
+                        </NuxtLink>
+                        <div class="border-l border-gray-300 pl-4">
+                            <h1 class="text-2xl font-bold text-gray-900">Create Invoice</h1>
+                            <p class="text-gray-600 mt-1">Create a new cryptocurrency invoice</p>
+                        </div>
+                    </div>
+                    <!-- Form Container -->
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                        <!-- Main Form -->
+                        <div class="lg:col-span-3 space-y-8">
+                            
+                            <!-- Invoice Details Card -->
+                            <div class="bg-white border border-gray-200 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-6">Invoice Details</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Invoice Number</label>
+                                        <input 
+                                            v-model="invoiceNumber" 
+                                            type="text" 
+                                            placeholder="00001"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                        />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Issue Date</label>
+                                        <VueDatePicker v-model="issueDate" :enable-time-picker="false" class="w-full" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Due Date</label>
+                                        <VueDatePicker v-model="dueDate" :enable-time-picker="false" class="w-full" />
+                                    </div>
                                 </div>
-                                <input v-model="invoiceNumber" type="text" placeholder="00001"
-                                    class="input rounded-md py-3 input-bordered  w-full" />
-                            </label>
-                        </div>
-                        <div class="basis-full md:basis-1/3 p-2">
-                            <label class="form-control w-full m-1">
-                                <div class="label">
-                                    <span class="label-text">Date Issued:</span>
+                            </div>
+                            <!-- Billing Information -->
+                            <div class="bg-white border border-gray-200 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-6">Billing Information</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    
+                                    <!-- From Section -->
+                                    <div class="space-y-4">
+                                        <div class="flex items-center mb-4">
+                                            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                                <span class="material-symbols-outlined text-blue-600 text-sm">person</span>
+                                            </div>
+                                            <h4 class="text-base font-medium text-gray-900">From</h4>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                                            <input 
+                                                v-model="senderEmail" 
+                                                type="email" 
+                                                required
+                                                placeholder="your@email.com"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Company/Person Name</label>
+                                            <input 
+                                                v-model="senderName" 
+                                                type="text" 
+                                                placeholder="Your Company Name"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                                            <input 
+                                                v-model="senderAddress" 
+                                                type="text" 
+                                                placeholder="123 Main Street"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">City, State, ZIP</label>
+                                            <input 
+                                                v-model="senderCity" 
+                                                type="text" 
+                                                placeholder="New York, NY 10001"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                                            <input 
+                                                v-model="senderCountry" 
+                                                type="text" 
+                                                placeholder="United States"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <!-- To Section -->
+                                    <div class="space-y-4">
+                                        <div class="flex items-center mb-4">
+                                            <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                                <span class="material-symbols-outlined text-green-600 text-sm">business</span>
+                                            </div>
+                                            <h4 class="text-base font-medium text-gray-900">Bill To</h4>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                            <input 
+                                                v-model="recieverEmail" 
+                                                type="email" 
+                                                placeholder="client@email.com"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Company/Person Name</label>
+                                            <input 
+                                                v-model="recieverName" 
+                                                type="text" 
+                                                placeholder="Client Company Name"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                                            <input 
+                                                v-model="recieverAddress" 
+                                                type="text" 
+                                                placeholder="456 Client Street"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">City, State, ZIP</label>
+                                            <input 
+                                                v-model="recieverCity" 
+                                                type="text" 
+                                                placeholder="Los Angeles, CA 90210"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                                            <input 
+                                                v-model="recieverCountry" 
+                                                type="text" 
+                                                placeholder="United States"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
-                                <VueDatePicker v-model="issueDate" :enable-time-picker="false"></VueDatePicker>
-                            </label>
-                        </div>
-                        <div class="basis-full md:basis-1/3 p-2">
-                            <label class="form-control w-full m-1">
-                                <div class="label">
-                                    <span class="label-text">Due Date:</span>
+                            </div>
+                            <!-- Currency Selection -->
+                            <div class="bg-white border border-gray-200 rounded-xl p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
+                                        <span class="material-symbols-outlined text-yellow-600 text-sm">currency_bitcoin</span>
+                                    </div>
+                                    <h3 class="text-lg font-semibold text-gray-900">Payment Currency</h3>
                                 </div>
-                                <VueDatePicker v-model="dueDate" :enable-time-picker="false"></VueDatePicker>
-                            </label>
-                        </div>
-
-                    </div>
-                    <div class="flex">
-                        <div class="basis-full md:basis-1/2 p-2">
-                            <div class="bg-slate-200 rounded-lg p-4">
-                                <label class="form-control w-full m-1">
-                                    <h3 class=" text-2xl text-slate-500">From:</h3>
-                                    <div class="label">
-                                        <span class="label-text">E-mail:</span>
+                                
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                                    <div class="flex items-start">
+                                        <span class="material-symbols-outlined text-blue-600 mr-2">info</span>
+                                        <p class="text-sm text-blue-800">
+                                            To enable a currency, you must first add the corresponding wallet address in your 
+                                            <NuxtLink to="/dashboard/wallets" class="font-medium underline">Wallets settings</NuxtLink>.
+                                        </p>
                                     </div>
-                                    <input required v-model="senderEmail" type="text" placeholder=""
-                                        class="input input-bordered w-full" />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">Company/Person Name:</span>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-3">Select Currency</label>
+                                    <select 
+                                        v-model="invoiceCurrency" 
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                        <option value="" disabled>Select Base Currency</option>
+                                        <option v-if="btcWallet" value="btc">Bitcoin (BTC)</option>
+                                        <option v-if="ethWallet" value="ethtrc20">Ethereum (ETH) - TRC20 Network</option>
+                                        <option v-if="usdttrc20Wallet" value="usdt">Tether (USDT)</option>
+                                        <option v-if="daiWallet" value="dai">Dai (DAI)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Invoice Items -->
+                            <div class="bg-white border border-gray-200 rounded-xl p-6">
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                                            <span class="material-symbols-outlined text-purple-600 text-sm">receipt</span>
+                                        </div>
+                                        <h3 class="text-lg font-semibold text-gray-900">Invoice Items</h3>
                                     </div>
-                                    <input v-model="senderName" type="text" placeholder=""
-                                        class="input input-bordered w-full" />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">Address:</span>
+                                    <div class="flex space-x-2">
+                                        <button 
+                                            @click="addField"
+                                            type="button"
+                                            class="inline-flex items-center px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
+                                            <span class="material-symbols-outlined mr-1 text-sm">add</span>
+                                            Add Item
+                                        </button>
+                                        <button 
+                                            @click="removeField"
+                                            type="button"
+                                            :disabled="formRow.length <= 1"
+                                            class="inline-flex items-center px-3 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                                            <span class="material-symbols-outlined mr-1 text-sm">remove</span>
+                                            Remove
+                                        </button>
                                     </div>
-                                    <input v-model="senderAddress" type="text" placeholder=""
-                                        class="input input-bordered w-full" />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">City, State, ZIP:</span>
+                                </div>
+                                
+                                <form ref="itemsForm">
+                                    <div class="overflow-x-auto">
+                                        <table class="w-full">
+                                            <thead>
+                                                <tr class="border-b border-gray-200">
+                                                    <th class="text-left py-3 px-2 text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
+                                                    <th class="text-left py-3 px-2 text-xs font-medium text-gray-500 uppercase tracking-wider">Item Name</th>
+                                                    <th class="text-left py-3 px-2 text-xs font-medium text-gray-500 uppercase tracking-wider">Qty</th>
+                                                    <th class="text-left py-3 px-2 text-xs font-medium text-gray-500 uppercase tracking-wider">Rate</th>
+                                                    <th class="text-left py-3 px-2 text-xs font-medium text-gray-500 uppercase tracking-wider">Tax</th>
+                                                    <th class="text-left py-3 px-2 text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-gray-200">
+                                                <tr v-for="(item, index) in formRow" :key="index" class="hover:bg-gray-50">
+                                                    <td class="py-3 px-2 text-sm font-medium text-gray-900">{{ index + 1 }}</td>
+                                                    <td class="py-3 px-2">
+                                                        <input 
+                                                            type="text" 
+                                                            :name="'item-name' + index" 
+                                                            placeholder="Web Design"
+                                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                                        />
+                                                    </td>
+                                                    <td class="py-3 px-2">
+                                                        <input 
+                                                            type="number" 
+                                                            :name="'item-quantity' + index" 
+                                                            placeholder="2"
+                                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                                        />
+                                                    </td>
+                                                    <td class="py-3 px-2">
+                                                        <input 
+                                                            type="number" 
+                                                            step="0.01"
+                                                            :name="'item-rate' + index" 
+                                                            placeholder="2.420"
+                                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                                        />
+                                                    </td>
+                                                    <td class="py-3 px-2">
+                                                        <input 
+                                                            type="text" 
+                                                            :name="'item-tax' + index" 
+                                                            placeholder="12%"
+                                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                                        />
+                                                    </td>
+                                                    <td class="py-3 px-2">
+                                                        <input 
+                                                            type="number" 
+                                                            step="0.01"
+                                                            :name="'item-amount' + index" 
+                                                            placeholder="0.840"
+                                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <input v-model="senderCity" type="text" placeholder=""
-                                        class="input input-bordered w-full" />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">Country:</span>
+                                </form>
+                            </div>
+                            <!-- Total Section -->
+                            <div class="bg-white border border-gray-200 rounded-xl p-6">
+                                <div class="flex justify-end">
+                                    <div class="w-64">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Total Amount</label>
+                                        <input 
+                                            v-model="invoiceTotal" 
+                                            type="number" 
+                                            step="0.01"
+                                            placeholder="0.00"
+                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-medium" 
+                                        />
                                     </div>
-                                    <input v-model="senderCountry" type="text" placeholder=""
-                                        class="input input-bordered w-full" />
-                                </label>
-
+                                </div>
                             </div>
                         </div>
 
-                        <div class="basis-full md:basis-1/2 p-2">
-                            <div class="bg-slate-200 rounded-lg p-4">
-                                <h3 class=" text-2xl text-slate-500">Bill To:</h3>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">E-mail:</span>
+                        <!-- Sidebar -->
+                        <div class="lg:col-span-1">
+                            <div class="bg-white border border-gray-200 rounded-xl p-6 sticky top-8">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-6">Actions</h3>
+                                
+                                <!-- Action Buttons -->
+                                <div class="space-y-3 mb-6">
+                                    <button 
+                                        v-if="!invoice_uuid" 
+                                        @click="createInvoice"
+                                        class="w-full px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
+                                        Save Invoice
+                                    </button>
+                                    <button 
+                                        v-if="invoice_uuid" 
+                                        @click="updateInvoice"
+                                        class="w-full px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
+                                        Update Invoice
+                                    </button>
+                                    <button 
+                                        :disabled="!invoice_uuid" 
+                                        @click="previewInvoice"
+                                        class="w-full px-4 py-2 bg-gray-600 text-white text-sm font-medium rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                                        Preview
+                                    </button>
+                                </div>
+                                
+                                <!-- Info -->
+                                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                                    <div class="flex items-start">
+                                        <span class="material-symbols-outlined text-gray-400 mr-2">info</span>
+                                        <p class="text-sm text-gray-600">
+                                            Saving won't send the invoice. You can preview and share the URL after saving.
+                                        </p>
                                     </div>
-                                    <input v-model="recieverEmail" type="text" placeholder=""
-                                        class="input input-bordered w-full" />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">Company/person Name:</span>
+                                </div>
+                                
+                                <!-- Invoice URL (when created) -->
+                                <div v-if="invoice_uuid" class="space-y-4">
+                                    <div class="border-t border-gray-200 pt-4">
+                                        <h4 class="text-sm font-medium text-gray-900 mb-3">Invoice URL</h4>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-3 break-all">
+                                            <a 
+                                                :href="runtimeConfig.public.baseURL + 'invoice/' + invoice_uuid" 
+                                                target="_blank"
+                                                class="text-sm text-blue-600 hover:text-blue-800 underline">
+                                                {{ runtimeConfig.public.baseURL }}invoice/{{ invoice_uuid }}
+                                            </a>
+                                        </div>
+                                        <button 
+                                            @click="copyToClipboard(runtimeConfig.public.baseURL + 'invoice/' + invoice_uuid)"
+                                            class="w-full mt-3 px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                                            Copy URL
+                                        </button>
                                     </div>
-                                    <input v-model="recieverName" type="text" placeholder=""
-                                        class="input input-bordered w-full" />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">Address:</span>
-                                    </div>
-                                    <input v-model="recieverAddress" type="text" placeholder=""
-                                        class="input input-bordered w-full" />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">City, State, ZIP:</span>
-                                    </div>
-                                    <input v-model="recieverCity" type="text" placeholder=""
-                                        class="input input-bordered w-full" />
-                                </label>
-                                <label class="form-control w-full m-1">
-                                    <div class="label">
-                                        <span class="label-text">Country:</span>
-                                    </div>
-                                    <input v-model="recieverCountry" type="text" placeholder=""
-                                        class="input input-bordered w-full" />
-                                </label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-slate-200 rounded-lg m-2 p-4 md:p-8">
-                        <h4 class="inline-block mr-2 text-xl">Currency</h4>
-                        <p class="text-slate-600 mb-3">* In order to list the currency here you MUST enter your realted
-                            wallet address first.</p>
-                        <select v-model="invoiceCurrency" class="select select-bordered inline-block">
-                            <option disabled selected>Select Base Currency</option>
-                            <option v-if="btcWallet" value="btc">Bitcoin (BTC)</option>
-                            <option v-if="ethWallet" value="ethtrc20">Etherium (ETH) _ TRC20 Network</option>
-                            <option v-if="usdttrc20Wallet" value="usdt">Tether (USDT)</option>
-                            <option v-if="daiWallet" value="dai">Dai (DAI)</option>
-                        </select>
-                    </div>
-                    <div class="overflow-x-auto bg-slate-200 rounded-lg m-2 p-4 md:p-8">
-                        <form ref="itemsForm">
-                            <table class="table">
-                                <!-- head -->
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Item Name</th>
-                                        <th>Quantity</th>
-                                        <th>Rate</th>
-                                        <th>Tax</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- row  -->
-                                    <tr v-for="(item, index) in formRow" :key="index">
-                                        <th>{{ index + 1 }}</th>
-                                        <td>
-                                            <input type="text" :name="'item-name' + index" placeholder="Web Design"
-                                                class="input input-bordered input-sm w-full max-w-xs" />
-                                        </td>
-                                        <td>
-                                            <input type="text" :name="'item-quantity' + index" placeholder="2"
-                                                class="input input-bordered input-sm w-full max-w-xs" />
-                                        </td>
-                                        <td>
-                                            <input type="text" :name="'item-rate' + index" placeholder="2.420"
-                                                class="input input-bordered input-sm w-full max-w-xs" />
-                                        </td>
-                                        <td>
-                                            <input type="text" :name="'item-tax' + index" placeholder="12%"
-                                                class="input input-bordered input-sm w-full max-w-xs" />
-                                        </td>
-                                        <td>
-                                            <input type="text" :name="'item-amount' + index" placeholder="0.840"
-                                                class="input input-bordered input-sm w-full max-w-xs" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </form>
-                        <div class="">
-                            <button @click="addField"
-                                class=" h-10 w-10 btn-outline bg-black !text-white text-2xl rounded-full m-2 ">
-                                +
-                            </button>
-                            <button @click="removeField"
-                                class="h-10 w-10 border-2 text-2xl border-gray-300 !text-gray-300 btn-outline btn-error rounded-full ">
-                                -
-                            </button>
-                        </div>
-                    </div>
-                    <div class="basis-full">
-                        <div class="flex">
-                            <div class="basis-full md:basis-3/4">
-                            </div>
-                            <div class="basis-full md:basis-1/4 ">
-                                <h2 class="text-xl my-0 font-bold mt-5">Total:</h2>
-                                <input type="text" v-model="invoiceTotal" placeholder=""
-                                    class="input input-bordered w-full md:mr-2" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-            <div class="basis-full md:basis-1/4">
-                <div class="bg-slate-100 rounded-lg  p-4 md:p-8 m-2 ">
-                    <button v-if="!invoice_uuid" class="btn btn-primary px-14" @click="createInvoice">Save</button>
-                    <button v-if="invoice_uuid" class="btn btn-primary px-12" @click="updateInvoice">Save
-                        (Update)</button>
-                    <button :disabled="!invoice_uuid" class="btn btn-secondary ml-2"
-                        @click="previewInvoice">Preview</button>
-                    <p class="text-slate-400 text-sm font-light mt-2">* Saving won't send the invoice.</p>
-                    <div class="mt-2">
-                    </div>
-                    <div v-if="invoice_uuid" class="my-2">
-                        <span class="text-sm text-slate-700">URL:</span> <a
-                            :href="runtimeConfig.public.baseURL+'invoice/' + invoice_uuid" v-if="invoice_uuid" target="_blank"
-                            class="text-left text-sm text-blue-500 link w-full">{{runtimeConfig.public.baseURL}}invoice/{{
-                                invoice_uuid }}</a>
-                    </div>
-                    <div v-if="invoice_uuid" class="my-2">
-                        <button @click="copyToClipboard(runtimeConfig.public.baseURL+ 'invoice/' + invoice_uuid)"
-                            class="btn btn-neutral blcok w-full md:inline-block md:w-auto text-md h-auto min-h-4 py-2">Copy
-                            URL</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </main>
     </div>
 </template>
 

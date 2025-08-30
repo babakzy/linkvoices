@@ -1,51 +1,71 @@
 <template>
-    <aside
-        class="w-full md:w-64 bg-gradient-to-b from-cerulean-blue-700 to bg-spring-wood-900 border-r border-scerulean-blue-600 p-5 py-8 flex flex-col">
-        <ul class="flex flex-col text-spring-wood-50">
-            <li class="mb-4">
-                <nuxt-link to="/dashboard/wallets" class=" hover:text-white flex items-center">
+    <aside class="w-full md:w-64 bg-white border-r border-gray-200 p-6 flex flex-col min-h-screen">
+        <!-- Logo/Brand Section -->
+        <div class="mb-8">
+            <h2 class="text-xl font-semibold text-gray-900">Dashboard</h2>
+        </div>
 
-                    <span class="material-symbols-outlined mr-2">
-                        wallet
-                    </span>
-                    Wallets
-                </nuxt-link>
-            </li>
-            <!-- <li class="mb-4">
-          <nuxt-link to="/dashboard/createInvoice" class=" hover:text-white flex items-center">
-            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3V3z" />
-            </svg>
-            New Invoice
-          </nuxt-link>
-        </li> -->
-            <li class="mb-4">
-                <nuxt-link to="/dashboard/invoices" class=" hover:text-white flex items-center">
-                    <span class="material-symbols-outlined mr-2">
-                        receipt_long
-                    </span>
-                    Invoices
-                </nuxt-link>
-            </li>
-            <li>
-                <nuxt-link to="/dashboard/help" class=" hover:text-white flex items-center">
-                    <span class="material-symbols-outlined mr-2">
-                        help
-                    </span>
-                    Help</nuxt-link>
+        <!-- Navigation -->
+        <nav class="flex-1">
+            <ul class="space-y-2">
+                <li>
+                    <nuxt-link 
+                        to="/dashboard" 
+                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 hover:bg-gray-100 text-gray-700 hover:text-gray-900"
+                        active-class="bg-gray-100 text-gray-900"
+                        exact>
+                        <span class="material-symbols-outlined mr-3 text-lg">dashboard</span>
+                        Overview
+                    </nuxt-link>
+                </li>
+                <li>
+                    <nuxt-link 
+                        to="/dashboard/wallets" 
+                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 hover:bg-gray-100 text-gray-700 hover:text-gray-900"
+                        active-class="bg-gray-100 text-gray-900">
+                        <span class="material-symbols-outlined mr-3 text-lg">wallet</span>
+                        Wallets
+                    </nuxt-link>
+                </li>
+                <li>
+                    <nuxt-link 
+                        to="/dashboard/invoices" 
+                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 hover:bg-gray-100 text-gray-700 hover:text-gray-900"
+                        active-class="bg-gray-100 text-gray-900">
+                        <span class="material-symbols-outlined mr-3 text-lg">receipt_long</span>
+                        Invoices
+                    </nuxt-link>
+                </li>
+                <li>
+                    <nuxt-link 
+                        to="/dashboard/createInvoice" 
+                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 hover:bg-blue-50 text-blue-600 hover:text-blue-700 border border-blue-200 hover:border-blue-300">
+                        <span class="material-symbols-outlined mr-3 text-lg">add_circle</span>
+                        Create Invoice
+                    </nuxt-link>
+                </li>
+                <li>
+                    <nuxt-link 
+                        to="/dashboard/help" 
+                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 hover:bg-gray-100 text-gray-700 hover:text-gray-900"
+                        active-class="bg-gray-100 text-gray-900">
+                        <span class="material-symbols-outlined mr-3 text-lg">help</span>
+                        Help
+                    </nuxt-link>
+                </li>
+            </ul>
+        </nav>
 
-            </li>
-            <li>
-                <button @click="signOut" class=" hover:text-white flex items-center mt-4">
-                    <span class="material-symbols-outlined mr-2">
-                        logout
-                    </span>
-                    Sign Out</button>
-
-            </li>
-        </ul>
+        <!-- Sign Out Section -->
+        <div class="pt-4 border-t border-gray-200">
+            <button 
+                @click="signOut" 
+                class="flex items-center w-full px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 hover:bg-red-50 text-gray-700 hover:text-red-700">
+                <span class="material-symbols-outlined mr-3 text-lg">logout</span>
+                Sign Out
+            </button>
+        </div>
     </aside>
-
 </template>
 
 <script setup>
