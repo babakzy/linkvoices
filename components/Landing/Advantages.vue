@@ -15,7 +15,7 @@
                             <tr class="bg-cerulean-blue-50">
                                 <th class="p-4 text-left text-cerulean-blue-900">Features</th>
                                 <th class="p-4 text-left text-cerulean-blue-900">
-                                    <h5>Traditional Online Payment</h5> <span>(Paypal, Stripe , Wise , etc)</span>
+                                    <h5>Traditional Online Payment</h5> <span>(Paypal, Stripe)</span>
                                 </th>
                                 <th class="p-4 text-left text-cerulean-blue-900">
                                     <h5>Cryptocurrencies</h5><span>Linkvoices</span>
@@ -24,15 +24,15 @@
                         </thead>
                         <tbody class="">
                             <tr class="border-b border-spring-wood-200">
-                                <td class="p-4 font-bold">$1000 International Transfer (PayPal)</td>
-                                <td class="p-4"><span class="text-red-700">~$35-60 in fees</span> + poor exchange rate</td>
-                                <td class="p-4 text-green-600">~$1-5 network fee</td>
+                                <td class="p-4 font-bold">$1000 International Transfer</td>
+                                <td class="p-4"><span class="text-red-700">$45-55 in fees</span> (4.5-5.5%) + poor exchange rate</td>
+                                <td class="p-4 text-green-600">$2-8 network fee</td>
                             </tr>
 
                             <tr class="border-b border-spring-wood-200">
                                 <td class="p-4">Geographic Restrictions</td>
-                                <td class="p-4">Country-specific limitations</td>
-                                <td class="p-4 text-green-700">Globally accessible</td>
+                                <td class="p-4">Limited to 200+ countries, regulatory restrictions</td>
+                                <td class="p-4 text-green-700">Globally accessible (internet required)</td>
                             </tr>
                             <tr class="border-b border-spring-wood-200">
                                 <td class="p-4">Control</td>
@@ -41,26 +41,26 @@
                             </tr>
                             <tr class="border-b border-spring-wood-200">
                                 <td class="p-4">Currency Options</td>
-                                <td class="p-4">Limited to fiat currencies</td>
-                                <td class="p-4 text-green-700">Multiple cryptocurrencies</td>
+                                <td class="p-4">25+ fiat currencies with conversion fees</td>
+                                <td class="p-4 text-green-700">Bitcoin, Ethereum, USDT, and more</td>
                             </tr>
-                            <tr class="border-b border-spring-wood-200">
+                            <!-- <tr class="border-b border-spring-wood-200">
                                 <td class="p-4">Empowers</td>
                                 <td class="p-4">Authorities / Governments</td>
                                 <td class="p-4 text-green-700"> People </td>
-                            </tr>
+                            </tr> -->
                             <tr class="border-b border-spring-wood-200">
-                                <td class="p-4">Limitation</td>
-                                <td class="p-4">may holds up to 21 days, strict amount limits</td>
-                                <td class="p-4 text-green-700">No holds, no amount limits</td>
+                                <td class="p-4">Processing Time</td>
+                                <td class="p-4">1-3 business days, up to 21 days for holds</td>
+                                <td class="p-4 text-green-700">10 minutes to 1 hour</td>
                             </tr>
                             <tr class="border-b border-spring-wood-200">
                                 <td class="p-4">Transaction Fees</td>
-                                <td class="p-4">2.9% + $0.30 per transaction</td>
-                                <td class="p-4 text-green-700">Only network fees</td>
+                                <td class="p-4">2.9-3.4% + $0.30 per transaction</td>
+                                <td class="p-4 text-green-700">$0.50-15 network fees only</td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> 
                 </div>
             </div>
 

@@ -4,7 +4,7 @@
 
         <div class="flex flex-wrap items-center justify-around hero2bg min-h-[200px]  md:min-h-[360px]">
             <div class=" basis-full md:basis-9/12 text-center relative">
-                <h1 class="inline-block text-4xl z-10 md:text-6xl text-cerulean-blue-900 capitalize ">
+                <h1 class="inline-block text-4xl z-10 md:text-7xl text-cerulean-blue-900 capitalize ">
                     Send direct crypto invoices for free
                 </h1>
             </div>
