@@ -134,27 +134,132 @@
 ```
 
 ### Buttons
+
+**IMPORTANT**: 
+- Always use `type="button"` for interactive buttons to prevent form submission conflicts
+- LinkVoices uses DaisyUI components for consistent styling
+- Use DaisyUI button classes: `btn btn-primary`, `btn btn-secondary`, etc.
+
 ```css
-/* Primary Button */
-.lv-btn-primary {
+/* DaisyUI Button Classes (Recommended) */
+.btn-primary {
+  /* DaisyUI handles all styling automatically */
+}
+
+/* Custom Button Extensions (if needed) */
+.lv-btn-primary-full {
+  @apply btn btn-primary w-full;
+}
+
+/* Legacy Tailwind Classes (Use DaisyUI instead) */
+.lv-btn-primary-legacy {
   @apply px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg 
          hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
-         focus:ring-offset-2 transition-colors duration-200;
+         focus:ring-offset-2 transition-colors duration-200
+         disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
 /* Success Button */
 .lv-btn-success {
   @apply px-4 py-3 bg-green-600 text-white text-sm font-bold rounded-lg 
          hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 
-         focus:ring-offset-2 transition-colors duration-200;
+         focus:ring-offset-2 transition-colors duration-200
+         disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
 /* Secondary Button */
 .lv-btn-secondary {
   @apply px-4 py-2 bg-gray-600 text-white text-sm font-medium rounded-lg 
          hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 
-         focus:ring-offset-2 transition-colors duration-200;
+         focus:ring-offset-2 transition-colors duration-200
+         disabled:opacity-50 disabled:cursor-not-allowed;
 }
+
+/* Outline Button */
+.lv-btn-outline {
+  @apply px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg 
+         hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 
+         focus:ring-offset-2 transition-colors duration-200
+         disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+/* Text Link Button (for toggles like login/register) */
+.lv-btn-text {
+  @apply text-blue-600 hover:text-blue-700 font-medium focus:outline-none focus:underline
+         transition-colors duration-200;
+}
+```
+
+#### Button Usage Examples
+
+```html
+<!-- Primary Button (Login/Register Forms) - DaisyUI -->
+<button 
+  type="button"
+  class="btn btn-primary w-full"
+  :disabled="loading"
+>
+  Sign In
+</button>
+
+<!-- Secondary Button - DaisyUI -->
+<button 
+  type="button"
+  class="btn btn-secondary"
+>
+  Cancel
+</button>
+
+<!-- Outline Button - DaisyUI -->
+<button 
+  type="button"
+  class="btn btn-outline"
+>
+  Learn More
+</button>
+
+<!-- Text Link Button (Form toggles) -->
+<button 
+  type="button"
+  class="text-blue-600 hover:text-blue-700 font-medium focus:outline-none focus:underline transition-colors duration-200"
+  @click="toggleForm"
+>
+  Create account
+</button>
+
+<!-- Loading State Example with DaisyUI -->
+<button type="button" class="btn btn-primary w-full" :disabled="loading">
+  <span v-if="loading" class="loading loading-spinner loading-sm"></span>
+  <span v-if="loading">Loading...</span>
+  <span v-else>{{ isLogin ? 'Sign In' : 'Create Account' }}</span>
+</button>
+```
+
+#### Input Field Examples
+
+```html
+<!-- DaisyUI Input Fields -->
+<input 
+  type="email" 
+  placeholder="Email address" 
+  class="input input-bordered w-full"
+  required
+/>
+
+<input 
+  type="password" 
+  placeholder="Password" 
+  class="input input-bordered w-full"
+  required
+/>
+
+<!-- Input with Error State -->
+<input 
+  type="email" 
+  placeholder="Email address" 
+  class="input input-bordered input-error w-full"
+  required
+/>
 ```
 
 ### Select Dropdowns
