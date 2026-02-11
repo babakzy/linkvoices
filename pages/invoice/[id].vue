@@ -290,8 +290,8 @@ useHead({
     title: 'Linkvoicses - Invoice'
 })
 
-onMounted(() => {
-getInvoiceById(route.params.id)
+onMounted(async () => {
+    await getInvoiceById(route.params.id)
 })
 
 

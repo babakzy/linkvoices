@@ -7,18 +7,21 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "seed:blog": "node scripts/seed-blog-posts.js"
   },
   "dependencies": {
     "@nuxt/content": "^2.13.4",
     "@nuxtjs/seo": "^2.0.2",
     "@nuxtjs/tailwindcss": "^6.12.1",
+    "@supabase/supabase-js": "^2.39.0",
     "@vercel/analytics": "^1.3.1",
     "@vuepic/vue-datepicker": "^9.0.3",
     "google-fonts": "^1.0.0",
     "gsap": "^3.12.5",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.2",
+    "marked": "^12.0.0",
     "nuxt": "^3.12.3",
     "vue": "latest",
     "vue-github-button": "^3.1.3"
