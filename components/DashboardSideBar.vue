@@ -1,18 +1,28 @@
 <template>
-    <aside class="w-full md:w-64 bg-white border-r border-gray-200 p-6 flex flex-col min-h-screen">
+    <aside class="w-full md:w-64 bg-gradient-to-b from-cerulean-blue-900 via-cerulean-blue-800 to-cerulean-blue-900 text-white flex flex-col min-h-screen shadow-lg">
         <!-- Logo/Brand Section -->
-        <div class="mb-8">
-            <h2 class="text-xl font-semibold text-gray-900">Dashboard</h2>
+        <div class="p-6 pb-4">
+            <NuxtLink to="/" class="block">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                        <span class="material-symbols-outlined text-xl">account_balance_wallet</span>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold">LinkVoices</h2>
+                        <p class="text-xs text-cerulean-blue-200">Crypto Invoices</p>
+                    </div>
+                </div>
+            </NuxtLink>
         </div>
 
         <!-- Navigation -->
-        <nav class="flex-1">
-            <ul class="space-y-2">
+        <nav class="flex-1 px-4 pb-4">
+            <ul class="space-y-1">
                 <li>
                     <nuxt-link 
                         to="/dashboard" 
-                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 hover:bg-gray-100 text-gray-700 hover:text-gray-900"
-                        active-class="bg-gray-100 text-gray-900"
+                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-cerulean-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white"
+                        active-class="bg-white bg-opacity-20 text-white"
                         exact>
                         <span class="material-symbols-outlined mr-3 text-lg">dashboard</span>
                         Overview
@@ -20,51 +30,53 @@
                 </li>
                 <li>
                     <nuxt-link 
-                        to="/dashboard/wallets" 
-                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 hover:bg-gray-100 text-gray-700 hover:text-gray-900"
-                        active-class="bg-gray-100 text-gray-900">
-                        <span class="material-symbols-outlined mr-3 text-lg">wallet</span>
-                        Wallets
-                    </nuxt-link>
-                </li>
-                <li>
-                    <nuxt-link 
                         to="/dashboard/invoices" 
-                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 hover:bg-gray-100 text-gray-700 hover:text-gray-900"
-                        active-class="bg-gray-100 text-gray-900">
+                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-cerulean-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white"
+                        active-class="bg-white bg-opacity-20 text-white">
                         <span class="material-symbols-outlined mr-3 text-lg">receipt_long</span>
                         Invoices
                     </nuxt-link>
                 </li>
                 <li>
                     <nuxt-link 
+                        to="/dashboard/wallets" 
+                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-cerulean-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white"
+                        active-class="bg-white bg-opacity-20 text-white">
+                        <span class="material-symbols-outlined mr-3 text-lg">wallet</span>
+                        Wallets
+                    </nuxt-link>
+                </li>
+                
+                <!-- Create Invoice - Featured -->
+                <li class="pt-2">
+                    <nuxt-link 
                         to="/dashboard/createInvoice" 
-                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 hover:bg-blue-50 text-blue-600 hover:text-blue-700 border border-blue-200 hover:border-blue-300">
+                        class="flex items-center px-3 py-2 text-sm font-semibold rounded-lg transition-all duration-200 bg-spring-wood-400 text-cerulean-blue-900 hover:bg-spring-wood-300">
                         <span class="material-symbols-outlined mr-3 text-lg">add_circle</span>
                         Create Invoice
                     </nuxt-link>
                 </li>
-                <li>
+                
+                <li class="pt-2">
                     <nuxt-link 
                         to="/dashboard/help" 
-                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 hover:bg-gray-100 text-gray-700 hover:text-gray-900"
-                        active-class="bg-gray-100 text-gray-900">
+                        class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-cerulean-blue-100 hover:bg-white hover:bg-opacity-10 hover:text-white"
+                        active-class="bg-white bg-opacity-20 text-white">
                         <span class="material-symbols-outlined mr-3 text-lg">help</span>
                         Help
                     </nuxt-link>
                 </li>
+                
+                <li class="pt-2">
+                    <button 
+                        @click="signOut" 
+                        class="flex items-center w-full px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:bg-red-500 hover:bg-opacity-20 text-cerulean-blue-100 hover:text-white">
+                        <span class="material-symbols-outlined mr-3 text-lg">logout</span>
+                        Logout
+                    </button>
+                </li>
             </ul>
         </nav>
-
-        <!-- Sign Out Section -->
-        <div class="pt-4 border-t border-gray-200">
-            <button 
-                @click="signOut" 
-                class="flex items-center w-full px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 hover:bg-red-50 text-gray-700 hover:text-red-700">
-                <span class="material-symbols-outlined mr-3 text-lg">logout</span>
-                Sign Out
-            </button>
-        </div>
     </aside>
 </template>
 
@@ -76,7 +88,7 @@ const supabase = useSupabaseClient();
 const signOut = async () => {
     try {
         await supabase.auth.signOut();
-        // Optionally, redirect to login or another page after sign out
+        // Redirect to login page after sign out
         window.location.href = '/login';
     } catch (error) {
         console.error('Error signing out:', error);

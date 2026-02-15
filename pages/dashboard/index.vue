@@ -2,59 +2,73 @@
     <div class="min-h-screen bg-gray-50">
         <div class="flex">
             <DashboardSideBar />
-            <main class="flex-1 p-8">
-                <div class="max-w-7xl">
+            <main class="flex-1 p-6 md:p-8">
+                <div class="max-w-7xl mx-auto">
                     <!-- Header -->
                     <div class="mb-8">
-                        <h1 class="text-2xl font-bold text-gray-900">Dashboard Overview</h1>
-                        <p class="text-gray-600 mt-1">Welcome back! Here's what's happening with your crypto invoices.</p>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h1 class="text-2xl font-bold text-gray-900 mb-1">Dashboard</h1>
+                                <p class="text-gray-600">Overview of your crypto invoices</p>
+                            </div>
+                            <NuxtLink 
+                                to="/dashboard/createInvoice"
+                                class="hidden md:inline-flex items-center px-4 py-2 bg-cerulean-blue-600 text-white font-medium rounded-lg hover:bg-cerulean-blue-700 transition-colors duration-200">
+                                <span class="material-symbols-outlined mr-2 text-lg">add</span>
+                                New Invoice
+                            </NuxtLink>
+                        </div>
                     </div>
 
                     <!-- Stats Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        <div class="bg-white border border-gray-200 rounded-xl p-6">
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                                    <span class="material-symbols-outlined text-blue-600">receipt_long</span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+                        <!-- Total Invoices -->
+                        <div class="group bg-white rounded-lg p-5 shadow-sm hover:shadow-lg transition-all duration-200 border border-gray-200">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-cerulean-blue-100 rounded-lg flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-cerulean-blue-600 text-xl">receipt_long</span>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-600">Total Invoices</p>
+                                    <p class="text-xs font-medium text-gray-600 mb-0.5">Total Invoices</p>
                                     <p class="text-2xl font-bold text-gray-900">{{ totalInvoices }}</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-white border border-gray-200 rounded-xl p-6">
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
-                                    <span class="material-symbols-outlined text-green-600">paid</span>
+                        <!-- Paid Invoices -->
+                        <div class="group bg-white rounded-lg p-5 shadow-sm hover:shadow-lg transition-all duration-200 border border-gray-200">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-green-600 text-xl">check_circle</span>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-600">Paid Invoices</p>
+                                    <p class="text-xs font-medium text-gray-600 mb-0.5">Paid</p>
                                     <p class="text-2xl font-bold text-gray-900">{{ paidInvoices }}</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-white border border-gray-200 rounded-xl p-6">
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-4">
-                                    <span class="material-symbols-outlined text-yellow-600">pending</span>
+                        <!-- Pending -->
+                        <div class="group bg-white rounded-lg p-5 shadow-sm hover:shadow-lg transition-all duration-200 border border-gray-200">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-amber-600 text-xl">schedule</span>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-600">Pending</p>
+                                    <p class="text-xs font-medium text-gray-600 mb-0.5">Pending</p>
                                     <p class="text-2xl font-bold text-gray-900">{{ pendingInvoices }}</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-white border border-gray-200 rounded-xl p-6">
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
-                                    <span class="material-symbols-outlined text-purple-600">wallet</span>
+                        <!-- Active Wallets -->
+                        <div class="group bg-white rounded-lg p-5 shadow-sm hover:shadow-lg transition-all duration-200 border border-gray-200">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-purple-600 text-xl">account_balance_wallet</span>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-600">Active Wallets</p>
+                                    <p class="text-xs font-medium text-gray-600 mb-0.5">Wallets</p>
                                     <p class="text-2xl font-bold text-gray-900">{{ activeWallets }}</p>
                                 </div>
                             </div>
@@ -63,61 +77,57 @@
 
                     <!-- Quick Actions -->
                     <div class="mb-8">
-                        <div class="bg-white border border-gray-200 rounded-xl p-6">
-                            <h3 class="text-lg font-semibold text-gray-900 mb-6">Quick Actions</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <NuxtLink 
-                                    to="/dashboard/createInvoice"
-                                    class="flex items-center p-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 group">
-                                    <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mr-4 group-hover:bg-opacity-30 transition-all duration-200">
-                                        <span class="material-symbols-outlined">add_circle</span>
-                                    </div>
-                                    <div>
-                                        <p class="font-medium">Create New Invoice</p>
-                                        <p class="text-sm text-blue-100">Generate a crypto invoice</p>
-                                    </div>
-                                </NuxtLink>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <NuxtLink 
+                                to="/dashboard/createInvoice"
+                                class="group flex items-center gap-4 bg-cerulean-blue-600 text-white rounded-lg p-4 hover:bg-cerulean-blue-700 transition-colors duration-200">
+                                <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                                    <span class="material-symbols-outlined">add_circle</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">Create Invoice</p>
+                                    <p class="text-sm text-cerulean-blue-100">New crypto invoice</p>
+                                </div>
+                            </NuxtLink>
 
-                                <NuxtLink 
-                                    to="/dashboard/wallets"
-                                    class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-all duration-200 group">
-                                    <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-gray-200 transition-all duration-200">
-                                        <span class="material-symbols-outlined text-gray-600">wallet</span>
-                                    </div>
-                                    <div>
-                                        <p class="font-medium text-gray-900">Manage Wallets</p>
-                                        <p class="text-sm text-gray-600">Update wallet addresses</p>
-                                    </div>
-                                </NuxtLink>
+                            <NuxtLink 
+                                to="/dashboard/wallets"
+                                class="group flex items-center gap-4 bg-white border border-gray-200 rounded-lg p-4 hover:border-cerulean-blue-300 hover:bg-gray-50 transition-all duration-200">
+                                <div class="w-10 h-10 bg-cerulean-blue-100 rounded-lg flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-cerulean-blue-600">account_balance_wallet</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-900">Manage Wallets</p>
+                                    <p class="text-sm text-gray-600">Update addresses</p>
+                                </div>
+                            </NuxtLink>
 
-                                <NuxtLink 
-                                    to="/dashboard/invoices"
-                                    class="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-all duration-200 group">
-                                    <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-gray-200 transition-all duration-200">
-                                        <span class="material-symbols-outlined text-gray-600">receipt_long</span>
-                                    </div>
-                                    <div>
-                                        <p class="font-medium text-gray-900">View All Invoices</p>
-                                        <p class="text-sm text-gray-600">Track invoice status</p>
-                                    </div>
-                                </NuxtLink>
-                            </div>
+                            <NuxtLink 
+                                to="/dashboard/invoices"
+                                class="group flex items-center gap-4 bg-white border border-gray-200 rounded-lg p-4 hover:border-cerulean-blue-300 hover:bg-gray-50 transition-all duration-200">
+                                <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-purple-600">receipt_long</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-900">View Invoices</p>
+                                    <p class="text-sm text-gray-600">Track status</p>
+                                </div>
+                            </NuxtLink>
                         </div>
                     </div>
 
                     <!-- Recent Activity -->
-                    <div>
-                        <div class="bg-white border border-gray-200 rounded-xl p-6">
-                            <div class="flex items-center justify-between mb-6">
-                                <h3 class="text-lg font-semibold text-gray-900">Recent Invoices</h3>
-                                <NuxtLink 
-                                    to="/dashboard/invoices" 
-                                    class="text-sm text-blue-600 hover:text-blue-800 font-medium">
-                                    View All
-                                </NuxtLink>
-                            </div>
-                            <InvoicesList />
+                    <div class="bg-white rounded-lg border border-gray-200 p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-900">Recent Invoices</h3>
+                            <NuxtLink 
+                                to="/dashboard/invoices" 
+                                class="text-sm font-medium text-cerulean-blue-600 hover:text-cerulean-blue-700">
+                                View All →
+                            </NuxtLink>
                         </div>
+                        <InvoicesList />
                     </div>
                 </div>
             </main>

@@ -4,23 +4,23 @@
 
         <div class="flex flex-wrap items-center justify-around hero2bg min-h-[200px]  md:min-h-[360px]">
             <div class=" basis-full md:basis-9/12 text-center relative">
-                <h1 class="inline-block text-4xl z-10 md:text-7xl text-cerulean-blue-900 capitalize ">
-                    Send direct crypto invoices for free
+                <h1 class="inline-block text-4xl z-10 md:text-7xl font-bold text-cerulean-blue-900 capitalize leading-tight">
+                    Send Direct Crypto Invoices for Free
                 </h1>
             </div>
         </div>
         <div
-            class="flex flex-col md:flex-row justify-center items-center gap-2 text-cerulean-blue-900 my-8 px-4 md:px-0">
-            <span class="inline-block">Direct transfer</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-cerulean-blue-900 hidden md:inline-block"></span>
-            <span class="inline-block">Zero platform fees (just low network fee)</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-cerulean-blue-900 hidden md:inline-block"></span>
-            <span class="inline-block">Privacy</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-cerulean-blue-900 hidden md:inline-block"></span>
-            <span class="inline-block">Global access</span>
+            class="flex flex-col md:flex-row justify-center items-center gap-2 text-cerulean-blue-800 text-base md:text-lg font-medium my-8 px-4 md:px-0">
+            <span class="inline-block">Direct Transfers</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-cerulean-blue-800 hidden md:inline-block"></span>
+            <span class="inline-block">Zero Platform Fees</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-cerulean-blue-800 hidden md:inline-block"></span>
+            <span class="inline-block">Complete Privacy</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-cerulean-blue-800 hidden md:inline-block"></span>
+            <span class="inline-block">Global Access</span>
         </div>
         <div class="basis-full text-center md:my-0">
-            <nuxt-link class="btn bg-cerulean-blue-50 border-cerulean-blue-700 !hover:bg-white text-cerulean-blue-900"
+            <nuxt-link class="btn bg-cerulean-blue-600 hover:bg-cerulean-blue-700 border-cerulean-blue-700 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-200"
                 :to="runtimeConfig.public.baseURL + 'invoice/fff45e65-9088-4928-9261-38abe1944cec'">See Demo
                 Invoice</nuxt-link>
         </div>

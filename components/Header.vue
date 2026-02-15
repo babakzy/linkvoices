@@ -29,7 +29,7 @@
               <nuxt-link to="/dashboard" class="py-2 px-2 bg-spring-wood-200 rounded-md">Dashboard</nuxt-link>
             </li>
             <li v-else class=" inline-block md:ml-4">
-              <nuxt-link class="btn btn-primary" to="/login">Login</nuxt-link>
+              <nuxt-link class="btn btn-primary font-semibold" to="/login">Login / Register</nuxt-link>
             </li>
           </ul>
 

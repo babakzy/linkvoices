@@ -3,10 +3,10 @@
         <div id="textWrap" class="md:container mx-auto flex flex-wrap items-center justify-around">
             <div class="basis-full md:basis-3/4 relative ">
             <div class=" absolute h-auto top-0 left-0 right-0 text-center">
-                <h2 class=" text-3xl md:text-5xl text-spring-wood-50 capitalize ">
-                    We dont't need central banks anymore
+                <h2 class=" text-3xl md:text-5xl font-bold text-spring-wood-50 capitalize leading-tight">
+                    We Don't Need Central Banks Anymore
                 </h2>
-                <p class="text-spring-wood-100 max-w-3xl mt-4 mx-auto leading-6">Decentralized finance removes traditional banking intermediaries, allowing you to securely manage and grow your wealth through blockchain technology - without high fees or restricted access.</p>
+                <p class="text-spring-wood-100 text-base md:text-lg max-w-3xl mt-6 mx-auto leading-relaxed px-4">Decentralized finance removes traditional banking intermediaries, allowing you to securely manage and grow your wealth through blockchain technology—without excessive fees or restricted access.</p>
                 <div class="relative mt-16 ">
                     <div id="bank-icon"
                         class="inline-block absolute w-[120px] z-10 top-[50%] mt-[-30px] md:mt-0 md:top-[-60px] right-0 left-0 m-auto  bg-cerulean-blue-700 p-5 rounded-full ">
