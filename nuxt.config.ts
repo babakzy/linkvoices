@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", '@nuxtjs/supabase', "@nuxtjs/seo", '@nuxt/content'],
+  modules: ["@nuxtjs/tailwindcss", '@nuxtjs/supabase', "@nuxtjs/seo"],
   app: {
     head: {
       script: [
@@ -68,10 +68,6 @@ export default defineNuxtConfig({
     //   card: 'summary_large_image',
     //   site: '@yourtwitterhandle',
     // }
-  },
-  content: {
-    // Default content directory
-    dir: 'content'
   },
   ogImage: {
     enabled: true

@@ -26,10 +26,10 @@
           </ul>
           <ul class="inline-block">
             <li v-if="user" class="md:mx-4  inline-block">
-              <nuxt-link to="/dashboard" class="py-2 px-2 bg-spring-wood-200 rounded-md">Dashboard</nuxt-link>
+              <nuxt-link to="/dashboard" class="py-2 px-2 bg-spring-wood-200 text-cerulean-blue-900 rounded-md">Dashboard</nuxt-link>
             </li>
             <li v-else class=" inline-block md:ml-4">
-              <nuxt-link class="btn btn-primary font-semibold" to="/login">Login / Register</nuxt-link>
+              <nuxt-link class="btn bg-cerulean-blue-600 hover:bg-cerulean-blue-700 border-cerulean-blue-700 text-cerulean-blue-50 font-semibold shadow-md hover:shadow-lg transition-all duration-200" to="/login">Login / Register</nuxt-link>
             </li>
           </ul>
 

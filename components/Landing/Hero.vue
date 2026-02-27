@@ -20,7 +20,7 @@
             <span class="inline-block">Global Access</span>
         </div>
         <div class="basis-full text-center md:my-0">
-            <nuxt-link class="btn bg-cerulean-blue-600 hover:bg-cerulean-blue-700 border-cerulean-blue-700 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-200"
+            <nuxt-link class="btn bg-cerulean-blue-600 hover:bg-cerulean-blue-700 border-cerulean-blue-700 text-cerulean-blue-50 font-semibold shadow-md hover:shadow-lg transition-all duration-200"
                 :to="runtimeConfig.public.baseURL + 'invoice/fff45e65-9088-4928-9261-38abe1944cec'">See Demo
                 Invoice</nuxt-link>
         </div>

@@ -37,8 +37,8 @@
         </div>
         
         <img 
-          v-if="post.image" 
-          :src="post.image" 
+          v-if="post.og_image || post.image" 
+          :src="post.og_image || post.image" 
           :alt="post.alt || post.title" 
           class="w-full rounded-lg shadow-sm mb-6" 
         />
@@ -47,16 +47,10 @@
           {{ post.description }}
         </p>
         
-        <div class="tags mb-8">
-          <span v-for="tag in post.tags" :key="tag" class="inline-block bg-blue-200 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
-            {{ tag }}
-          </span>
-        </div>
-        
         <!-- Markdown Content -->
         <div
           v-html="renderedContent"
-          class="prose prose-lg prose-pre:max-w-xs sm:prose-pre:max-w-full prose-h1:no-underline max-w-5xl mx-auto prose-zinc prose-img:rounded-lg prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:text-blue-700"
+          class="prose prose-lg max-w-5xl mx-auto prose-zinc prose-img:rounded-lg prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-pre:max-w-xs sm:prose-pre:max-w-full prose-h1:text-3xl prose-h1:font-bold prose-h1:mt-8 prose-h1:mb-4 prose-h1:no-underline prose-h2:text-2xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-3 prose-h3:text-xl prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-2 prose-h4:text-lg prose-h4:font-semibold prose-h4:mt-4 prose-h4:mb-2 prose-h5:text-base prose-h5:font-semibold prose-h5:mt-3 prose-h5:mb-1 prose-h6:text-sm prose-h6:font-semibold prose-h6:mt-2 prose-h6:mb-1 prose-p:my-4 prose-ul:my-4 prose-ol:my-4 prose-li:my-1"
         ></div>
         
         <!-- Share Section -->
@@ -103,9 +97,14 @@ import { marked } from 'marked'
 
 const route = useRoute()
 const { getPostBySlug } = useBlog()
+const slug = route.params.slug
 
-const loading = ref(true)
-const post = ref(null)
+const { data: post, pending: loading } = await useAsyncData(
+  `blog-post-${slug}`,
+  () => getPostBySlug(slug),
+  { default: () => null }
+)
+
 const currentUrl = ref('')
 
 // Configure marked for better rendering
@@ -119,6 +118,18 @@ const renderedContent = computed(() => {
   if (!post.value || !post.value.content) return ''
   return marked(post.value.content)
 })
+
+// Set current URL on client
+onMounted(() => {
+  if (process.client) {
+    currentUrl.value = window.location.href
+  }
+})
+
+// Set 404 status when post not found (SSR)
+if (!loading.value && !post.value && import.meta.server) {
+  setResponseStatus(404)
+}
 
 // Set up meta tags
 useHead(() => {
@@ -150,30 +161,6 @@ const copyToClipboard = () => {
     alert('Link copied to clipboard!')
   }
 }
-
-onMounted(async () => {
-  try {
-    // Set current URL
-    if (process.client) {
-      currentUrl.value = window.location.href
-    }
-    
-    // Fetch blog post from database
-    const slug = route.params.slug
-    post.value = await getPostBySlug(slug)
-    
-    // If post not found, redirect to 404 after a short delay
-    if (!post.value) {
-      setTimeout(() => {
-        navigateTo('/404')
-      }, 2000)
-    }
-  } catch (error) {
-    console.error('Failed to load blog post:', error)
-  } finally {
-    loading.value = false
-  }
-})
 </script>
 
 <style scoped>
