@@ -190,7 +190,6 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import convertToSimpleDate from '~/utils';
 const route = useRoute();
-import { jsPDF } from "jspdf";
 const supabase = useSupabaseClient()
 const invoiceNumber = ref("001")
 const issueDate = ref(new Date())
@@ -204,7 +203,8 @@ const invoiceTotal = ref(0)
 const invoiceWalletAddress = ref("")
 const showPaymentInfo = ref(false)
 const transactionID = ref("")
-const downloadInvoicePDF = () => {
+const downloadInvoicePDF = async () => {
+    const { jsPDF } = await import('jspdf');
     const doc = new jsPDF();
 
     // Set global styles
@@ -299,19 +299,19 @@ async function getInvoiceById(id) {
     let { data, error } = await supabase
         .from('invoices')
         .select("*")
-        // Filters
         .eq('invoice_uuid', id)
-    if (data.length) {
+    if (error) {
+        console.error('Error fetching invoice:', error)
+        return
+    }
+    if (data && data.length) {
         invoiceInfo.value = data[0]
         invoiceNumber.value = data[0].number;
-        senderEmail.value = data[0].from;
-        recieverEmail.value = data[0].to;
-        invoiceNumber.value = data[0].number;
+        senderEmail.value = data[0].from_email;
+        recieverEmail.value = data[0].to_email;
         invoiceTotal.value = data[0].total;
         invoiceWalletAddress.value = data[0].wallet_address;
-        console.log(data[0])
         invoiceItems = data[0].items
-        console.log(invoiceItems)
     }
 }
 

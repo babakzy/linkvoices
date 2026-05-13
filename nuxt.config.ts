@@ -70,6 +70,6 @@ export default defineNuxtConfig({
     // }
   },
   ogImage: {
-    enabled: true
+    enabled: false
   }
 })
