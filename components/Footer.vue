@@ -7,7 +7,10 @@
                         <nuxt-link to="/">
                             <img class="w-48 mb-4" src="@/assets/images/mainlogo.svg" alt="linkvoices - crypto invoices">
                         </nuxt-link>
-                        <p class="text-gray-600">Decentralized invoicing powered by cryptocurrency</p>
+                        <p class="text-gray-600 mb-2">Decentralized invoicing powered by cryptocurrency</p>
+                        <a href="https://open-launch.com/projects/linkvoices" target="_blank" rel="noopener">
+  <img src="https://open-launch.com/api/badge/811ef735-c89d-4cc0-8c72-878f2c0fe5fd/featured-light.svg" alt="Featured on Open-Launch" width="200" height="50" />
+</a>
                     </div>
                 </div>
                 
