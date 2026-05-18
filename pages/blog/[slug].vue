@@ -96,6 +96,8 @@
 import { marked } from 'marked'
 
 const route = useRoute()
+const config = useRuntimeConfig()
+const siteUrl = config.public.url || 'https://linkvoices.com'
 const { getPostBySlug } = useBlog()
 const slug = route.params.slug
 
@@ -131,26 +133,58 @@ if (!loading.value && !post.value && import.meta.server) {
   setResponseStatus(404)
 }
 
-// Set up meta tags
 useHead(() => {
   if (!post.value) {
-    return {
-      title: 'Article Not Found - Linkvoices'
-    }
+    return { title: 'Article Not Found — Linkvoices' }
   }
-  
+
+  const postUrl = `${siteUrl}/blog/${post.value.slug || slug}`
+  const image = post.value.og_image || post.value.image || '/placeholder.jpg'
+  const absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`
+  const description = post.value.meta_description || post.value.description || 'Read our latest blog post on Linkvoices.'
+
   return {
-    title: post.value.meta_title || post.value.title || 'Blog - Linkvoices',
+    title: post.value.meta_title || post.value.title || 'Blog — Linkvoices',
+    link: [
+      { rel: 'canonical', href: postUrl }
+    ],
     meta: [
-      { name: 'description', content: post.value.meta_description || post.value.description || 'Read our latest blog post' },
+      { name: 'description', content: description },
+      { name: 'robots', content: 'index, follow' },
       { property: 'og:type', content: 'article' },
+      { property: 'og:url', content: postUrl },
       { property: 'og:title', content: post.value.title },
-      { property: 'og:description', content: post.value.description },
-      { property: 'og:image', content: post.value.og_image || post.value.image || '/placeholder.jpg' },
+      { property: 'og:description', content: description },
+      { property: 'og:image', content: absoluteImage },
+      { property: 'og:site_name', content: 'Linkvoices' },
+      ...(post.value.date ? [{ property: 'article:published_time', content: post.value.date }] : []),
+      ...(post.value.author_name ? [{ property: 'article:author', content: post.value.author_name }] : []),
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: post.value.title },
-      { name: 'twitter:description', content: post.value.description },
-      { name: 'twitter:image', content: post.value.og_image || post.value.image || '/placeholder.jpg' },
+      { name: 'twitter:description', content: description },
+      { name: 'twitter:image', content: absoluteImage },
+    ],
+    script: [
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: post.value.title,
+          description: description,
+          image: absoluteImage,
+          url: postUrl,
+          datePublished: post.value.date || undefined,
+          author: post.value.author_name
+            ? { '@type': 'Person', name: post.value.author_name }
+            : { '@type': 'Organization', name: 'Linkvoices' },
+          publisher: {
+            '@type': 'Organization',
+            name: 'Linkvoices',
+            url: siteUrl
+          }
+        })
+      }
     ]
   }
 })

@@ -6,6 +6,7 @@
         <LandingAdvantages />
         <!-- <LandingSteps /> -->
          <LandingFaq/>
+        <LandingSeoContent />
         </main>
         <Footer />
     </div>

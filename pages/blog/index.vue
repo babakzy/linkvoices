@@ -56,14 +56,37 @@ const { data: posts, pending: loading } = await useAsyncData(
   { default: () => [] }
 )
 
+const config = useRuntimeConfig()
+const siteUrl = config.public.url || 'https://linkvoices.com'
+const blogUrl = `${siteUrl}/blog`
+
 useHead({
-  title: 'Blog - Linkvoices',
+  title: 'Blog — Crypto Payments & Invoicing Insights | Linkvoices',
+  link: [
+    { rel: 'canonical', href: blogUrl }
+  ],
   meta: [
     {
       name: 'description',
-      content: 'Information about the new decentralized world and cryptocurrency payments.',
+      content: 'Insights on cryptocurrency payments, crypto invoicing, Bitcoin, Ethereum, and the future of decentralised finance. Practical guides for freelancers and businesses.'
     },
-  ],
+    { name: 'keywords', content: 'crypto blog, cryptocurrency payments, bitcoin guide, ethereum, crypto invoicing, decentralized finance, DeFi' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: blogUrl },
+    { property: 'og:title', content: 'Blog — Crypto Payments & Invoicing Insights | Linkvoices' },
+    {
+      property: 'og:description',
+      content: 'Insights on cryptocurrency payments, crypto invoicing, and the future of decentralised finance.'
+    },
+    { property: 'og:site_name', content: 'Linkvoices' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Blog — Crypto Payments & Invoicing Insights | Linkvoices' },
+    {
+      name: 'twitter:description',
+      content: 'Insights on cryptocurrency payments, crypto invoicing, and the future of decentralised finance.'
+    },
+    { name: 'robots', content: 'index, follow' }
+  ]
 })
 </script>
 
