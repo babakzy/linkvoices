@@ -160,151 +160,38 @@ const unpublished = await unpublishPost('my-post')
 
 ## useTracking
 
-Composable for analytics and tracking operations.
+Composable for **authentication activity** logged to Supabase (`user_activity`).  
+Invoked automatically from `plugins/auth-tracking.client.ts` on sign-in / sign-out; you can call `trackUserActivity` manually only when it makes sense (user must be signed in).
 
 ### Import
 
 ```javascript
-const {
-  trackPageView,
-  trackInvoiceView,
-  getInvoiceAnalytics,
-  getAggregatedAnalytics,
-  parseUserAgent,
-  getSessionId,
-  getVisitorId
-} = useTracking()
+const { trackUserActivity, parseUserAgent } = useTracking()
 ```
 
 ### Methods
 
-#### `trackPageView()`
+#### `trackUserActivity(activityType?)`
 
-Track a page view with device, browser, OS, and location data.
-
-**Returns:** `Promise<void>`
-
-**Usage:**
-```javascript
-// In onMounted or page lifecycle
-onMounted(async () => {
-  await trackPageView()
-})
-```
-
-**What it tracks:**
-- Page path and title
-- Referrer URL
-- Session and visitor IDs (anonymous)
-- Browser and version
-- Operating system and version
-- Device type (mobile/tablet/desktop)
-- Country, city, region
-- Hashed IP address
-
-#### `trackInvoiceView(invoiceUuid)`
-
-Track when an invoice is viewed.
-
-**Parameters:**
-- `invoiceUuid` (string) - UUID of the invoice
+Writes one row when the Supabase session has a user. Default `activityType` is `'login'`; schema allows `'registration' | 'login' | 'logout'`.
 
 **Returns:** `Promise<void>`
 
-```javascript
-const invoiceUuid = route.params.id
-await trackInvoiceView(invoiceUuid)
-```
-
-**What it tracks:**
-- Invoice UUID
-- Session and visitor IDs
-- Device, browser, OS information
-- Location data
-- Hashed IP
-
-#### `getInvoiceAnalytics(invoiceUuid?)`
-
-Get raw analytics data for invoices.
-
-**Parameters:**
-- `invoiceUuid` (string, optional) - Specific invoice UUID, or null for all
-
-**Returns:** `Promise<Array>`
+Collects parsed user-agent fields, optional IP (`api.ipify.org`), and coarse location (`ipapi.co`), then inserts into `user_activity`. Failures are logged with `console.warn` and must not block the UI.
 
 ```javascript
-// Get all invoice views
-const allViews = await getInvoiceAnalytics()
-
-// Get views for specific invoice
-const invoiceViews = await getInvoiceAnalytics('abc-123-def')
-```
-
-#### `getAggregatedAnalytics(invoiceUuid?)`
-
-Get aggregated analytics with statistics and breakdowns.
-
-**Parameters:**
-- `invoiceUuid` (string, optional) - Specific invoice UUID, or null for all
-
-**Returns:** `Promise<Object>`
-
-```javascript
-const analytics = await getAggregatedAnalytics('abc-123')
-
-console.log(analytics)
-// {
-//   totalViews: 45,
-//   uniqueVisitors: 28,
-//   byCountry: { 'United States': 20, 'Canada': 15, ... },
-//   byDevice: { 'mobile': 30, 'desktop': 15 },
-//   byBrowser: { 'Chrome': 25, 'Safari': 10, ... },
-//   recentViews: [{ id, created_at, browser, ... }]
-// }
+await trackUserActivity('login')
 ```
 
 #### `parseUserAgent(userAgent?)`
 
-Parse user agent string to extract browser and OS information.
+Parses browser name/version, OS, device type, and returns `{ browser, browserVersion, os, osVersion, deviceType, userAgent }`.
 
 **Parameters:**
-- `userAgent` (string, optional) - User agent string (defaults to navigator.userAgent)
+
+- `userAgent` (string, optional) — defaults to `navigator.userAgent` on client
 
 **Returns:** `Object`
-
-```javascript
-const info = parseUserAgent()
-// {
-//   browser: 'Chrome',
-//   browserVersion: '120.0',
-//   os: 'Windows',
-//   osVersion: '10',
-//   deviceType: 'desktop',
-//   userAgent: 'Mozilla/5.0...'
-// }
-```
-
-#### `getSessionId()`
-
-Get or create an anonymous session ID (stored in sessionStorage).
-
-**Returns:** `string|null`
-
-```javascript
-const sessionId = getSessionId()
-// Returns: 'session_1234567890_abc123def'
-```
-
-#### `getVisitorId()`
-
-Get or create an anonymous visitor ID (stored in localStorage).
-
-**Returns:** `string|null`
-
-```javascript
-const visitorId = getVisitorId()
-// Returns: 'visitor_1234567890_xyz789'
-```
 
 ---
 
@@ -465,27 +352,6 @@ interface Invoice {
 }
 ```
 
-### Analytics Object
-
-```typescript
-interface Analytics {
-  totalViews: number
-  uniqueVisitors: number
-  byCountry: Record<string, number>
-  byDevice: Record<string, number>
-  byBrowser: Record<string, number>
-  recentViews: Array<{
-    id: number
-    created_at: string
-    browser: string
-    os: string
-    device_type: string
-    country: string
-    // ... other fields
-  }>
-}
-```
-
 ---
 
 ## Best Practices
@@ -523,55 +389,31 @@ onMounted(async () => {
 })
 ```
 
-### Tracking Best Practices
+### Tracking note
 
-1. **Track on page mount**: Call tracking functions in `onMounted()`
-2. **Don't block UI**: Use async/await but don't wait for tracking to complete UI rendering
-3. **Handle errors gracefully**: Tracking failures shouldn't break the app
+Authentication events are recorded from `plugins/auth-tracking.client.ts`. Do not rely on blocking the UI on `trackUserActivity`; use `.catch(console.warn)` or fire-and-forget patterns if you invoke it elsewhere.
 
 ```javascript
-onMounted(async () => {
-  // Track but don't block
-  trackPageView().catch(console.warn)
-  
-  // Load data
-  await loadData()
+onMounted(() => {
+  trackUserActivity('login').catch(console.warn)
 })
 ```
+
 
 ---
 
 ## Examples
 
-### Complete Blog Page Example
+### Blog listing
 
 ```vue
-<template>
-  <div>
-    <div v-if="loading">Loading...</div>
-    <div v-else-if="posts.length === 0">No posts yet</div>
-    <div v-else>
-      <article v-for="post in posts" :key="post.slug">
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.description }}</p>
-        <NuxtLink :to="`/blog/${post.slug}`">Read more</NuxtLink>
-      </article>
-    </div>
-  </div>
-</template>
-
 <script setup>
 const { getPublishedPosts } = useBlog()
-const { trackPageView } = useTracking()
 
 const loading = ref(true)
 const posts = ref([])
 
 onMounted(async () => {
-  // Track page view
-  trackPageView()
-  
-  // Load posts
   try {
     posts.value = await getPublishedPosts()
   } catch (error) {
@@ -583,68 +425,25 @@ onMounted(async () => {
 </script>
 ```
 
-### Invoice Analytics Example
-
-```vue
-<template>
-  <div>
-    <select v-model="selectedInvoice" @change="loadAnalytics">
-      <option value="">All Invoices</option>
-      <option v-for="invoice in invoices" :key="invoice.invoice_uuid" :value="invoice.invoice_uuid">
-        {{ invoice.number }}
-      </option>
-    </select>
-    
-    <div v-if="analytics">
-      <h3>Total Views: {{ analytics.totalViews }}</h3>
-      <h3>Unique Visitors: {{ analytics.uniqueVisitors }}</h3>
-      
-      <h4>By Country:</h4>
-      <ul>
-        <li v-for="(count, country) in analytics.byCountry" :key="country">
-          {{ country }}: {{ count }}
-        </li>
-      </ul>
-    </div>
-  </div>
-</template>
-
-<script setup>
-const { getAggregatedAnalytics } = useTracking()
-
-const selectedInvoice = ref('')
-const analytics = ref(null)
-
-const loadAnalytics = async () => {
-  analytics.value = await getAggregatedAnalytics(selectedInvoice.value || null)
-}
-
-onMounted(() => {
-  loadAnalytics()
-})
-</script>
-```
-
 ---
 
 ## Environment Variables
 
 Required environment variables in `.env`:
 
-```bash
-# Supabase Configuration
+```
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_KEY=your-anon-key
-
-# Base URL (for invoice links)
-BASE_URL=https://yourdomain.com/
+URL=http://localhost:3000
 ```
+
+Alternate: `BASE_URL` (normalized the same way in `nuxt.config.ts`).
 
 ---
 
 ## Support
 
 For more information:
-- Main documentation: [README.md](../README.md)
-- Migration guide: [MIGRATION_GUIDE.md](../MIGRATION_GUIDE.md)
+- Main readme: [README.md](../README.md)
+- Developer guide: [DEVELOPMENT.md](./DEVELOPMENT.md)
 - Supabase setup: [supabase/README.md](../supabase/README.md)

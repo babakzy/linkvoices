@@ -1,8 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const appUrl = (process.env.URL || process.env.BASE_URL || 'http://localhost:3000').replace(/\/$/, '')
+
 export default defineNuxtConfig({
   runtimeConfig: {
     public: {
-      baseURL: process.env.BASE_URL,
+      url: appUrl,
+      baseURL: `${appUrl}/`,
     }
   },
   compatibilityDate: '2024-04-03',
@@ -57,7 +60,7 @@ export default defineNuxtConfig({
     ]
   },
   site: {
-    url: process.env.BASE_URL,
+    url: appUrl,
     name: 'Linkvoices',
     description: 'send direct crypto invoices',
     defaultLocale: 'en',

@@ -4,7 +4,7 @@
 
 ![Linkvoices](https://github.com/babakzy/linkvoices/blob/main/assets/images/linkvoice-logo-bg.png?raw=true)
 
-**Let's decentralize power and authorities by using cryptocurrencies in our daily payments**
+**Crypto invoices with Supabase-backed auth and a database-driven blog**
 
 [![Nuxt 3](https://img.shields.io/badge/Nuxt-3.x-00DC82?logo=nuxt.js)](https://nuxt.com)
 [![Vue 3](https://img.shields.io/badge/Vue-3.x-4FC08D?logo=vue.js)](https://vuejs.org)
@@ -13,273 +13,106 @@
 
 </div>
 
-## 🚀 Overview
+## Overview
 
-Linkvoices is a modern, privacy-focused cryptocurrency invoice generator that allows freelancers, businesses, and individuals to create and send professional invoices for crypto payments. Built with Nuxt 3, Vue 3, and powered by Supabase, it offers a seamless experience for managing crypto transactions.
+Linkvoices lets you create and share crypto invoices (BTC, ETH, USDT, DAI), manage wallets, and publish blog posts stored in Postgres. Authentication and data use Supabase with Row Level Security.
 
-### ✨ Key Features
+## Features
 
-- 💰 **Multi-Currency Support**: Bitcoin (BTC), Ethereum (ETH), USDT, and DAI
-- 📊 **Invoice Management**: Create, edit, and track invoices with ease
-- 🔐 **Privacy-Focused Analytics**: Track invoice views without collecting personal data
-- 📝 **Blog System**: Built-in blog for crypto-related content
-- 🎨 **Modern UI**: Clean, responsive design with TailwindCSS
-- 📈 **Analytics Dashboard**: Detailed insights on invoice engagement
-- 🔒 **Secure**: Row Level Security with Supabase
-- 🌍 **Geolocation**: Track viewer locations (country/city level only)
+- Multi-currency invoices with shareable public URLs (`invoice_uuid`)
+- Wallet addresses on user profiles
+- Blog stored in Supabase (`blog_posts`), optional seed from `content/*.md`
+- Auth activity logging (`user_activity`) for backend/analysis use only
+- Responsive UI (Tailwind + DaisyUI); design notes in [`LINKVOICES_UI_KIT.md`](./LINKVOICES_UI_KIT.md)
 
-## 🎯 What's New
+## Quick start
 
-This is a complete rebuild with the following improvements:
+**Prerequisites:** Node.js 18+, npm/yarn/pnpm, a Supabase project.
 
-### Database & Backend
-- ✅ Complete Supabase migration files
-- ✅ Proper indexing and foreign key relationships
-- ✅ Row Level Security for all tables
-- ✅ Automatic profile creation on signup
-- ✅ Soft delete support for invoices
+1. **Clone and install**
 
-### Blog System
-- ✅ Migrated from markdown files to database
-- ✅ Dynamic blog management
-- ✅ Tag system and publishing workflow
-- ✅ SEO optimization
-- ✅ Markdown rendering with `marked`
+   ```bash
+   git clone https://github.com/babakzy/linkvoices.git && cd linkvoices
+   npm install
+   ```
 
-### Analytics & Tracking
-- ✅ Privacy-focused tracking (no PII)
-- ✅ Device, browser, and OS detection
-- ✅ Geographic insights (country/city)
-- ✅ Per-invoice analytics
-- ✅ Visual analytics dashboard
-- ✅ Anonymous visitor and session tracking
+2. **Environment** — create `.env` in the repo root:
 
-### Code Quality
-- ✅ New composables for blog and tracking
-- ✅ Better error handling
-- ✅ Loading and empty states
-- ✅ Improved component structure
+   ```bash
+   SUPABASE_URL=https://your-project.supabase.co
+   SUPABASE_KEY=your-anon-key
+   URL=http://localhost:3000
+   ```
 
-## 📋 Prerequisites
+   `nuxt.config` also accepts `BASE_URL`; keep a trailing slash optional (it is normalized).
 
-- Node.js 18+ 
-- npm or yarn
-- Supabase account (free tier available)
+3. **Database** — Supabase Dashboard → SQL Editor → run the full file  
+   [`supabase/migrations/20240101000000_initial_schema.sql`](./supabase/migrations/20240101000000_initial_schema.sql).
 
-## 🛠️ Installation
+4. **Blog seed (optional)** — `npm run seed:blog`
 
-### 1. Clone the repository
+5. **Dev server** — `npm run dev` → [http://localhost:3000](http://localhost:3000)
 
-```bash
-git clone https://github.com/babakzy/linkvoices.git
-cd linkvoices
-```
+**Troubleshooting:** Wrong credentials → check `.env` and restart dev server. Missing tables → re-run migration. Empty blog → run seed or insert rows in `blog_posts`.
 
-### 2. Install dependencies
+## Documentation
 
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-```
+| Doc | Contents |
+|-----|----------|
+| [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md) | Architecture, schema summary, tracking behavior |
+| [docs/API_REFERENCE.md](./docs/API_REFERENCE.md) | Composables (`useBlog`, `useTracking`, user helpers) |
+| [supabase/README.md](./supabase/README.md) | Supabase setup and schema notes |
+| [LINKVOICES_UI_KIT.md](./LINKVOICES_UI_KIT.md) | Brand, layout, Tailwind tokens |
 
-### 3. Set up Supabase
-
-1. Create a new project at [supabase.com](https://supabase.com)
-2. Copy your project credentials
-3. Create a `.env` file in the root directory:
-
-```bash
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_KEY=your-anon-key-here
-BASE_URL=http://localhost:3000/
-```
-
-### 4. Run database migrations
-
-Follow the detailed instructions in `supabase/README.md`:
-
-1. Go to your Supabase project dashboard
-2. Navigate to SQL Editor
-3. Copy and paste the contents of `supabase/migrations/20240101000000_initial_schema.sql`
-4. Run the migration
-
-### 5. Seed blog posts (optional)
-
-If you have existing markdown blog posts in the `content/` directory:
-
-```bash
-npm run seed:blog
-```
-
-### 6. Start development server
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 📚 Documentation
-
-- **[Migration Guide](./MIGRATION_GUIDE.md)** - Complete guide to the rebuild and new features
-- **[Supabase Setup](./supabase/README.md)** - Detailed Supabase configuration
-- **[UI Kit](./LINKVOICES_UI_KIT.md)** - Design system and components
-
-## 🏗️ Project Structure
+## Project structure
 
 ```
 linkvoices/
-├── assets/              # Images, styles, and static assets
-├── components/          # Vue components
-│   ├── Landing/        # Landing page components
-│   └── ...
-├── composables/        # Reusable composition functions
-│   ├── useBlog.js     # Blog operations
-│   ├── useTracking.js # Analytics & tracking
-│   └── user.js        # User profile operations
-├── content/           # Markdown blog posts (legacy)
-├── layouts/           # Nuxt layouts
-├── pages/             # Application pages
-│   ├── blog/         # Blog pages
-│   ├── dashboard/    # Dashboard pages
-│   └── invoice/      # Invoice pages
-├── plugins/           # Nuxt plugins
-├── public/            # Public assets
-├── scripts/           # Utility scripts
-│   └── seed-blog-posts.js
-├── supabase/          # Database migrations
-│   ├── migrations/
-│   └── README.md
-├── types/             # TypeScript definitions
-└── utils/             # Utility functions
+├── components/       # Vue components
+├── composables/      # useBlog, useTracking, user.js
+├── content/          # Legacy markdown (seed source)
+├── pages/            # Routes (dashboard, blog, invoice, …)
+├── plugins/          # e.g. auth-tracking.client.ts
+├── scripts/          # seed-blog-posts.js
+├── supabase/         # migrations + README
+├── docs/             # Developer docs
+└── nuxt.config.ts
 ```
 
-## 🎨 Tech Stack
+## Tech stack
 
-- **Framework**: [Nuxt 3](https://nuxt.com)
-- **Frontend**: [Vue 3](https://vuejs.org)
-- **Styling**: [TailwindCSS](https://tailwindcss.com) + [DaisyUI](https://daisyui.com)
-- **Database**: [Supabase](https://supabase.com) (PostgreSQL)
-- **Authentication**: Supabase Auth
-- **Markdown**: [marked](https://marked.js.org)
-- **PDF Generation**: jsPDF + html2canvas
-- **Analytics**: Custom tracking system
+Nuxt 3, Vue 3, TailwindCSS, DaisyUI, Supabase Auth + Postgres, `marked`, jsPDF/html2canvas for PDF-related flows where used.
 
-## 📊 Database Schema
+## Security & privacy
 
-### Core Tables
+- RLS on all application tables.
+- Invoice public access uses `invoice_uuid`; owners manage invoices when signed in.
+- `user_activity` holds technical/metadata fields for auth events; treat as privileged data and query with the service role or Supabase dashboard as documented in the migration policies.
 
-- **profiles** - User profiles and wallet addresses
-- **invoices** - Invoice data and details
-- **transactions** - Payment transaction records
-- **blog_posts** - Blog content management
-
-### Analytics Tables
-
-- **page_views** - General page view tracking
-- **invoice_views** - Invoice-specific analytics
-
-See `supabase/README.md` for complete schema documentation.
-
-## 🔐 Security & Privacy
-
-### Data Protection
-- Row Level Security (RLS) enabled on all tables
-- Users can only access their own data
-- IP addresses are hashed (SHA-256)
-- No cookies for tracking
-- Anonymous visitor/session IDs
-
-### Best Practices
-- Environment variables for sensitive data
-- Server-side operations use service role key
-- Public access limited to necessary data
-- Authentication required for dashboard
-
-## 📈 Analytics Features
-
-The analytics system tracks:
-
-- **Device Information**: Type (mobile/tablet/desktop), browser, OS
-- **Geographic Data**: Country, city, region
-- **Engagement**: Total views, unique visitors, sessions
-- **Privacy**: No personal data, hashed IPs, anonymous IDs
-
-View analytics in the dashboard at `/dashboard/analytics`
-
-## 🚢 Deployment
-
-### Build for production
+## Scripts
 
 ```bash
-npm run build
-```
-
-### Generate static site
-
-```bash
-npm run generate
-```
-
-### Preview production build
-
-```bash
-npm run preview
-```
-
-### Deployment Platforms
-
-Linkvoices can be deployed to:
-- [Vercel](https://vercel.com) (recommended)
-- [Netlify](https://netlify.com)
-- [Cloudflare Pages](https://pages.cloudflare.com)
-- Any Node.js hosting
-
-## 🧪 Development Scripts
-
-```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run generate     # Generate static site
+npm run dev          # Dev server
+npm run build        # Production build
+npm run generate     # Static generation
 npm run preview      # Preview production build
-npm run seed:blog    # Seed blog posts from markdown files
+npm run seed:blog    # Import content/*.md → blog_posts
 ```
 
-## 🤝 Contributing
+## Deployment
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Build with `npm run build` (or `npm run generate` for static). Set `SUPABASE_*` and `URL`/`BASE_URL` on the host (e.g. Vercel, Netlify, Cloudflare Pages).
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## Contributing
 
-## 📝 License
+Fork, branch, open a PR. Issues and discussions welcome on GitHub.
 
-This project is open source and available under the [MIT License](LICENSE).
+## License
 
-## 💡 Support
-
-- **Issues**: [GitHub Issues](https://github.com/babakzy/linkvoices/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/babakzy/linkvoices/discussions)
-
-## 🙏 Acknowledgments
-
-- Built with [Nuxt 3](https://nuxt.com)
-- Powered by [Supabase](https://supabase.com)
-- Icons from [Material Symbols](https://fonts.google.com/icons)
-- Fonts from [Satoshi](https://www.fontshare.com/fonts/satoshi)
-
----
+[MIT License](LICENSE).
 
 <div align="center">
 
-Made with ❤️ for the crypto community
-
-**[Website](https://linkvoices.com)** • **[Documentation](./MIGRATION_GUIDE.md)** • **[Report Bug](https://github.com/babakzy/linkvoices/issues)**
+**[Website](https://linkvoices.com)** • **[Development docs](./docs/DEVELOPMENT.md)** • **[Issues](https://github.com/babakzy/linkvoices/issues)**
 
 </div>

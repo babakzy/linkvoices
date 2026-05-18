@@ -73,8 +73,7 @@ After running the migration, verify the tables were created:
    - `invoices` - Invoice data
    - `transactions` - Payment transaction records
    - `blog_posts` - Blog content
-   - `page_views` - Page analytics
-   - `invoice_views` - Invoice-specific analytics
+   - `user_activity` - Auth events for backend/analysis (registration, login, logout)
 
 ### 6. Seed Blog Posts (Optional)
 
@@ -140,20 +139,12 @@ Stores blog content (replaces markdown files).
 - Tag support
 - Publishing workflow
 
-### Analytics Tables
+### Auth activity (backend only)
 
-#### `page_views`
-Tracks general page views with device and location data.
-- Non-personal tracking (no PII)
-- Browser, OS, device type detection
-- Country/city geolocation (IP-based)
-- Anonymous visitor and session IDs
-
-#### `invoice_views`
-Tracks specific invoice views for analytics.
-- Per-invoice analytics
-- Same tracking fields as page_views
-- Helps invoice creators see engagement
+#### `user_activity`
+Records signup/login/logout with device and coarse location metadata.
+- Rows are inserted by the app using the authenticated user (`INSERT` allowed for own `user_id`)
+- **SELECT** is restricted to privileged roles per migration policies — use the Supabase dashboard or service role for reporting
 
 ## 🔒 Security Features
 
@@ -165,13 +156,11 @@ All tables have RLS enabled with appropriate policies:
 - **invoices**: Users can only manage their own invoices, but anyone can view by UUID
 - **transactions**: Users can view transactions for their invoices
 - **blog_posts**: Public can read published posts, authors can manage their own
-- **page_views/invoice_views**: Anyone can insert, authenticated users can view analytics
+- **user_activity**: Authenticated users can insert rows for themselves; privileged access for reads (see migration SQL)
 
-### Data Privacy
+### Data privacy notes
 
-- IP addresses are hashed (SHA-256) for privacy
-- Only non-personal tracking data is stored
-- No PII (Personal Identifiable Information) in analytics tables
+- `user_activity` is intended for operational analysis, not display to end users; handle exports and dashboards carefully.
 
 ## 🛠️ Maintenance
 
@@ -251,7 +240,7 @@ supabase migration list
 ## 🤝 Support
 
 For issues specific to Linkvoices:
-- Check the main project README
+- Read [docs/DEVELOPMENT.md](../docs/DEVELOPMENT.md) and the repo README
 - Review GitHub issues
 - Contact project maintainers
 

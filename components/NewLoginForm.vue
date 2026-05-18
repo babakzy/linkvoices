@@ -3,6 +3,17 @@
         <h1 v-if="isLogin" class="text-2xl font-bold text-gray-900 mb-6">Login</h1>
         <h1 v-else class="text-2xl font-bold text-gray-900 mb-6">Register</h1>
         <form class="space-y-4">
+            <p
+                v-if="statusMessage"
+                :class="[
+                    'rounded-lg px-3 py-2 text-sm text-left',
+                    statusType === 'error'
+                        ? 'bg-red-50 text-red-700 border border-red-200'
+                        : 'bg-green-50 text-green-700 border border-green-200'
+                ]"
+            >
+                {{ statusMessage }}
+            </p>
             <div class="space-y-4">
                 <input 
                     type="email" 
@@ -15,6 +26,14 @@
                     type="password" 
                     v-model="password"
                     placeholder="Password" 
+                    class="input input-bordered w-full"
+                    required
+                />
+                <input
+                    v-if="!isLogin"
+                    type="password"
+                    v-model="repeatPassword"
+                    placeholder="Repeat password"
                     class="input input-bordered w-full"
                     required
                 />
@@ -35,7 +54,7 @@
                     {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
                     <button 
                         type="button"
-                        @click.prevent="isLogin = !isLogin" 
+                        @click.prevent="toggleAuthMode" 
                         class="text-blue-600 hover:text-blue-700 font-medium ml-1 focus:outline-none focus:underline"
                     >
                         {{ isLogin ? 'Create one' : 'Sign in' }}
@@ -52,29 +71,47 @@ const supabase = useSupabaseClient()
 const loading = ref(false)
 const email = ref('')
 const password = ref('')
-const isLogin = ref(true) // New ref to toggle between login/register
+const repeatPassword = ref('')
+const statusMessage = ref('')
+const statusType = ref('success')
+const isLogin = ref(true)
 const router = useRouter()
 
+const clearStatus = () => {
+    statusMessage.value = ''
+}
 
+const toggleAuthMode = () => {
+    isLogin.value = !isLogin.value
+    password.value = ''
+    repeatPassword.value = ''
+    clearStatus()
+}
 
 const handleEmailAuth = async () => {
+    clearStatus()
+
+    if (!isLogin.value && password.value !== repeatPassword.value) {
+        statusType.value = 'error'
+        statusMessage.value = 'Passwords do not match. Please re-enter them.'
+        return
+    }
+
     try {
         loading.value = true
-        let { data, error } = {} // Initialize with empty object
+        let { data, error } = {}
 
         if (isLogin.value) {
-            // Login with email
             ({ data, error } = await supabase.auth.signInWithPassword({
                 email: email.value,
                 password: password.value
             }))
         } else {
-            // Register with email
             ({ data, error } = await supabase.auth.signUp({
                 email: email.value,
                 password: password.value,
                 options: {
-                    emailRedirectTo: `${runtimeConfig.public.baseURL}/dashboard`
+                    emailRedirectTo: `${runtimeConfig.public.url}/confirm`
                 }
             }))
         }
@@ -85,11 +122,14 @@ const handleEmailAuth = async () => {
             if (isLogin.value) {
                 router.push('/dashboard')
             } else {
-                alert('Registration successful! Please check your email for verification link.')
+                statusType.value = 'success'
+                statusMessage.value = 'Registration successful. Check your email to confirm your account.'
+                repeatPassword.value = ''
             }
         }
     } catch (error) {
-        alert(error.error_description || error.message)
+        statusType.value = 'error'
+        statusMessage.value = error.error_description || error.message || 'Authentication failed. Please try again.'
     } finally {
         loading.value = false
     }

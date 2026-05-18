@@ -46,6 +46,14 @@ The LinkVoices dashboard has been modernized with contemporary UI/UX principles:
    - Maximum width containers for better readability
    - Responsive grid layouts
 
+### Tailwind token reference (dashboard)
+
+- **Sidebar / brand gradient:** `from-cerulean-blue-900 via-cerulean-blue-800 to-cerulean-blue-900`
+- **Featured CTA (gold):** `from-spring-wood-400 to-spring-wood-300` with lighter hover (`spring-wood-200`)
+- **Cards:** `rounded-2xl`, `shadow-md` → `hover:shadow-2xl`, subtle `hover:scale-105`
+- **Stat card semantics:** totals → cerulean/blue family; paid → `green-*`; pending → `amber-*`; wallets / info accents → `purple-*`
+- **Neutrals:** page background `gray-50`, surfaces `white`, dividers/borders `gray-100`, primary text `gray-900`, secondary `gray-600`–`gray-700`
+
 ---
 
 ## Design Principles
