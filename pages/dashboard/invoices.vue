@@ -29,7 +29,11 @@
 </template>
 
 <script lang="js" setup>
-
+usePageSeo({
+  title: 'Invoices',
+  description: 'Manage your cryptocurrency invoices in Linkvoices.',
+  noindex: true,
+})
 </script>
 
 <style></style>

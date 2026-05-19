@@ -2,7 +2,7 @@
     <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div class="max-w-7xl mx-auto">
         <div class="text-center">
-          <h2 class="text-3xl mt-20 font-bold text-black-900 sm:text-4xl lg:text-5xl">Contact Us</h2>
+          <h1 class="text-3xl mt-20 font-bold text-black-900 sm:text-4xl lg:text-5xl">Contact Us</h1>
           <p class="mt-4 text-xl text-black-600">Get in touch with me</p>
         </div>
         <div class="mt-12 space-y-8 text-black-700">
@@ -71,7 +71,12 @@
 </template>
 
 <script setup>
-
+usePageSeo({
+  title: 'Contact Us',
+  description:
+    'Get in touch with the Linkvoices team for support, feedback, or business inquiries. We help freelancers and businesses send cryptocurrency invoices worldwide.',
+  path: '/contact',
+})
 </script>
 
 <style lang="scss" scoped>

@@ -5,8 +5,8 @@
             <input v-model="email" type="email" placeholder="Email" class="input input-bordered w-full " />
             <input v-model="password" type="password" placeholder="Password" class="input mt-2 input-bordered w-full" />
             <submit @click="handleLogin" class="btn btn-primary w-full mt-4">Login</submit>
-            <p class="text-base-400 font-light mt-4 mx-1 text-left text-sm">Don't have account yet, you can <a
-                    class=" text-blue-600" href="">Register Here</a></p>
+            <p class="text-base-400 font-light mt-4 mx-1 text-left text-sm">Don't have an account yet? <NuxtLink
+                    class="text-blue-600" to="/login">Register here</NuxtLink></p>
         </form>
 
     </div>

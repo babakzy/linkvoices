@@ -2,7 +2,7 @@
     <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div class="max-w-7xl mx-auto">
         <div class="text-center">
-          <h2 class="text-3xl mt-20 font-bold text-black-900 sm:text-4xl lg:text-5xl">Terms of Service</h2>
+          <h1 class="text-3xl mt-20 font-bold text-black-900 sm:text-4xl lg:text-5xl">Terms of Service</h1>
           <p class="mt-4 text-xl text-black-600">Last updated: January 2024</p>
         </div>
 
@@ -75,7 +75,12 @@
 </template>
 
 <script setup>
-
+usePageSeo({
+  title: 'Terms of Service',
+  description:
+    'Terms of Service for Linkvoices, the free cryptocurrency invoicing platform. Learn about user responsibilities, service limitations, and how crypto payments work.',
+  path: '/terms',
+})
 </script>
 
 <style lang="scss" scoped>

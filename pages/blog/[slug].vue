@@ -135,7 +135,13 @@ if (!loading.value && !post.value && import.meta.server) {
 
 useHead(() => {
   if (!post.value) {
-    return { title: 'Article Not Found — Linkvoices' }
+    return {
+      title: 'Article Not Found — Linkvoices',
+      meta: [
+        { name: 'description', content: 'The blog post you are looking for could not be found on Linkvoices.' },
+        { name: 'robots', content: 'noindex, follow' },
+      ],
+    }
   }
 
   const postUrl = `${siteUrl}/blog/${post.value.slug || slug}`

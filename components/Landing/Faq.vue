@@ -42,7 +42,7 @@
                         <div v-show="activeFaq === 3" class="p-5 pt-0">
                             <p class="text-gray-700">
                                 1. Register: Sign up for an account.<br>
-                                2. Add Wallet: Add your preferred wallet address for receiving payments.  ( <NuxtLink class=" text-cerulean-blue-600" to="blog/setup-crypto-wallet">Create a crypto wallet</NuxtLink> )<br>
+                                2. Add Wallet: Add your preferred wallet address for receiving payments.  ( <NuxtLink class=" text-cerulean-blue-600" to="/blog/setup-crypto-wallet">Create a crypto wallet</NuxtLink> )<br>
                                 3. Send Invoices: Create and send invoices to your clients or customers.<br>
                                 4. Notifications: Get notified as soon as the payment is received.
                             </p>

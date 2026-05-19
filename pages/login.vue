@@ -7,8 +7,12 @@
 </template>
 
 <script setup>
-useHead({
-  title: 'Linkvoices - Login'
+usePageSeo({
+  title: 'Log In or Register',
+  description:
+    'Log in or create a free Linkvoices account to send cryptocurrency invoices. Accept Bitcoin, Ethereum, USDT, and DAI payments directly to your wallet.',
+  path: '/login',
+  noindex: true,
 })
 </script>
 

@@ -2,8 +2,8 @@
     <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8" itemscope itemtype="https://schema.org/FAQPage">
         <div class="max-w-7xl mx-auto">
             <div class="text-center">
-                <h2 class="text-3xl mt-20 font-bold text-black-900 sm:text-4xl lg:text-5xl" itemprop="name">Frequently Asked Questions
-                </h2>
+                <h1 class="text-3xl mt-20 font-bold text-black-900 sm:text-4xl lg:text-5xl" itemprop="name">Frequently Asked Questions
+                </h1>
                 <p class="mt-4 text-xl text-black-600">Find answers to common questions about our service</p>
             </div>
             <div class="basis-full md:basis-5/6 mt-12 md:mt-28">
@@ -46,7 +46,7 @@
                         <div v-show="activeFaq === 3" class="p-5 pt-0" itemprop="acceptedAnswer" itemscope  itemtype="https://schema.org/Answer">
                             <p class="text-gray-700" itemprop="text">
                                 1. Register: Sign up for an account.<br>
-                                2. Add Wallet: Add your preferred wallet address for receiving payments. ( <NuxtLink class=" text-cerulean-blue-600" to="blog/setup-crypto-wallet">Create a crypto wallet</NuxtLink> )<br>
+                                2. Add Wallet: Add your preferred wallet address for receiving payments. ( <NuxtLink class=" text-cerulean-blue-600" to="/blog/setup-crypto-wallet">Create a crypto wallet</NuxtLink> )<br>
                                 3. Send Invoices: Create and send invoices to your clients or customers.<br>
                                 4. Notifications: Get notified as soon as the payment is received.
                             </p>
@@ -236,7 +236,13 @@ const faqSchema = ref({
     ]
 });
 
-// Use Nuxt SEO to add the schema to the head
+usePageSeo({
+    title: 'Frequently Asked Questions',
+    description:
+        'Answers to common questions about Linkvoices crypto invoicing: supported cryptocurrencies, fees, privacy, wallet setup, and how to get paid in Bitcoin, Ethereum, USDT, and DAI.',
+    path: '/faq',
+})
+
 useHead({
     script: [
         {
@@ -244,7 +250,7 @@ useHead({
             innerHTML: JSON.stringify(faqSchema.value)
         }
     ]
-});
+})
 
 
 </script>

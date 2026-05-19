@@ -2,7 +2,7 @@
     <div class="min-h-screenpy-12 px-4 sm:px-6 lg:px-8">
       <div class="max-w-7xl mx-auto">
         <div class="text-center">
-          <h2 class="text-3xl mt-20 font-bold text-black-900 sm:text-4xl lg:text-5xl">Simple, transparent pricing</h2>
+          <h1 class="text-3xl mt-20 font-bold text-black-900 sm:text-4xl lg:text-5xl">Simple, transparent pricing</h1>
           <p class="mt-4 text-xl text-black-600">Choose the plan that works best for you</p>
         </div>
 
@@ -13,7 +13,7 @@
               <h3 class="text-2xl font-bold text-black-900">Free Plan</h3>
               <p class="mt-4 text-black-600">Perfect for everyone</p>
               <div class="mt-8">
-                <h1 class="text-green-500 md:text-3xl">Free Forever</h1>
+                <p class="text-green-500 md:text-3xl font-bold">Free Forever</p>
               </div>
               <ul class="mt-8 space-y-4">
                 <li class="flex items-center">
@@ -84,7 +84,12 @@
 </template>
 
 <script setup>
-
+usePageSeo({
+  title: 'Pricing — Free Crypto Invoicing',
+  description:
+    'Linkvoices is free forever for unlimited crypto invoices and payments. No platform fees — you only pay standard blockchain network fees. Pro features coming soon.',
+  path: '/pricing',
+})
 </script>
 
 <style lang="scss" scoped>

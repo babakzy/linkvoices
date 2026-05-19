@@ -2,6 +2,10 @@
 const appUrl = (process.env.URL || process.env.BASE_URL || 'http://localhost:3000').replace(/\/$/, '')
 
 export default defineNuxtConfig({
+  routeRules: {
+    '/Help': { redirect: { to: '/help', statusCode: 301 } },
+    '/Confirm': { redirect: { to: '/confirm', statusCode: 301 } },
+  },
   runtimeConfig: {
     public: {
       url: appUrl,
@@ -13,6 +17,9 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", '@nuxtjs/supabase', "@nuxtjs/seo"],
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'en',
+      },
       script: [
         { src: 'https://cloud.umami.is/script.js', defer: true, 'data-website-id': 'a7338219-eaed-40da-8a1c-7b80d07747f7' },
         { src: 'https://www.googletagmanager.com/gtag/js?id=G-L61C9SR4CR', async: true },
@@ -53,26 +60,25 @@ export default defineNuxtConfig({
     }
   },
   sitemap: {
+    sources: ['/api/__sitemap__/urls'],
     exclude: [
       '/confirm',
-      '/Confirm',
-      '/dashboard'
-    ]
+      '/login',
+      '/dashboard/**',
+      '/invoice/**',
+    ],
   },
   site: {
     url: appUrl,
     name: 'Linkvoices',
-    description: 'send direct crypto invoices',
+    description:
+      'Create and send free cryptocurrency invoices directly to your wallet. Accept Bitcoin, Ethereum, USDT, and DAI with no platform fees.',
     defaultLocale: 'en',
     identity: {
-      type: 'Organization'
+      type: 'Organization',
     },
-    // twitter: {
-    //   card: 'summary_large_image',
-    //   site: '@yourtwitterhandle',
-    // }
   },
   ogImage: {
-    enabled: false
-  }
+    enabled: false,
+  },
 })

@@ -21,7 +21,11 @@
 </template>
 
 <script lang="js" setup>
-
+usePageSeo({
+  title: 'Wallets',
+  description: 'Manage your cryptocurrency wallet addresses in Linkvoices.',
+  noindex: true,
+})
 </script>
 
 <style></style>

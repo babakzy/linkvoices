@@ -17,9 +17,6 @@
               <nuxt-link to="/blog" class="py-2 px-2 rounded-md">Blog</nuxt-link>
             </li>
             <li class="md:mx-2  inline-block">
-              <nuxt-link to="/help">How to?</nuxt-link>
-            </li>
-            <li class="md:mx-2  inline-block">
               <nuxt-link to="/contact">Contact</nuxt-link>
             </li>
 
@@ -40,9 +37,6 @@
             <ul v-show="isMenuOpen" class="absolute bg-cerulean-blue-700 text-lg text-cerulean-blue-50 pr-10 py-10 top-24 z-10 left-0 right-0 shadow-md">
               <li class="block my-4">
                 <nuxt-link to="/blog" class="py-2 px-2 rounded-md">Blog</nuxt-link>
-              </li>
-              <li class="block my-4">
-                <nuxt-link to="/help">How to?</nuxt-link>
               </li>
               <li class="block my-4">
                 <nuxt-link to="/contact">Contact</nuxt-link>

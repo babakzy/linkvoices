@@ -38,6 +38,7 @@ useHead({
       content: 'Create and send direct cryptocurrency invoices for free. Accept Bitcoin, Ethereum, USDT, and DAI — no platform fees, no middlemen.'
     },
     { property: 'og:site_name', content: 'Linkvoices' },
+    { property: 'og:image', content: `${siteUrl}/og-image.jpg` },
     { name: 'twitter:card', content: 'summary_large_image' },
     {
       name: 'twitter:title',
@@ -47,6 +48,7 @@ useHead({
       name: 'twitter:description',
       content: 'Create and send direct cryptocurrency invoices for free. Bitcoin, Ethereum, USDT, and DAI — no platform fees.'
     },
+    { name: 'twitter:image', content: `${siteUrl}/og-image.jpg` },
     { name: 'robots', content: 'index, follow' }
   ],
   script: [

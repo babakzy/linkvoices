@@ -17,7 +17,7 @@
                 <div class="basis-full md:basis-1/4 mb-6">
                     <h4 class="font-semibold text-gray-900 mb-4">Resources</h4>
                     <ul class="space-y-2">
-                        <li><nuxt-link to="/help" class="text-gray-600 hover:text-gray-900">How to Use</nuxt-link></li>
+                        <li><nuxt-link to="/blog" class="text-gray-600 hover:text-gray-900">Blog</nuxt-link></li>
                         <li><nuxt-link to="/faq" class="text-gray-600 hover:text-gray-900">FAQ</nuxt-link></li>
                         <li><nuxt-link to="/pricing" class="text-gray-600 hover:text-gray-900">Pricing</nuxt-link></li>
                     </ul>

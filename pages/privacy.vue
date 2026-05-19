@@ -2,7 +2,7 @@
     <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div class="max-w-7xl mx-auto">
         <div class="text-center">
-          <h2 class="text-3xl mt-20 font-bold text-black-900 sm:text-4xl lg:text-5xl">Privacy Policy</h2>
+          <h1 class="text-3xl mt-20 font-bold text-black-900 sm:text-4xl lg:text-5xl">Privacy Policy</h1>
           <p class="mt-4 text-xl text-black-600">Last updated: January 2024</p>
         </div>
 
@@ -64,7 +64,12 @@
 </template>
 
 <script setup>
-
+usePageSeo({
+  title: 'Privacy Policy',
+  description:
+    'Read how Linkvoices collects, uses, and protects your data when you create cryptocurrency invoices. We collect minimal information and never sell your personal data.',
+  path: '/privacy',
+})
 </script>
 
 <style lang="scss" scoped>

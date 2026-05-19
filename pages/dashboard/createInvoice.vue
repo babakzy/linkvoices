@@ -437,8 +437,10 @@
 </template>
 
 <script setup lang="js">
-useHead({
-    title: 'Dashboard - Create Crypto Invoice'
+usePageSeo({
+    title: 'Create Crypto Invoice',
+    description: 'Create a new cryptocurrency invoice in your Linkvoices dashboard.',
+    noindex: true,
 })
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'

@@ -79,12 +79,14 @@ useHead({
       content: 'Insights on cryptocurrency payments, crypto invoicing, and the future of decentralised finance.'
     },
     { property: 'og:site_name', content: 'Linkvoices' },
+    { property: 'og:image', content: `${siteUrl}/og-image.jpg` },
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: 'Blog — Crypto Payments & Invoicing Insights | Linkvoices' },
     {
       name: 'twitter:description',
       content: 'Insights on cryptocurrency payments, crypto invoicing, and the future of decentralised finance.'
     },
+    { name: 'twitter:image', content: `${siteUrl}/og-image.jpg` },
     { name: 'robots', content: 'index, follow' }
   ]
 })

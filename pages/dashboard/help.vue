@@ -103,7 +103,11 @@
 </template>
 
 <script lang="js" setup>
-
+usePageSeo({
+  title: 'Dashboard Help',
+  description: 'Help and support for using the Linkvoices dashboard and crypto wallets.',
+  noindex: true,
+})
 </script>
 
 <style></style>

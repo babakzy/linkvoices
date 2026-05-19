@@ -286,8 +286,10 @@ const downloadInvoicePDF = async () => {
 definePageMeta({
     layout: false
 })
-useHead({
-    title: 'Linkvoicses - Invoice'
+usePageSeo({
+    title: 'Invoice',
+    description: 'View and pay a Linkvoices cryptocurrency invoice securely on the blockchain.',
+    noindex: true,
 })
 
 onMounted(async () => {

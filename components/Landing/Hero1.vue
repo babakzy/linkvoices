@@ -13,8 +13,8 @@
                         <img class="w-full" src="@/assets/images/Bank-icon.svg" alt="Central Bank">
                     </div>
 
-                    <img class="w-full hidden md:block relative z-0" src="@/assets/images/hero-people.svg" alt="">
-                    <img class="w-full p-4 md:hidden relative z-0" src="@/assets/images/mobile-people.svg" alt="">
+                    <img class="w-full hidden md:block relative z-0" src="@/assets/images/hero-people.svg" alt="People using decentralized finance without traditional banks">
+                    <img class="w-full p-4 md:hidden relative z-0" src="@/assets/images/mobile-people.svg" alt="People using decentralized finance on mobile">
                 </div>
             </div>
         </div>

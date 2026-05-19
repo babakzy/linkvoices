@@ -136,8 +136,10 @@
 </template>
 
 <script setup lang="js">
-useHead({
-    title: 'Dashboard - Overview'
+usePageSeo({
+    title: 'Dashboard Overview',
+    description: 'Your Linkvoices dashboard overview.',
+    noindex: true,
 })
 
 const supabase = useSupabaseClient()
