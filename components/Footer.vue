@@ -24,9 +24,13 @@
                 </div>
 
                 <div class="basis-full md:basis-1/4 mb-6">
-                    <h4 class="font-semibold text-gray-900 mb-4">Company</h4>
+                    <h4 class="font-semibold text-gray-900 mb-4">
+                        Build by <a href="https://babakzy.com/" target="_blank" rel="noopener" class="text-gray-600 hover:text-gray-900">Babakzy</a>
+                    </h4>
                     <ul class="space-y-2">
-                        <li><nuxt-link to="/contact" class="text-gray-600 hover:text-gray-900">Contact</nuxt-link></li>
+                        <li><a href="https://www.didon.app/" target="_blank" rel="noopener" class="text-gray-600 hover:text-gray-900">Didon - AI Time Tracker</a></li>
+                        <li><a href="https://nuxtz.vercel.app/" target="_blank" rel="noopener" class="text-gray-600 hover:text-gray-900">Nuxtz - Nuxt.js Boilerplate</a></li>
+                        <li><a href="https://www.behan.agency/" target="_blank" rel="noopener" class="text-gray-600 hover:text-gray-900">Behan.agency - AI Marketing Solutions</a></li>
                     </ul>
                 </div>
 
