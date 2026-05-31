@@ -1,5 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-const appUrl = (process.env.URL || process.env.BASE_URL || 'http://localhost:3000').replace(/\/$/, '')
+const appUrl = (
+  process.env.NUXT_SITE_URL ||
+  process.env.URL ||
+  process.env.BASE_URL ||
+  'http://localhost:3000'
+)
+  .replace(/\/$/, '')
+  .replace(/^http:\/\/(?!localhost)/i, 'https://')
 
 export default defineNuxtConfig({
   routeRules: {
