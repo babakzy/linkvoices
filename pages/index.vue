@@ -1,8 +1,13 @@
 <template>
-  <Header></Header>
-
-    <home-landing />
-  
+  <Header />
+  <main>
+    <LandingHero />
+    <LandingHero1 />
+    <LandingAdvantages />
+    <LandingFaq />
+    <LandingSeoContent />
+  </main>
+  <Footer />
 </template>
 
 <script setup lang="js">
