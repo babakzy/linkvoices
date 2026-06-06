@@ -364,6 +364,7 @@ usePageSeo({
   title: pageTitle,
   description: pageDescription,
   path: pagePath,
+  appendSiteName: false,
 })
 
 const activeFaq = ref(null)

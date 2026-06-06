@@ -16,12 +16,19 @@ export default defineSitemapEventHandler(async () => {
     .select('slug, updated_at, published_at')
     .eq('published', true)
 
+  const staticPages = [
+    { loc: '/crypto-anarchism', lastmod: '2026-06-06' },
+  ]
+
   if (!posts?.length) {
-    return []
+    return staticPages
   }
 
-  return posts.map((post) => ({
-    loc: `/blog/${post.slug}`,
-    lastmod: post.updated_at || post.published_at,
-  }))
+  return [
+    ...staticPages,
+    ...posts.map((post) => ({
+      loc: `/blog/${post.slug}`,
+      lastmod: post.updated_at || post.published_at,
+    })),
+  ]
 })

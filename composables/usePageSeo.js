@@ -8,6 +8,7 @@ export function usePageSeo({
   ogImage = '/og-image.jpg',
   ogType = 'website',
   noindex = false,
+  appendSiteName = true,
 } = {}) {
   const config = useRuntimeConfig()
   const route = useRoute()
@@ -17,7 +18,9 @@ export function usePageSeo({
     ? pagePath
     : `${siteUrl}${pagePath.startsWith('/') ? pagePath : `/${pagePath}`}`
   const imageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`
-  const pageTitle = title?.includes('Linkvoices') ? title : `${title} | Linkvoices`
+  const pageTitle = appendSiteName && title && !title.includes('Linkvoices')
+    ? `${title} | Linkvoices`
+    : title
 
   useSeoMeta({
     title: pageTitle,
@@ -38,5 +41,6 @@ export function usePageSeo({
   useHead({
     htmlAttrs: { lang: 'en' },
     link: [{ rel: 'canonical', href: canonicalUrl }],
+    ...(appendSiteName ? {} : { titleTemplate: '%s' }),
   })
 }
