@@ -19,6 +19,7 @@ export default defineSitemapEventHandler(async () => {
   const staticPages = [
     { loc: '/crypto-anarchism', lastmod: '2026-06-06' },
     { loc: '/censorship-resistant-payments', lastmod: '2026-06-08' },
+    { loc: '/decentralized-government', lastmod: '2026-06-12' },
   ]
 
   if (!posts?.length) {
