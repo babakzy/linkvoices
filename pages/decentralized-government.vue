@@ -239,7 +239,18 @@
                 :key="tool.name"
                 class="border-b border-spring-wood-200 last:border-b-0"
               >
-                <td class="p-4 font-semibold text-cerulean-blue-900 whitespace-nowrap">{{ tool.name }}</td>
+                <td class="p-4 font-semibold text-cerulean-blue-900 whitespace-nowrap">
+                  <a
+                    v-if="tool.url"
+                    :href="tool.url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-cerulean-blue-600 hover:text-cerulean-blue-800 underline underline-offset-2"
+                  >
+                    {{ tool.name }}
+                  </a>
+                  <span v-else>{{ tool.name }}</span>
+                </td>
                 <td class="p-4 text-gray-600">{{ tool.category }}</td>
                 <td class="p-4 text-gray-600">{{ tool.useCase }}</td>
               </tr>
@@ -637,11 +648,13 @@ const toolsHeaders = ['Tool', 'Category', 'Use Case']
 const governanceTools = [
   {
     name: 'Ethereum',
+    url: 'https://ethereum.org/',
     category: 'Blockchain',
     useCase: 'Smart contract deployment, DAO infrastructure',
   },
   {
     name: 'Aragon',
+    url: 'https://www.aragon.org/',
     category: 'DAO Framework',
     useCase: 'Create and manage DAOs with voting and treasury tools',
   },

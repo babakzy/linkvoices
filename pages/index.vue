@@ -3,6 +3,7 @@
   <main>
     <LandingHero />
     <LandingHero1 />
+    <LandingLinks />
     <LandingAdvantages />
     <LandingFaq />
     <LandingSeoContent />
