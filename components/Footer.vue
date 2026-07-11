@@ -20,6 +20,7 @@
                         <li><nuxt-link to="/blog" class="text-gray-600 hover:text-gray-900">Blog</nuxt-link></li>
                         <li><nuxt-link to="/faq" class="text-gray-600 hover:text-gray-900">FAQ</nuxt-link></li>
                         <li><nuxt-link to="/pricing" class="text-gray-600 hover:text-gray-900">Pricing</nuxt-link></li>
+                        <li><nuxt-link to="/contact" class="text-gray-600 hover:text-gray-900">Contact</nuxt-link></li>
                     </ul>
                 </div>
 

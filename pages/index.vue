@@ -4,6 +4,7 @@
     <LandingHero />
     <LandingHero1 />
     <LandingLinks />
+    <LandingQuote />
     <LandingAdvantages />
     <LandingFaq />
     <LandingSeoContent />
@@ -12,52 +13,72 @@
 </template>
 
 <script setup lang="js">
+import { buildHomeFaqSchema } from '~/data/homeFaq.js'
+
 definePageMeta({
   layout: false
 })
 
 const config = useRuntimeConfig()
-const siteUrl = config.public.url || 'https://linkvoices.com'
+const siteUrl = (config.public.url || 'https://linkvoices.com').replace(/\/$/, '')
+const pageUrl = siteUrl
+const pageImageUrl = `${siteUrl}/og-image.jpg`
+
+const pageTitle = 'Linkvoices — Free Cryptocurrency Invoice Generator'
+const pageDescription =
+  'Create and send free cryptocurrency invoices directly to your wallet. Accept Bitcoin, Ethereum, USDT, and DAI with no platform fees — invoices in minutes, paid worldwide.'
+
+usePageSeo({
+  title: pageTitle,
+  description: pageDescription,
+  path: '/',
+  appendSiteName: false,
+})
+
+const faqSchema = buildHomeFaqSchema()
 
 useHead({
-  title: 'Send Direct Cryptocurrency Invoices for Free',
-  link: [
-    { rel: 'canonical', href: siteUrl }
-  ],
   meta: [
     {
-      name: 'description',
-      content: 'Create and send direct cryptocurrency invoices for free. Accept Bitcoin, Ethereum, USDT, and DAI payments with no platform fees — straight to your wallet.'
-    },
-    {
       name: 'keywords',
-      content: 'cryptocurrency invoicing, crypto invoice, bitcoin invoice, ethereum invoice, USDT invoice, DAI invoice, free crypto invoice generator, blockchain payments, crypto billing'
+      content:
+        'cryptocurrency invoicing, crypto invoice, bitcoin invoice, ethereum invoice, USDT invoice, DAI invoice, free crypto invoice generator, blockchain payments, crypto billing, freelance crypto payments',
     },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: siteUrl },
-    {
-      property: 'og:title',
-      content: 'Linkvoices — Free Cryptocurrency Invoice Generator'
-    },
-    {
-      property: 'og:description',
-      content: 'Create and send direct cryptocurrency invoices for free. Accept Bitcoin, Ethereum, USDT, and DAI — no platform fees, no middlemen.'
-    },
-    { property: 'og:site_name', content: 'Linkvoices' },
-    { property: 'og:image', content: `${siteUrl}/og-image.jpg` },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    {
-      name: 'twitter:title',
-      content: 'Linkvoices — Free Cryptocurrency Invoice Generator'
-    },
-    {
-      name: 'twitter:description',
-      content: 'Create and send direct cryptocurrency invoices for free. Bitcoin, Ethereum, USDT, and DAI — no platform fees.'
-    },
-    { name: 'twitter:image', content: `${siteUrl}/og-image.jpg` },
-    { name: 'robots', content: 'index, follow' }
+    { property: 'og:locale', content: 'en_US' },
   ],
   script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: pageTitle,
+        description: pageDescription,
+        url: pageUrl,
+        image: pageImageUrl,
+        inLanguage: 'en',
+        isPartOf: {
+          '@type': 'WebSite',
+          name: 'Linkvoices',
+          url: siteUrl,
+        },
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'Linkvoices',
+        url: siteUrl,
+        description: pageDescription,
+        publisher: {
+          '@type': 'Organization',
+          name: 'Linkvoices',
+          url: siteUrl,
+        },
+      }),
+    },
     {
       type: 'application/ld+json',
       innerHTML: JSON.stringify({
@@ -65,17 +86,40 @@ useHead({
         '@type': 'WebApplication',
         name: 'Linkvoices',
         url: siteUrl,
-        description: 'Free cryptocurrency invoice generator. Send direct crypto invoices in Bitcoin, Ethereum, USDT, and DAI.',
+        description:
+          'Free cryptocurrency invoice generator. Send direct crypto invoices in Bitcoin, Ethereum, USDT, and DAI with no platform fees.',
         applicationCategory: 'FinanceApplication',
         operatingSystem: 'All',
         offers: {
           '@type': 'Offer',
           price: '0',
-          priceCurrency: 'USD'
-        }
-      })
-    }
-  ]
+          priceCurrency: 'USD',
+        },
+        featureList: [
+          'Bitcoin, Ethereum, USDT, and DAI invoicing',
+          'Zero platform fees',
+          'Direct wallet payouts',
+          'International payments',
+          'Payment notifications',
+        ],
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: 'Linkvoices',
+        url: siteUrl,
+        logo: pageImageUrl,
+        description: pageDescription,
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(faqSchema),
+    },
+  ],
 })
 </script>
 
