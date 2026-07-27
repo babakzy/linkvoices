@@ -9,6 +9,7 @@ const appUrl = (
   .replace(/^http:\/\/(?!localhost)/i, 'https://')
 
 export default defineNuxtConfig({
+  srcDir: '.',
   routeRules: {
     '/Help': { redirect: { to: '/help', statusCode: 301 } },
     '/Confirm': { redirect: { to: '/confirm', statusCode: 301 } },
@@ -19,7 +20,7 @@ export default defineNuxtConfig({
       baseURL: `${appUrl}/`,
     }
   },
-  compatibilityDate: '2024-04-03',
+  compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", '@nuxtjs/supabase', "@nuxtjs/seo"],
   app: {
