@@ -13,11 +13,11 @@
           Out of the System. On Your Terms.
         </h2>
         <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto mt-5 leading-relaxed">
-          Four guides on getting paid, staying private, and building outside institutional control.
+          Five guides on getting paid, staying private, and building outside institutional control.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         <NuxtLink
           v-for="page in landingPages"
           :key="page.path"
@@ -60,6 +60,11 @@ const landingPages = [
     path: '/decentralized-government',
     title: 'Decentralized Government',
     description: 'How authority shifts from central bodies toward local communities and the people they serve.',
+  },
+  {
+    path: '/digital-freedom-rights-online',
+    title: 'Digital Freedom',
+    description: 'Online privacy, expression, and access to digital infrastructure — and why they matter for getting paid.',
   },
 ]
 </script>

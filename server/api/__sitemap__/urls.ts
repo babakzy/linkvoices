@@ -20,6 +20,7 @@ export default defineSitemapEventHandler(async () => {
     { loc: '/crypto-anarchism', lastmod: '2026-06-06' },
     { loc: '/censorship-resistant-payments', lastmod: '2026-06-08' },
     { loc: '/decentralized-government', lastmod: '2026-06-12' },
+    { loc: '/digital-freedom-rights-online', lastmod: '2026-08-03' },
   ]
 
   if (!posts?.length) {
