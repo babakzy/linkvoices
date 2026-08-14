@@ -1,3 +1,5 @@
+
+
 # Linkvoices - Crypto Invoice Generator
 
 <div align="center">
@@ -27,13 +29,13 @@ Linkvoices lets you create and share crypto invoices (BTC, ETH, USDT, DAI), mana
 
 ## Quick start
 
-**Prerequisites:** Node.js 18+, npm/yarn/pnpm, a Supabase project.
+**Prerequisites:** Node.js 22+, pnpm, a Supabase project.
 
 1. **Clone and install**
 
    ```bash
    git clone https://github.com/babakzy/linkvoices.git && cd linkvoices
-   npm install
+   pnpm install
    ```
 
 2. **Environment** — create `.env` in the repo root:
