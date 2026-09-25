@@ -1,36 +1,36 @@
 <template>
-  <section class="bg-white py-16 md:py-24">
-    <div class="md:container md:mx-auto px-4">
-      <div class="text-center mb-12 md:mb-16">
-        <div class="flex justify-center mb-5">
+  <section class="border-b border-black bg-spring-wood-100 py-16 md:py-24">
+    <div class="px-4 md:container md:mx-auto md:px-6">
+      <div class="mb-12 md:mb-16">
+        <div class="mb-6 flex">
           <img
             src="@/assets/images/Fa7SolidFistRaised.svg"
             alt=""
-            class="w-14 h-14 md:w-16 md:h-16"
+            class="h-14 w-14 rounded-ui border border-black bg-white p-3 md:h-16 md:w-16"
           >
         </div>
-        <h2 class="text-3xl md:text-4xl font-bold text-cerulean-blue-900 capitalize">
+        <h2 class="max-w-3xl text-3xl font-semibold leading-tight tracking-[-0.03em] text-ink md:text-5xl">
           Out of the System. On Your Terms.
         </h2>
-        <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto mt-5 leading-relaxed">
+        <p class="mt-5 max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">
           Five guides on getting paid, staying private, and building outside institutional control.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <NuxtLink
           v-for="page in landingPages"
           :key="page.path"
           :to="page.path"
-          class="group flex flex-col bg-spring-wood-50 border border-spring-wood-200 rounded-xl p-5 md:p-6 transition-all duration-200 hover:border-cerulean-blue-300 hover:shadow-md"
+          class="group flex flex-col rounded-ui border border-black bg-white p-5 transition-colors duration-150 hover:bg-brand-blue md:p-6"
         >
-          <h3 class="text-lg font-semibold text-cerulean-blue-900 mb-2 group-hover:text-cerulean-blue-600 transition-colors leading-snug">
+          <h3 class="mb-2 text-lg font-semibold leading-snug text-ink transition-colors group-hover:text-white">
             {{ page.title }}
           </h3>
-          <p class="text-gray-600 text-sm leading-relaxed flex-1">
+          <p class="flex-1 text-sm leading-relaxed text-neutral-700 transition-colors group-hover:text-white/85">
             {{ page.description }}
           </p>
-          <span class="inline-block mt-4 text-cerulean-blue-600 font-medium text-sm group-hover:text-cerulean-blue-700">
+          <span class="mt-5 inline-block border-t border-black pt-3 font-mono text-xs font-medium uppercase tracking-[0.06em] text-ink transition-colors group-hover:border-white group-hover:text-white">
             Read guide →
           </span>
         </NuxtLink>

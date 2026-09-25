@@ -1,45 +1,45 @@
 <template>
-    <section class="md:container md:mx-auto px-4">
+    <section class="border-b border-black bg-white px-4 py-16 md:container md:mx-auto md:px-6 md:py-24">
         <div class="flex flex-wrap content-center justify-center">
-            <div class="basis-full  py-12 md:mt-20">
-                <h2 class="text-3xl md:text-4xl text-cerulean-blue-900 text-center capitalize">Why not push every one to
+            <div class="basis-full pb-10 md:basis-5/6 md:pb-14">
+                <h2 class="max-w-4xl text-3xl font-semibold leading-tight tracking-[-0.03em] text-ink md:text-5xl">Why not push every one to
                     use
                     cryptocurrency to
                     transfer money
                 </h2>
             </div>
-            <div class="basis-full md:basis-2/3 w-screen ">
+            <div class="w-screen basis-full md:basis-5/6">
                 <div class="overflow-x-auto">
-                    <table class="w-full bg-white rounded mb-8">
+                    <table class="mb-8 w-full min-w-[760px] border-collapse border border-black bg-white text-sm">
                         <thead>
-                            <tr class="bg-cerulean-blue-50">
-                                <th class="p-4 text-left text-cerulean-blue-900">Features</th>
-                                <th class="p-4 text-left text-cerulean-blue-900">
+                            <tr class="border-b border-black bg-ink text-white">
+                                <th class="p-4 text-left font-mono text-xs uppercase tracking-[0.04em] text-white">Features</th>
+                                <th class="border-l border-white/40 p-4 text-left font-mono text-xs uppercase tracking-[0.04em] text-white">
                                     <h5>Traditional Online Payment</h5> <span>(Paypal, Stripe)</span>
                                 </th>
-                                <th class="p-4 text-left text-cerulean-blue-900">
+                                <th class="border-l border-white/40 p-4 text-left font-mono text-xs uppercase tracking-[0.04em] text-white">
                                     <h5>Cryptocurrencies</h5><span>Linkvoices</span>
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="">
-                            <tr class="border-b border-spring-wood-200">
+                            <tr class="border-b border-neutral-300">
                                 <td class="p-4 font-bold">$1000 International Transfer</td>
                                 <td class="p-4"><span class="text-red-700">$45-55 in fees</span> (4.5-5.5%) + poor exchange rate</td>
                                 <td class="p-4 text-green-600">$2-8 network fee</td>
                             </tr>
 
-                            <tr class="border-b border-spring-wood-200">
+                            <tr class="border-b border-neutral-300">
                                 <td class="p-4">Geographic Restrictions</td>
                                 <td class="p-4">Limited to 200+ countries, regulatory restrictions</td>
                                 <td class="p-4 text-green-700">Globally accessible (internet required)</td>
                             </tr>
-                            <tr class="border-b border-spring-wood-200">
+                            <tr class="border-b border-neutral-300">
                                 <td class="p-4">Control</td>
                                 <td class="p-4">Centralized (banks/institutions)</td>
                                 <td class="p-4 text-green-700">Decentralized</td>
                             </tr>
-                            <tr class="border-b border-spring-wood-200">
+                            <tr class="border-b border-neutral-300">
                                 <td class="p-4">Currency Options</td>
                                 <td class="p-4">25+ fiat currencies with conversion fees</td>
                                 <td class="p-4 text-green-700">Bitcoin, Ethereum, USDT, and more</td>
@@ -49,12 +49,12 @@
                                 <td class="p-4">Authorities / Governments</td>
                                 <td class="p-4 text-green-700"> People </td>
                             </tr> -->
-                            <tr class="border-b border-spring-wood-200">
+                            <tr class="border-b border-neutral-300">
                                 <td class="p-4">Processing Time</td>
                                 <td class="p-4">1-3 business days, up to 21 days for holds</td>
                                 <td class="p-4 text-green-700">10 minutes to 1 hour</td>
                             </tr>
-                            <tr class="border-b border-spring-wood-200">
+                            <tr>
                                 <td class="p-4">Transaction Fees</td>
                                 <td class="p-4">2.9-3.4% + $0.30 per transaction</td>
                                 <td class="p-4 text-green-700">$0.50-15 network fees only</td>

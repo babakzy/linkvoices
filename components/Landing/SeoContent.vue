@@ -1,48 +1,48 @@
 <template>
-  <section class="md:container md:mx-auto px-4 py-16 md:py-20">
+  <section class="bg-white px-4 py-16 md:container md:mx-auto md:px-6 md:py-24">
     <div class="flex flex-wrap justify-center">
 
-      <div class="basis-full md:basis-5/6 text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-bold text-cerulean-blue-900 mb-4">
+      <div class="mb-10 basis-full md:basis-5/6">
+        <h2 class="mb-4 text-3xl font-semibold leading-tight tracking-[-0.03em] text-ink md:text-5xl">
           What Is Cryptocurrency Invoicing?
         </h2>
-        <p class="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">
+        <p class="max-w-3xl text-lg leading-relaxed text-neutral-700">
           You send an invoice, your client pays in crypto, the money goes to your wallet. No bank in the middle,
           no platform taking a cut. Linkvoices is a free tool for that — Bitcoin, Ethereum, USDT, and DAI.
         </p>
       </div>
 
-      <div class="basis-full md:basis-5/6 grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+      <div class="mb-10 grid basis-full grid-cols-1 gap-4 md:basis-5/6 md:grid-cols-2">
 
-        <div class="bg-spring-wood-50 rounded-xl p-6">
-          <h3 class="text-lg font-semibold text-cerulean-blue-900 mb-2">
+        <div class="rounded-ui border border-black bg-spring-wood-100 p-6">
+          <h3 class="mb-3 text-lg font-semibold text-ink">
             Why bother with crypto invoices?
           </h3>
-          <p class="text-gray-600 leading-relaxed">
+          <p class="leading-relaxed text-neutral-700">
             PayPal and Stripe charge 3–5% and can freeze your account overnight. On-chain payments cost a few dollars
             in network fees and settle in minutes, whether your client is local or abroad.
-            If you need <NuxtLink to="/censorship-resistant-payments" class="text-cerulean-blue-600 hover:text-cerulean-blue-700">payments no one can block</NuxtLink>,
+            If you need <NuxtLink to="/censorship-resistant-payments" class="font-medium text-brand-blue underline-offset-4 hover:underline">payments no one can block</NuxtLink>,
             this is the straightforward route.
           </p>
         </div>
 
-        <div class="bg-spring-wood-50 rounded-xl p-6">
-          <h3 class="text-lg font-semibold text-cerulean-blue-900 mb-2">
+        <div class="rounded-ui border border-black bg-spring-wood-100 p-6">
+          <h3 class="mb-3 text-lg font-semibold text-ink">
             Payments that work anywhere
           </h3>
-          <p class="text-gray-600 leading-relaxed">
+          <p class="leading-relaxed text-neutral-700">
             Same process for a client in your city or on another continent — no wire forms, no conversion markups.
-            <NuxtLink to="/send-crypto-invoices-international-clients" class="text-cerulean-blue-600 hover:text-cerulean-blue-700">Invoicing international clients</NuxtLink>
+            <NuxtLink to="/send-crypto-invoices-international-clients" class="font-medium text-brand-blue underline-offset-4 hover:underline">Invoicing international clients</NuxtLink>
             is just sending them a link.
           </p>
         </div>
 
       </div>
 
-      <div class="basis-full md:basis-5/6 text-center">
-        <p class="text-gray-600 text-base max-w-2xl mx-auto leading-relaxed">
-          <NuxtLink to="/login" class="text-cerulean-blue-600 hover:text-cerulean-blue-700">Create a free account</NuxtLink>,
-          add your wallet, send your first invoice. More in the <NuxtLink to="/faq" class="text-cerulean-blue-600 hover:text-cerulean-blue-700">FAQ</NuxtLink>.
+      <div class="basis-full border-t border-black pt-6 md:basis-5/6">
+        <p class="max-w-2xl text-base leading-relaxed text-neutral-700">
+          <NuxtLink to="/login" class="font-medium text-brand-blue underline-offset-4 hover:underline">Create a free account</NuxtLink>,
+          add your wallet, send your first invoice. More in the <NuxtLink to="/faq" class="font-medium text-brand-blue underline-offset-4 hover:underline">FAQ</NuxtLink>.
         </p>
       </div>
 

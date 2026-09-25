@@ -1,46 +1,46 @@
 <template>
     <section
-        class="md:container md:mx-auto px-4 py-12 md:py-16"
+        class="border-b border-black bg-spring-wood-100 px-4 py-16 md:px-6 md:py-24"
         aria-labelledby="home-faq-heading"
         itemscope
         itemtype="https://schema.org/FAQPage"
     >
         <div class="flex flex-wrap content-center justify-center">
-            <div class="basis-full md:basis-5/6">
-                <h2 id="home-faq-heading" class="text-2xl text-spring-wood-900 mb-2" itemprop="name">
+            <div class="basis-full md:max-w-5xl">
+                <h2 id="home-faq-heading" class="mb-3 text-3xl font-semibold leading-tight tracking-[-0.03em] text-ink md:text-5xl" itemprop="name">
                     Cryptocurrency Invoicing FAQ
                 </h2>
-                <p class="text-sm text-gray-600 mb-4">
+                <p class="mb-8 max-w-2xl text-base text-neutral-700">
                     Common questions about sending free crypto invoices with Linkvoices.
                 </p>
-                <div class="space-y-2">
+                <div class="space-y-3">
                     <details
                         v-for="(faq, index) in homeFaqs"
                         :key="index"
-                        class="bg-spring-wood-100 rounded overflow-hidden group"
+                        class="group overflow-hidden rounded-ui border border-black bg-white"
                         itemprop="mainEntity"
                         itemscope
                         itemtype="https://schema.org/Question"
                     >
-                        <summary class="p-3 cursor-pointer list-none flex justify-between items-center gap-3 marker:content-none">
-                            <h3 class="text-base font-medium text-spring-wood-900" itemprop="name">
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-3 p-4 marker:content-none md:px-5">
+                            <h3 class="text-base font-medium text-ink" itemprop="name">
                                 {{ faq.question }}
                             </h3>
-                            <span class="text-sm shrink-0 transition-transform group-open:rotate-180">▼</span>
+                            <span class="shrink-0 font-mono text-xs transition-transform group-open:rotate-180">▼</span>
                         </summary>
                         <div
-                            class="px-3 pb-3"
+                            class="border-t border-black px-4 py-4 md:px-5"
                             itemprop="acceptedAnswer"
                             itemscope
                             itemtype="https://schema.org/Answer"
                         >
-                            <p class="text-sm text-gray-700" itemprop="text">{{ faq.answer }}</p>
+                            <p class="max-w-3xl text-sm leading-relaxed text-neutral-700" itemprop="text">{{ faq.answer }}</p>
                         </div>
                     </details>
                 </div>
-                <p class="mt-4 text-sm text-gray-600">
+                <p class="mt-6 text-sm text-neutral-700">
                     More on network fees, privacy, and wallet setup in the
-                    <NuxtLink to="/faq" class="text-cerulean-blue-600 hover:text-cerulean-blue-700">full FAQ</NuxtLink>.
+                    <NuxtLink to="/faq" class="font-medium text-brand-blue underline-offset-4 hover:underline">full FAQ</NuxtLink>.
                 </p>
             </div>
         </div>
