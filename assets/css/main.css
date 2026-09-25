@@ -1,0 +1,234 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-ink: #0a0a0a;
+  --color-brand-blue: #0049f3;
+  --color-brand-blue-dark: #0d379b;
+
+  --color-spring-wood-50: #f9f7f1;
+  --color-spring-wood-100: #f2eee2;
+  --color-spring-wood-200: #e5dcc3;
+  --color-spring-wood-300: #d4c49d;
+  --color-spring-wood-400: #c2a775;
+  --color-spring-wood-500: #b5915a;
+  --color-spring-wood-600: #a77e4f;
+  --color-spring-wood-700: #8b6643;
+  --color-spring-wood-800: #71533b;
+  --color-spring-wood-900: #5c4532;
+  --color-spring-wood-950: #312319;
+
+  --color-cerulean-blue-50: #edf7ff;
+  --color-cerulean-blue-100: #d6ebff;
+  --color-cerulean-blue-200: #b5ddff;
+  --color-cerulean-blue-300: #83c9ff;
+  --color-cerulean-blue-400: #48aaff;
+  --color-cerulean-blue-500: #1e84ff;
+  --color-cerulean-blue-600: #0662ff;
+  --color-cerulean-blue-700: #0049f3;
+  --color-cerulean-blue-800: #083bc5;
+  --color-cerulean-blue-900: #0d379b;
+  --color-cerulean-blue-950: #0e235d;
+
+  --radius-ui: 0.375rem;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    max-width: 100vw;
+    overflow-x: hidden;
+    background: #ffffff;
+  }
+
+  body {
+    max-width: 100vw;
+    margin: 0;
+    overflow-x: hidden;
+    background: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 400;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: inherit;
+    font-family: var(--font-sans);
+    font-weight: 600;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-blue);
+    outline-offset: 2px;
+  }
+}
+
+/*
+ * Transitional DaisyUI compatibility.
+ * These selectors keep unmigrated screens functional after DaisyUI removal.
+ * New code must use components/ui instead.
+ */
+@layer components {
+  .btn {
+    display: inline-flex;
+    min-height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-ui);
+    background: var(--color-ink);
+    padding: 0.5rem 1rem;
+    color: #ffffff;
+    font-weight: 500;
+    line-height: 1.25rem;
+    text-decoration: none;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease,
+      transform 150ms ease;
+  }
+
+  .btn:hover {
+    background: #262626;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .btn-primary,
+  .btn-neutral {
+    background: var(--color-ink);
+    color: #ffffff;
+  }
+
+  .btn-outline {
+    border-color: var(--color-ink);
+    background: transparent;
+    color: var(--color-ink);
+  }
+
+  .card {
+    border: 1px solid #d4d4d4;
+    border-radius: var(--radius-ui);
+    background: #ffffff;
+  }
+
+  .input,
+  .select,
+  .textarea {
+    width: 100%;
+    border: 1px solid #a3a3a3;
+    border-radius: var(--radius-ui);
+    background: #ffffff;
+    color: var(--color-ink);
+  }
+
+  .input {
+    min-height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  label.input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  label.input > input {
+    min-width: 0;
+    flex: 1;
+    border: 0;
+    outline: 0;
+  }
+
+  .select {
+    min-height: 2.5rem;
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
+  }
+
+  .textarea {
+    min-height: 6rem;
+    padding: 0.75rem;
+  }
+
+  .input:focus,
+  .select:focus,
+  .textarea:focus,
+  .input:focus-within {
+    border-color: var(--color-brand-blue);
+    outline: 2px solid color-mix(in srgb, var(--color-brand-blue) 25%, transparent);
+    outline-offset: 0;
+  }
+
+  .loading {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 9999px;
+    animation: ui-spin 700ms linear infinite;
+  }
+
+  .loading-sm {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .loading-lg {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-width: 3px;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+}
+
+@keyframes ui-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
