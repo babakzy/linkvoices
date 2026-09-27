@@ -1,0 +1,101 @@
+<template>
+    <section class="border-b border-black bg-white px-4 py-16 md:container md:mx-auto md:px-6 md:py-24">
+        <div class="flex flex-wrap content-center justify-center">
+            <div class="basis-full pb-10 md:basis-5/6 md:pb-14">
+                <h2 class="max-w-4xl text-3xl font-semibold leading-tight tracking-[-0.03em] text-ink md:text-5xl">Why not push every one to
+                    use
+                    cryptocurrency to
+                    transfer money
+                </h2>
+            </div>
+            <div class="w-screen basis-full md:basis-5/6">
+                <div class="overflow-x-auto">
+                    <table class="mb-8 w-full min-w-[760px] border-collapse border border-black bg-white text-sm">
+                        <thead>
+                            <tr class="border-b border-black bg-ink text-white">
+                                <th class="p-4 text-left font-mono text-xs uppercase tracking-[0.04em] text-white">Features</th>
+                                <th class="border-l border-white/40 p-4 text-left font-mono text-xs uppercase tracking-[0.04em] text-white">
+                                    <h5>Traditional Online Payment</h5> <span>(Paypal, Stripe)</span>
+                                </th>
+                                <th class="border-l border-white/40 p-4 text-left font-mono text-xs uppercase tracking-[0.04em] text-white">
+                                    <h5>Cryptocurrencies</h5><span>Linkvoices</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="">
+                            <tr class="border-b border-neutral-300">
+                                <td class="p-4 font-bold">$1000 International Transfer</td>
+                                <td class="p-4"><span class="text-red-700">$45-55 in fees</span> (4.5-5.5%) + poor exchange rate</td>
+                                <td class="p-4 text-green-600">$2-8 network fee</td>
+                            </tr>
+
+                            <tr class="border-b border-neutral-300">
+                                <td class="p-4">Geographic Restrictions</td>
+                                <td class="p-4">Limited to 200+ countries, regulatory restrictions</td>
+                                <td class="p-4 text-green-700">Globally accessible (internet required)</td>
+                            </tr>
+                            <tr class="border-b border-neutral-300">
+                                <td class="p-4">Control</td>
+                                <td class="p-4">Centralized (banks/institutions)</td>
+                                <td class="p-4 text-green-700">Decentralized</td>
+                            </tr>
+                            <tr class="border-b border-neutral-300">
+                                <td class="p-4">Currency Options</td>
+                                <td class="p-4">25+ fiat currencies with conversion fees</td>
+                                <td class="p-4 text-green-700">Bitcoin, Ethereum, USDT, and more</td>
+                            </tr>
+                            <!-- <tr class="border-b border-spring-wood-200">
+                                <td class="p-4">Empowers</td>
+                                <td class="p-4">Authorities / Governments</td>
+                                <td class="p-4 text-green-700"> People </td>
+                            </tr> -->
+                            <tr class="border-b border-neutral-300">
+                                <td class="p-4">Processing Time</td>
+                                <td class="p-4">1-3 business days, up to 21 days for holds</td>
+                                <td class="p-4 text-green-700">10 minutes to 1 hour</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4">Transaction Fees</td>
+                                <td class="p-4">2.9-3.4% + $0.30 per transaction</td>
+                                <td class="p-4 text-green-700">$0.50-15 network fees only</td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                </div>
+            </div>
+
+
+
+
+            <!-- <div class="mt-8">
+            <p>
+                <strong>Lower fees and faster transaction:</strong> Cryptocurrency transactions involve much lower fees
+                compared to traditional bank transfers or payment services, especially for international transfers.
+            </p>
+            <p>
+                Faster transactions: Unlike bank transfers that can take days, especially across borders, cryptocurrency transfers are processed quickly, often within minutes, regardless of the destination.
+            </p>
+            <p>
+                <strong>Decentralized:</strong> Cryptocurrencies enable peer-to-peer transfers without the
+                need for banks or other intermediaries, so cryptocurrencies are not controlled by any central authority
+            </p>
+            <p>
+                <strong>Global accessibility:</strong>
+                easier for people in regions with limited banking infrastructure to participate in financial
+                transactions.
+            </p>
+            <p>
+                <strong> Privacy: </strong> Cryptocurrency transactions can offer a higher degree of privacy compared to
+                traditional banking, as <strong>users do not need to provide personal information beyond wallet
+                    addresses.</strong>
+            </p>
+        </div> -->
+        </div>
+    </section>
+</template>
+
+<script setup>
+
+</script>
+
+<style lang="scss" scoped></style>
