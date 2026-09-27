@@ -5,9 +5,9 @@
                 <div class="mb-8 basis-full pr-6 md:basis-1/4 md:border-r md:border-black">
                     <div class="flex flex-col">
                         <nuxt-link to="/">
-                            <img class="w-48 mb-4" src="@/assets/images/mainlogo.svg" alt="linkvoices - crypto invoices">
+                            <img class="w-48 mb-4" src="@/assets/images/mainlogo.svg" alt="Linkvoices">
                         </nuxt-link>
-                        <p class="mb-4 max-w-xs text-sm leading-relaxed text-ink">Decentralized invoicing powered by cryptocurrency</p>
+                        <p class="mb-4 max-w-xs text-sm leading-relaxed text-ink">Find the right people. Your account stays yours.</p>
                         <a href="https://open-launch.com/projects/linkvoices" target="_blank" rel="noopener">
   <img class="grayscale" src="https://open-launch.com/api/badge/811ef735-c89d-4cc0-8c72-878f2c0fe5fd/featured-light.svg" alt="Featured on Open-Launch" width="200" height="50" />
 </a>
@@ -17,6 +17,7 @@
                 <div class="mb-8 basis-full md:basis-1/4 md:border-r md:border-black md:px-6">
                     <h4 class="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.06em] text-ink">Resources</h4>
                     <ul class="space-y-2">
+                        <li><nuxt-link to="/explore" class="text-sm text-ink hover:text-brand-blue">Look around</nuxt-link></li>
                         <li><nuxt-link to="/blog" class="text-sm text-ink hover:text-brand-blue">Blog</nuxt-link></li>
                         <li><nuxt-link to="/faq" class="text-sm text-ink hover:text-brand-blue">FAQ</nuxt-link></li>
                         <li><nuxt-link to="/pricing" class="text-sm text-ink hover:text-brand-blue">Pricing</nuxt-link></li>

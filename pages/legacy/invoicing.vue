@@ -1,19 +1,19 @@
 <template>
   <Header />
   <main>
-    <LandingLegacyHero />
-    <LandingLegacyHero1 />
-    <LandingLegacyLinks />
-    <LandingLegacyQuote />
-    <LandingLegacyAdvantages />
-    <LandingLegacyFaq />
-    <LandingLegacySeoContent />
+    <LandingHero />
+    <LandingHero1 />
+    <LandingLinks />
+    <LandingQuote />
+    <LandingAdvantages />
+    <LandingFaq />
+    <LandingSeoContent />
   </main>
   <Footer />
 </template>
 
 <script setup lang="js">
-import { buildHomeFaqSchema } from '~/data/legacyHomeFaq.js'
+import { buildHomeFaqSchema } from '~/data/homeFaq.js'
 
 definePageMeta({
   layout: false
@@ -21,7 +21,7 @@ definePageMeta({
 
 const config = useRuntimeConfig()
 const siteUrl = (config.public.url || 'https://linkvoices.com').replace(/\/$/, '')
-const pageUrl = siteUrl
+const pageUrl = `${siteUrl}/legacy/invoicing`
 const pageImageUrl = `${siteUrl}/og-image.jpg`
 
 const pageTitle = 'Linkvoices — Free Cryptocurrency Invoice Generator'
@@ -32,7 +32,6 @@ usePageSeo({
   title: pageTitle,
   description: pageDescription,
   path: '/legacy/invoicing',
-  noindex: true,
   appendSiteName: false,
 })
 

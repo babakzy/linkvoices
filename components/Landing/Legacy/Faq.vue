@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { homeFaqs } from '~/data/legacyHomeFaq.js'
+import { homeFaqs } from '~/data/homeFaq.js'
 </script>
 
 <style lang="scss" scoped>

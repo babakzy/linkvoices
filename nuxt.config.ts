@@ -75,13 +75,22 @@ export default defineNuxtConfig({
       '/login',
       '/dashboard/**',
       '/invoice/**',
+      '/home',
+      '/discover',
+      '/search',
+      '/post',
+      '/messages',
+      '/notifications',
+      '/profile',
+      '/settings',
+      '/write',
     ],
   },
   site: {
     url: appUrl,
     name: 'Linkvoices',
     description:
-      'Create and send free cryptocurrency invoices directly to your wallet. Accept Bitcoin, Ethereum, USDT, and DAI with no platform fees.',
+      'Find the right people, not more content. Linkvoices is a simple social app on an open network.',
     defaultLocale: 'en',
     identity: {
       type: 'Organization',

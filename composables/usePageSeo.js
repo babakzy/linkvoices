@@ -1,5 +1,6 @@
 /**
  * Shared SEO defaults for public pages (title, description, OG, Twitter, canonical).
+ * @param {{ title?: string, description?: string, path?: string, ogImage?: string, ogType?: string, noindex?: boolean, appendSiteName?: boolean }} [options]
  */
 export function usePageSeo({
   title,

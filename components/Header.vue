@@ -4,7 +4,7 @@
       <div class="flex flex-wrap items-center">
         <div class="basis-1/2 md:basis-1/4">
           <nuxt-link to="/">
-            <img class="w-48 max-w-full md:w-52" src="@/assets/images/mainlogo.svg" alt="linkvoices - crypto invoices">
+            <img class="w-48 max-w-full md:w-52" src="@/assets/images/mainlogo.svg" alt="Linkvoices">
           </nuxt-link>
         </div>
         <div class="basis-1/2 text-right text-ink md:basis-3/4">
@@ -14,16 +14,19 @@
           <ul class="hidden md:inline-block md:flex-row md:items-center">
 
             <li class="inline-block md:mx-2">
+              <nuxt-link to="/explore" class="rounded-ui px-3 py-2 font-mono text-xs font-medium uppercase tracking-[0.06em] transition-colors hover:bg-spring-wood-100">Look around</nuxt-link>
+            </li>
+            <li class="inline-block md:mx-2">
               <nuxt-link to="/blog" class="rounded-ui px-3 py-2 font-mono text-xs font-medium uppercase tracking-[0.06em] transition-colors hover:bg-spring-wood-100">Blog</nuxt-link>
             </li>
 
           </ul>
           <ul class="inline-block">
-            <li v-if="user" class="inline-block md:mx-4">
-              <nuxt-link to="/dashboard" class="rounded-ui border border-black bg-white px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-spring-wood-100">Dashboard</nuxt-link>
+            <li v-if="networkAccount" class="inline-block md:mx-4">
+              <nuxt-link to="/home" class="rounded-ui border border-black bg-white px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-spring-wood-100">Home</nuxt-link>
             </li>
             <li v-else class="inline-block md:ml-4">
-              <nuxt-link class="inline-flex h-9 items-center justify-center rounded-ui border border-ink bg-ink px-4 text-sm font-medium text-white transition-colors hover:bg-neutral-800" to="/login">Login / Register</nuxt-link>
+              <nuxt-link class="inline-flex h-9 items-center justify-center rounded-ui border border-ink bg-ink px-4 text-sm font-medium text-white transition-colors hover:bg-neutral-800" to="/start">Get started</nuxt-link>
             </li>
           </ul>
 
@@ -46,6 +49,7 @@
 <script setup>
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
+const networkAccount = useNetworkAccount()
 const isMenuOpen =  ref(false)
 onMounted(() => {
   console.log(user);
