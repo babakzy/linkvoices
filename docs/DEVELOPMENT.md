@@ -4,7 +4,7 @@ Condensed architecture and behavioral notes for Linkvoices contributors.
 
 ## Stack
 
-Nuxt 3, Vue 3, Tailwind (+ DaisyUI), Supabase (Postgres + Auth). Blog HTML is rendered with `marked` from rows in Supabase.
+Nuxt 4, Vue 3, Tailwind CSS 4, Supabase (Postgres + Auth). Blog HTML is rendered with `marked` from rows in Supabase.
 
 ## Database
 
@@ -56,4 +56,5 @@ LIMIT 100;
 
 - [API reference](./API_REFERENCE.md) — composable signatures
 - [Supabase setup](../supabase/README.md) — migrations and RLS overview
-- [UI kit](../LINKVOICES_UI_KIT.md) — brand and Tailwind conventions
+- [Design system](./DESIGN_SYSTEM.md) - brand, tokens, and shared UI conventions
+- [Image style guide](./IMAGE_STYLE_GUIDE.md) - AI image direction and prompt templates

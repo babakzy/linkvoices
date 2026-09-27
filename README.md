@@ -23,7 +23,7 @@ Linkvoices lets you create and share crypto invoices (BTC, ETH, USDT, DAI), mana
 - Wallet addresses on user profiles
 - Blog stored in Supabase (`blog_posts`), optional seed from `content/*.md`
 - Auth activity logging (`user_activity`) for backend/analysis use only
-- Responsive UI (Tailwind + DaisyUI); design notes in [`LINKVOICES_UI_KIT.md`](./LINKVOICES_UI_KIT.md)
+- Responsive UI with Tailwind CSS and shared Vue components; see [`docs/DESIGN_SYSTEM.md`](./docs/DESIGN_SYSTEM.md)
 
 ## Quick start
 
@@ -62,7 +62,8 @@ Linkvoices lets you create and share crypto invoices (BTC, ETH, USDT, DAI), mana
 | [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md) | Architecture, schema summary, tracking behavior |
 | [docs/API_REFERENCE.md](./docs/API_REFERENCE.md) | Composables (`useBlog`, `useTracking`, user helpers) |
 | [supabase/README.md](./supabase/README.md) | Supabase setup and schema notes |
-| [LINKVOICES_UI_KIT.md](./LINKVOICES_UI_KIT.md) | Brand, layout, Tailwind tokens |
+| [docs/DESIGN_SYSTEM.md](./docs/DESIGN_SYSTEM.md) | Brand identity, tokens, layout, and UI components |
+| [docs/IMAGE_STYLE_GUIDE.md](./docs/IMAGE_STYLE_GUIDE.md) | AI image direction and prompt templates |
 
 ## Project structure
 
@@ -81,7 +82,7 @@ linkvoices/
 
 ## Tech stack
 
-Nuxt 3, Vue 3, TailwindCSS, DaisyUI, Supabase Auth + Postgres, `marked`, jsPDF/html2canvas for PDF-related flows where used.
+Nuxt 4, Vue 3, Tailwind CSS 4, Supabase Auth + Postgres, `marked`, jsPDF/html2canvas for PDF-related flows where used.
 
 ## Security & privacy
 

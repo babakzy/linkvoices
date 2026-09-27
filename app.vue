@@ -14,10 +14,3 @@
 //const user = useSupabaseUser()
 const { $gsap: gsap, $Draggable: Draggable } = useNuxtApp();
 </script>
-
-<style lang="scss">
-@use "~/assets/scss/main.scss";
-h2{
-  font-family: "Play", sans-serif;
-}
-</style>
