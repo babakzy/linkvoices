@@ -23,13 +23,13 @@
 
 <script setup lang="ts">
 import { getSecretKey } from '~/utils/network/keyStore'
-import { shortNpub } from '~/utils/network/format'
+import { personLabel, shortNpub } from '~/utils/network/format'
 
 definePageMeta({ layout: 'network', middleware: ['network'] })
 usePageSeo({ title: 'Messages', path: '/messages', noindex: true })
 
 const account = useNetworkAccount()
-const { query, publish } = useNostr()
+const { query, profiles, publish } = useNostr()
 const recipient = ref('')
 const body = ref('')
 const sending = ref(false)
@@ -49,18 +49,19 @@ async function load() {
     const wraps = await query({ kinds: [1059], '#p': [account.value.pubkey], limit: 30 })
     const { unwrapEvent } = await import('nostr-tools/nip17')
     const nip19 = await import('nostr-tools/nip19')
-    const next: typeof messages.value = []
+    const next: Array<{ id: string, pubkey: string, content: string }> = []
     for (const wrap of wraps) {
       try {
         const rumor = unwrapEvent(wrap, secret)
-        next.push({
-          id: wrap.id,
-          from: shortNpub(nip19.npubEncode(rumor.pubkey)),
-          content: rumor.content,
-        })
+        next.push({ id: wrap.id, pubkey: rumor.pubkey, content: rumor.content })
       } catch { /* not for this key */ }
     }
-    messages.value = next
+    const cache = await profiles(next.map(item => item.pubkey))
+    messages.value = next.map(item => ({
+      id: item.id,
+      content: item.content,
+      from: personLabel(cache.get(item.pubkey)?.content, shortNpub(nip19.npubEncode(item.pubkey))),
+    }))
   } finally {
     loading.value = false
   }

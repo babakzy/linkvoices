@@ -14,7 +14,7 @@
       <div class="flex items-start justify-between gap-3">
         <div>
           <nuxt-link :to="person.href" class="font-semibold hover:underline">{{ person.name }}</nuxt-link>
-          <UiBadge class="ml-2" :variant="person.isMember ? 'neutral' : 'blue'">{{ person.isMember ? 'Member' : 'Nostr profile' }}</UiBadge>
+          <UiBadge v-if="person.isMember" class="ml-2" variant="neutral">Member</UiBadge>
           <p v-if="person.about" class="mt-1 line-clamp-2 text-sm text-neutral-600">{{ person.about }}</p>
         </div>
         <UiButton size="sm" variant="secondary" @click="follow(person.pubkey)">Follow</UiButton>
@@ -31,6 +31,7 @@
 </template>
 
 <script setup lang="ts">
+import { isGenericName, readProfileContent, shortNpub } from '~/utils/network/format'
 import { DISCOVERY_PRESETS } from '~/utils/network/constants'
 
 definePageMeta({ layout: 'network', middleware: ['network'] })
@@ -67,30 +68,28 @@ async function load() {
     if (mapped.length < 5) {
       const notes = await query({ kinds: [1], limit: 30 })
       const authors = [...new Set(notes.map(note => note.pubkey))].slice(0, 8)
-      const cache = await profiles(authors)
       for (const pubkey of authors) {
         if (mapped.some(person => person.pubkey === pubkey) || pubkey === account.value?.pubkey) continue
-        const profile = cache.get(pubkey)
-        let name = 'Nostr profile'
-        let about = ''
-        if (profile) {
-          try {
-            const meta = JSON.parse(profile.content) as { display_name?: string, name?: string, about?: string }
-            name = meta.display_name || meta.name || name
-            about = meta.about || ''
-          } catch { /* ignore */ }
-        }
         mapped.push({
           pubkey,
-          name,
-          about,
+          name: '',
+          about: '',
           isMember: false,
           href: `/u/${nip19.npubEncode(pubkey)}`,
           reasons: ['They posted recently on the open network, outside your follows.'],
         })
       }
     }
-    people.value = mapped
+    const cache = await profiles(mapped.map(person => person.pubkey))
+    people.value = mapped.map((person) => {
+      const live = readProfileContent(cache.get(person.pubkey)?.content)
+      const npub = nip19.npubEncode(person.pubkey)
+      return {
+        ...person,
+        name: isGenericName(person.name) ? (live.name || shortNpub(npub)) : person.name,
+        about: person.about || live.about,
+      }
+    })
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Discovery is unavailable until the database migration has been applied.'
   } finally {

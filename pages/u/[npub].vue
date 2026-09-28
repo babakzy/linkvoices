@@ -4,9 +4,16 @@
     <main class="mx-auto max-w-[600px] border-x border-neutral-200 bg-white px-4 py-8">
       <div v-if="pending" class="flex justify-center py-16"><UiSpinner /></div>
       <template v-else-if="profile">
-        <UiBadge :variant="profile.isMember ? 'neutral' : 'blue'">{{ profile.isMember ? 'Member' : 'Nostr profile' }}</UiBadge>
-        <h1 class="mt-3 text-3xl font-semibold">{{ profile.displayName || 'Nostr profile' }}</h1>
-        <p v-if="about" class="mt-3 max-w-prose text-base leading-relaxed">{{ about }}</p>
+        <div class="flex items-start gap-4">
+          <img v-if="picture" :src="picture" alt="" class="size-16 rounded-ui border border-neutral-200 object-cover">
+          <span v-else class="flex size-16 items-center justify-center rounded-ui border border-neutral-200 bg-spring-wood-100 text-lg font-semibold">{{ initial }}</span>
+          <div class="min-w-0">
+            <UiBadge v-if="profile.isMember" variant="neutral">Member</UiBadge>
+            <h1 class="text-3xl font-semibold leading-tight">{{ heading }}</h1>
+            <p class="mt-1 break-all font-mono text-xs text-neutral-500">{{ route.params.npub }}</p>
+          </div>
+        </div>
+        <p v-if="about" class="mt-4 max-w-prose text-base leading-relaxed">{{ about }}</p>
         <div class="mt-4 flex flex-wrap gap-2">
           <UiBadge v-for="tag in profile.tags" :key="tag.label">{{ tag.label }}</UiBadge>
         </div>
@@ -39,17 +46,27 @@
 </template>
 
 <script setup lang="ts">
+import { isGenericName, readProfileContent, shortNpub } from '~/utils/network/format'
+
 definePageMeta({ layout: false })
 
 const route = useRoute()
 const account = useNetworkAccount()
-const { query, signAndPublish } = useNostr()
+const { query, profiles, signAndPublish } = useNostr()
 const pending = ref(true)
 const message = ref('')
 const connection = ref('interested_in')
 const pubkey = ref('')
+const picture = ref('')
 const profile = ref<{ displayName: string | null, isMember: boolean, nostr: { about?: string } | null, tags: Array<{ label: string }> } | null>(null)
 const about = computed(() => profile.value?.nostr?.about || '')
+const heading = computed(() => {
+  const name = profile.value?.displayName
+  if (name && !isGenericName(name)) return name
+  const npub = String(route.params.npub || '')
+  return npub ? shortNpub(npub) : 'Profile'
+})
+const initial = computed(() => heading.value.slice(0, 1).toUpperCase())
 const outcomes = [
   { id: 'conversation', label: 'Good conversation' },
   { id: 'met', label: 'Met in person' },
@@ -102,19 +119,13 @@ onMounted(async () => {
     const loadProfile = $fetch as (path: string) => Promise<NonNullable<typeof profile.value>>
     profile.value = await loadProfile(`/api/network/profile?pubkey=${pubkey.value}`)
   } catch {
-    const events = await query({ kinds: [0], authors: [pubkey.value], limit: 1 })
-    const latest = events.sort((a, b) => b.created_at - a.created_at)[0]
-    let about = ''
-    let displayName = 'Nostr profile'
-    if (latest) {
-      try {
-        const meta = JSON.parse(latest.content) as { about?: string, display_name?: string, name?: string }
-        about = meta.about || ''
-        displayName = meta.display_name || meta.name || displayName
-      } catch { /* ignore malformed profile text */ }
-    }
-    profile.value = { displayName, isMember: false, nostr: { about }, tags: [] }
+    profile.value = { displayName: null, isMember: false, nostr: { about: '' }, tags: [] }
   }
+  const cache = await profiles([pubkey.value])
+  const live = readProfileContent(cache.get(pubkey.value)?.content)
+  if (live.name && isGenericName(profile.value?.displayName)) profile.value = { ...profile.value!, displayName: live.name }
+  if (live.about) profile.value = { ...profile.value!, nostr: { about: profile.value?.nostr?.about || live.about } }
+  picture.value = live.picture
   pending.value = false
 })
 </script>

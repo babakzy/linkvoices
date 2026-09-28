@@ -16,7 +16,7 @@
     <section class="px-4 py-6">
       <h2 class="font-mono text-xs uppercase tracking-[0.06em] text-neutral-500">In the app</h2>
       <label v-for="pref in prefs" :key="pref.type" class="mt-3 flex items-center justify-between gap-3 text-sm">
-        <span>{{ pref.type.replaceAll('_', ' ') }}</span>
+        <span>{{ prefLabel(pref.type) }}</span>
         <input v-model="pref.in_app" type="checkbox" @change="save(pref)">
       </label>
     </section>
@@ -30,6 +30,16 @@ usePageSeo({ title: 'Notifications', path: '/notifications', noindex: true })
 const pending = ref(true)
 const notifications = ref<Array<{ id: string, type: string, payload: Record<string, string>, read_at: string | null }>>([])
 const prefs = ref<Array<{ type: string, in_app: boolean }>>([])
+
+function prefLabel(type: string) {
+  const labels: Record<string, string> = {
+    connection_request: 'Connection requests',
+    connection_response: 'Connection replies',
+    mention: 'Mentions',
+    reply: 'Replies',
+  }
+  return labels[type] || type.replaceAll('_', ' ')
+}
 
 function label(item: { type: string, payload: Record<string, string> }) {
   if (item.type === 'connection_request') return 'Someone wants to add a connection type.'

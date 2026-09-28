@@ -1,16 +1,17 @@
 <template>
   <div class="min-h-screen bg-white text-ink">
-    <div class="mx-auto grid min-h-screen max-w-6xl grid-cols-1 md:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,600px)_300px]">
-      <aside class="hidden border-r border-neutral-200 bg-white md:flex md:flex-col md:px-3 md:py-4">
-        <nuxt-link to="/" class="px-3 py-2">
+    <div class="mx-auto grid min-h-screen max-w-7xl grid-cols-1 md:grid-cols-[272px_minmax(0,1fr)] xl:grid-cols-[272px_minmax(0,680px)_300px]">
+      <aside class="hidden border-r border-neutral-200 bg-white md:flex md:flex-col md:py-4">
+        <nuxt-link to="/" class="px-4 py-2">
           <img class="w-40" src="@/assets/images/mainlogo.svg" alt="Linkvoices">
         </nuxt-link>
-        <nav class="mt-4 flex flex-col gap-1">
+        <NetworkIdentityColumn variant="sidebar" class="mt-3 border-y border-neutral-200" />
+        <nav class="mt-4 flex flex-col gap-1 px-3">
           <nuxt-link v-for="item in items" :key="item.to" :to="item.to" class="rounded-ui px-3 py-2 text-sm font-medium hover:bg-neutral-100" :class="isActive(item.to) ? 'bg-neutral-100' : ''">
             {{ item.label }}
           </nuxt-link>
         </nav>
-        <div class="mt-auto px-3 pb-2">
+        <div v-if="account" class="mt-auto px-4 pb-2">
           <button class="text-sm text-neutral-600 hover:text-ink" type="button" @click="networkLogout()">Sign out</button>
         </div>
       </aside>
@@ -39,6 +40,7 @@
 
 <script setup lang="ts">
 const route = useRoute()
+const account = useNetworkAccount()
 const items = [
   { label: 'Home', to: '/home' },
   { label: 'Discover', to: '/discover' },

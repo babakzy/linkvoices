@@ -1,5 +1,6 @@
 <template>
   <NetworkAppShell>
+    <NetworkIdentityColumn variant="sidebar" class="border-b border-neutral-200 md:hidden" />
     <NetworkFeed />
     <template #rail>
       <div class="border border-neutral-200 bg-white p-4">

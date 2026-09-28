@@ -5,6 +5,13 @@ export const DEFAULT_RELAYS = [
   'wss://relay.primal.net',
 ]
 
+/** Relays that index kind 0 profiles, plus the default read relays. */
+export const PROFILE_RELAYS = [
+  'wss://purplepag.es',
+  'wss://relay.nostr.band',
+  ...DEFAULT_RELAYS,
+]
+
 export const FEED_MODES = [
   { id: 'following', label: 'Following' },
   { id: 'for_you', label: 'For you' },

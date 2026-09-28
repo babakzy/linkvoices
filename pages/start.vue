@@ -1,41 +1,62 @@
 <template>
   <div class="min-h-screen bg-white">
     <Header />
-    <main class="mx-auto max-w-xl px-4 py-12">
-      <section v-if="step === 'choose'">
-        <h1 class="text-3xl font-semibold leading-tight">How do you want to start?</h1>
+    <main class="mx-auto max-w-lg px-4 py-10">
+      <button v-if="canGoBack" class="font-mono text-xs uppercase tracking-[0.06em] text-neutral-500" type="button" @click="goBack">Back</button>
+      <p v-if="progress" class="font-mono text-xs uppercase tracking-[0.06em] text-neutral-500">{{ progress }}</p>
+
+      <section v-if="step === 'choose'" class="mt-4">
+        <h1 class="text-3xl font-semibold leading-tight">Create your account</h1>
+        <p class="mt-3 text-base leading-relaxed text-neutral-700">It works in this browser, and you can take it with you if you leave.</p>
         <div class="mt-6 grid gap-3">
-          <button class="border border-ink bg-ink px-4 py-3 text-left text-white" type="button" @click="step = 'password'">
-            <span class="block text-sm font-semibold">Get started</span>
-            <span class="mt-1 block text-sm text-white/80">Create an account on this device.</span>
-          </button>
-          <button class="border border-neutral-300 bg-white px-4 py-3 text-left" type="button" @click="step = 'existing'">
-            <span class="block text-sm font-semibold">I already use Nostr</span>
-          </button>
-          <nuxt-link class="border border-neutral-300 px-4 py-3 text-sm" to="/explore">Look around first</nuxt-link>
+          <UiButton @click="step = 'password'">Get started</UiButton>
+          <UiButton variant="secondary" @click="step = 'signin'">I already have an account</UiButton>
+          <UiButton variant="ghost" @click="step = 'existing'">I already use another app</UiButton>
+          <nuxt-link class="text-center text-sm text-brand-blue" to="/explore">Look around first</nuxt-link>
         </div>
       </section>
 
-      <section v-else-if="step === 'password'">
+      <section v-else-if="step === 'signin'" class="mt-4">
+        <h1 class="text-3xl font-semibold">Sign in</h1>
+        <p class="mt-2 text-sm leading-relaxed text-neutral-600">Use the email and password from this device. Your key stays in memory for this visit.</p>
+        <form class="mt-6 grid gap-4" @submit.prevent="signIn">
+          <UiInput v-model="email" label="Email" type="email" autocomplete="email" required />
+          <UiInput v-model="password" label="Password" type="password" autocomplete="current-password" required />
+          <p v-if="error" class="text-sm text-red-700">{{ error }}</p>
+          <UiButton type="submit" :loading="busy">Sign in</UiButton>
+        </form>
+      </section>
+
+      <section v-else-if="step === 'password'" class="mt-4">
         <h1 class="text-3xl font-semibold">Email and password</h1>
-        <p class="mt-2 text-sm text-neutral-600">Works everywhere. Your recovery key is created here and encrypted before it is saved.</p>
+        <p class="mt-2 text-sm leading-relaxed text-neutral-600">This is how you get back in. The recovery key is created here and encrypted before it is saved.</p>
         <form class="mt-6 grid gap-4" @submit.prevent="createWithPassword">
           <UiInput v-model="name" label="Name" autocomplete="name" />
           <UiInput v-model="email" label="Email" type="email" autocomplete="email" required />
           <UiInput v-model="password" label="Password" type="password" autocomplete="new-password" required description="At least 8 characters." />
           <label class="flex items-start gap-2 text-sm">
             <input v-model="withPhrase" type="checkbox" class="mt-1">
-            <span>Also save a recovery phrase. If you skip it and forget the password, the account cannot be restored.</span>
+            <span>Also save a recovery phrase. Skip it, and a forgotten password cannot be reset.</span>
           </label>
           <p v-if="error" class="text-sm text-red-700">{{ error }}</p>
           <UiButton type="submit" :loading="busy">Create account</UiButton>
         </form>
       </section>
 
-      <section v-else-if="step === 'phrase'">
+      <section v-else-if="step === 'creating'" class="mt-16 text-center">
+        <UiSpinner class="mx-auto" />
+        <p class="mt-4 text-sm">Creating your account.</p>
+      </section>
+
+      <section v-else-if="step === 'phrase'" class="mt-4">
         <h1 class="text-3xl font-semibold">Save this phrase</h1>
-        <p class="mt-2 text-sm leading-relaxed">Write it down. We can't reset this for you. That's the trade for an account nobody can take away from you.</p>
-        <p class="mt-4 border border-neutral-300 bg-spring-wood-100 p-4 font-mono text-sm leading-relaxed">{{ phrase }}</p>
+        <p class="mt-2 text-sm leading-relaxed">Write these 12 words down. We can't reset them for you. That's the trade for an account nobody can take away.</p>
+        <ol class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
+          <li v-for="(word, index) in phraseWords" :key="`${index}-${word}`" class="border border-neutral-300 bg-spring-wood-100 px-3 py-2 font-mono text-sm">
+            <span class="mr-2 text-neutral-500">{{ index + 1 }}</span>{{ word }}
+          </li>
+        </ol>
+        <UiButton class="mt-3" variant="secondary" @click="copyPhrase">{{ copied ? 'Copied' : 'Copy phrase' }}</UiButton>
         <label class="mt-4 flex items-start gap-2 text-sm">
           <input v-model="phraseSaved" type="checkbox" class="mt-1">
           <span>I saved this phrase somewhere I can find later.</span>
@@ -43,13 +64,13 @@
         <UiButton class="mt-4" :disabled="!phraseSaved" @click="finishPhrase">Continue</UiButton>
       </section>
 
-      <section v-else-if="step === 'existing'">
+      <section v-else-if="step === 'existing'" class="mt-4">
         <h1 class="text-3xl font-semibold">Bring an existing account</h1>
+        <p class="mt-2 text-sm leading-relaxed text-neutral-600">A browser extension is the safer way. The key never enters Linkvoices.</p>
         <div class="mt-6 grid gap-3">
-          <UiButton @click="connectExtension">Browser extension</UiButton>
-          <p class="text-sm text-neutral-600">Preferred. The key never enters Linkvoices.</p>
-          <form class="mt-4 grid gap-3 border-t border-neutral-200 pt-4" @submit.prevent="importKey">
-            <UiTextarea v-model="nsec" label="Recovery key" description="Accepted, but discouraged. It is encrypted in this browser before anything is saved." :rows="3" />
+          <UiButton @click="connectExtension">Use browser extension</UiButton>
+          <form class="mt-2 grid gap-3 border-t border-neutral-200 pt-4" @submit.prevent="importKey">
+            <UiTextarea v-model="nsec" label="Recovery key" description="Accepted if you don't have an extension. It is encrypted in this browser before anything is saved." :rows="3" />
             <UiInput v-model="email" label="Email" type="email" required />
             <UiInput v-model="password" label="Password" type="password" required />
             <UiButton type="submit" variant="secondary" :loading="busy">Encrypt and continue</UiButton>
@@ -58,15 +79,15 @@
         </div>
       </section>
 
-      <section v-else-if="step === 'ready'">
+      <section v-else-if="step === 'ready'" class="mt-4">
         <h1 class="text-3xl font-semibold">Your account is ready.</h1>
         <p class="mt-3 text-base leading-relaxed">It belongs to you, not to us. It also works on other Nostr apps, so you can leave any time and keep your profile and your people.</p>
         <UiButton class="mt-6" @click="step = 'interests'">Continue</UiButton>
       </section>
 
-      <section v-else-if="step === 'interests'">
+      <section v-else-if="step === 'interests'" class="mt-4">
         <h1 class="text-3xl font-semibold">What do you care about?</h1>
-        <p class="mt-2 text-sm text-neutral-600">Pick at least three. Skip this and suggestions will be less relevant.</p>
+        <p class="mt-2 text-sm text-neutral-600">Pick at least three. This is what the feed and suggestions start from.</p>
         <div class="mt-4 flex flex-wrap gap-2">
           <button
             v-for="interest in INTERESTS"
@@ -79,23 +100,25 @@
             {{ interest }}
           </button>
         </div>
-        <div class="mt-6 flex gap-2">
+        <p class="mt-3 font-mono text-xs text-neutral-500">{{ selectedInterests.length }} selected</p>
+        <div class="mt-4 flex gap-2">
           <UiButton :disabled="selectedInterests.length < 3" @click="saveInterests">Continue</UiButton>
           <UiButton variant="ghost" @click="step = 'profile'">Skip for now</UiButton>
         </div>
       </section>
 
-      <section v-else-if="step === 'profile'">
+      <section v-else-if="step === 'profile'" class="mt-4">
         <h1 class="text-3xl font-semibold">Build your profile</h1>
-        <div class="mt-4 flex gap-2">
-          <UiButton :variant="profileMode === 'import' ? 'primary' : 'secondary'" @click="profileMode = 'import'">Use the AI I already use</UiButton>
-          <UiButton :variant="profileMode === 'interview' ? 'primary' : 'secondary'" @click="profileMode = 'interview'">Answer a few questions</UiButton>
+        <p class="mt-2 text-sm text-neutral-600">You review everything before it is saved.</p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <UiButton :variant="profileMode === 'import' ? 'primary' : 'secondary'" @click="profileMode = 'import'">Use an assistant I already have</UiButton>
+          <UiButton :variant="profileMode === 'interview' ? 'primary' : 'secondary'" @click="profileMode = 'interview'">Answer three questions</UiButton>
         </div>
         <div v-if="profileMode === 'import'" class="mt-4">
-          <p class="text-sm">Copy this into ChatGPT or Claude, then paste the JSON back.</p>
-          <textarea readonly class="mt-2 w-full border border-neutral-300 p-3 font-mono text-xs" rows="8" :value="PROFILE_PROMPT" />
-          <UiButton class="mt-2" variant="secondary" @click="copyPrompt">Copy prompt</UiButton>
-          <UiTextarea v-model="importText" class="mt-4" label="Paste the result" :rows="8" />
+          <p class="text-sm">Copy this into ChatGPT or Claude, then paste the result back.</p>
+          <textarea readonly class="mt-2 w-full rounded-ui border border-neutral-300 p-3 font-mono text-xs" rows="6" :value="PROFILE_PROMPT" />
+          <UiButton class="mt-2" variant="secondary" @click="copyPrompt">{{ copied ? 'Copied' : 'Copy prompt' }}</UiButton>
+          <UiTextarea v-model="importText" class="mt-4" label="Paste the result" :rows="6" />
           <UiButton class="mt-3" :disabled="!importText.trim()" @click="reviewImport">Review</UiButton>
         </div>
         <form v-else class="mt-4 grid gap-4" @submit.prevent="reviewInterview">
@@ -104,18 +127,23 @@
           <UiTextarea v-model="answers.need" label="What are you looking for?" :rows="3" />
           <UiButton type="submit">Review</UiButton>
         </form>
-        <UiButton class="mt-4" variant="ghost" @click="step = 'follows'">Skip for now</UiButton>
-        <div v-if="review" class="mt-6 border border-neutral-200 p-4">
+        <div v-if="reviewRows.length" class="mt-6 border border-neutral-200 p-4">
           <p class="font-mono text-xs uppercase tracking-[0.06em]">Review before saving</p>
-          <pre class="mt-2 whitespace-pre-wrap text-sm">{{ review }}</pre>
-          <UiButton class="mt-3" :loading="busy" @click="saveReview">Save this</UiButton>
+          <dl class="mt-3 space-y-3">
+            <div v-for="row in reviewRows" :key="row.label">
+              <dt class="font-mono text-xs uppercase tracking-[0.06em] text-neutral-500">{{ row.label }}</dt>
+              <dd class="mt-1 text-sm">{{ row.value }}</dd>
+            </div>
+          </dl>
+          <UiButton class="mt-4" :loading="busy" @click="saveReview">Save this</UiButton>
         </div>
+        <UiButton class="mt-4" variant="ghost" @click="step = 'follows'">Skip for now</UiButton>
         <p v-if="error" class="mt-3 text-sm text-red-700">{{ error }}</p>
       </section>
 
-      <section v-else-if="step === 'follows'">
+      <section v-else-if="step === 'follows'" class="mt-4">
         <h1 class="text-3xl font-semibold">People to follow</h1>
-        <p class="mt-2 text-sm text-neutral-600">Real accounts from the open network. Remove anyone you don't want.</p>
+        <p class="mt-2 text-sm text-neutral-600">A few real accounts. Uncheck anyone you don't want.</p>
         <label v-for="person in suggestions" :key="person.npub" class="mt-3 flex gap-3 border border-neutral-200 p-3 text-sm">
           <input v-model="person.selected" type="checkbox" class="mt-1">
           <span>
@@ -124,6 +152,7 @@
           </span>
         </label>
         <UiButton class="mt-4" :loading="busy" @click="followSelected">Follow and open the feed</UiButton>
+        <UiButton class="mt-2" variant="ghost" @click="openFeed">Skip and open the feed</UiButton>
         <p v-if="error" class="mt-3 text-sm text-red-700">{{ error }}</p>
       </section>
     </main>
@@ -133,7 +162,7 @@
 <script setup lang="ts">
 import { INTERESTS, PROFILE_PROMPT, SUGGESTED_PEOPLE } from '~/utils/network/constants'
 import { asStringList, parseProfileJson } from '~/utils/network/format'
-import { aesEncrypt, derivePasswordMaterial } from '~/utils/network/crypto'
+import { aesDecrypt, aesEncrypt, derivePasswordMaterial, verifierFromPassword, wrappingKeyFromPassword } from '~/utils/network/crypto'
 import { randomBytes } from '~/utils/network/bytes'
 import { setSecretKey } from '~/utils/network/keyStore'
 
@@ -147,7 +176,7 @@ usePageSeo({
 const route = useRoute()
 const account = useNetworkAccount()
 const { signAndPublish } = useNostr()
-const step = ref(route.query.existing ? 'existing' : 'choose')
+const step = ref(route.query.signin ? 'signin' : route.query.existing ? 'existing' : 'choose')
 const name = ref('')
 const email = ref('')
 const password = ref('')
@@ -160,10 +189,92 @@ const error = ref('')
 const selectedInterests = ref<string[]>([])
 const profileMode = ref<'import' | 'interview'>('import')
 const importText = ref('')
-const review = ref('')
 const parsed = ref<Record<string, unknown> | null>(null)
+const copied = ref(false)
 const answers = reactive({ work: '', offer: '', need: '' })
 const suggestions = ref(SUGGESTED_PEOPLE.map(person => ({ ...person, selected: true })))
+
+const phraseWords = computed(() => phrase.value.split(/\s+/).filter(Boolean))
+const canGoBack = computed(() => ['password', 'signin', 'existing', 'interests', 'profile', 'follows'].includes(step.value))
+const progress = computed(() => {
+  const labels: Record<string, string> = {
+    ready: 'Step 1 of 4 · Account',
+    interests: 'Step 2 of 4 · Interests',
+    profile: 'Step 3 of 4 · Profile',
+    follows: 'Step 4 of 4 · People',
+  }
+  return labels[step.value] || ''
+})
+const reviewRows = computed(() => {
+  const data = parsed.value
+  if (!data) return []
+  const rows = [
+    ['Name', data.name],
+    ['Bio', data.bio],
+    ['Location', data.location],
+    ['Skills', asStringList(data.skills).join(', ')],
+    ['Interests', asStringList(data.interests).join(', ')],
+    ['Looking for', asStringList(data.looking_for).join(', ')],
+    ['Can offer', asStringList(data.can_offer).join(', ')],
+  ]
+  return rows
+    .map(([label, value]) => ({ label: String(label), value: typeof value === 'string' ? value.trim() : '' }))
+    .filter(row => row.value)
+})
+
+function goBack() {
+  const previous: Record<string, string> = {
+    password: 'choose',
+    signin: 'choose',
+    existing: 'choose',
+    interests: 'ready',
+    profile: 'interests',
+    follows: 'profile',
+  }
+  error.value = ''
+  parsed.value = null
+  step.value = previous[step.value] || 'choose'
+}
+
+async function copyPhrase() {
+  await navigator.clipboard.writeText(phrase.value)
+  copied.value = true
+}
+
+async function openFeed() {
+  const next = typeof route.query.next === 'string' ? route.query.next : '/home'
+  await navigateTo(next.startsWith('/') ? next : '/home')
+}
+
+async function signIn() {
+  error.value = ''
+  busy.value = true
+  try {
+    const start = await $fetch<{ salt: string }>('/api/network/login-start', { method: 'POST', body: { email: email.value } })
+    const login = await $fetch<{
+      account: { id: string, pubkey: string, custodyMode: 'managed_encrypted', displayName: string | null }
+      encryptedKey: { ciphertext: string, nonce: string } | null
+      wraps: Array<{ method: string, wrapped_dek: string, nonce: string }>
+    }>('/api/network/login', {
+      method: 'POST',
+      body: { email: email.value, verifier: verifierFromPassword(password.value, start.salt) },
+    })
+    const wrap = login.wraps.find(item => item.method === 'password')
+    if (!login.encryptedKey || !wrap) throw new Error('This account has no stored key on this server.')
+    const dek = await aesDecrypt(wrappingKeyFromPassword(password.value, start.salt), {
+      ciphertext: wrap.wrapped_dek,
+      nonce: wrap.nonce,
+    })
+    const secret = await aesDecrypt(dek, login.encryptedKey)
+    setSecretKey(secret)
+    account.value = login.account
+    await openFeed()
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Could not sign in.'
+  } finally {
+    busy.value = false
+  }
+}
 
 function toggleInterest(interest: string) {
   selectedInterests.value = selectedInterests.value.includes(interest)
@@ -173,6 +284,7 @@ function toggleInterest(interest: string) {
 
 async function copyPrompt() {
   await navigator.clipboard.writeText(PROFILE_PROMPT)
+  copied.value = true
 }
 
 async function createWithPassword() {
@@ -182,12 +294,14 @@ async function createWithPassword() {
     return
   }
   busy.value = true
+  step.value = 'creating'
   try {
     const { generateSecretKey, getPublicKey } = await import('nostr-tools/pure')
     const secret = generateSecretKey()
     await registerManaged(secret, getPublicKey(secret))
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Could not create the account.'
+    step.value = 'password'
   } finally {
     busy.value = false
   }
@@ -309,7 +423,6 @@ function reviewImport() {
     return
   }
   error.value = ''
-  review.value = JSON.stringify(parsed.value, null, 2)
 }
 
 function reviewInterview() {
@@ -318,7 +431,7 @@ function reviewInterview() {
     can_offer: answers.offer ? [answers.offer] : [],
     looking_for: answers.need ? [answers.need] : [],
   }
-  review.value = JSON.stringify(parsed.value, null, 2)
+  error.value = ''
 }
 
 async function saveReview() {
@@ -356,8 +469,7 @@ async function followSelected() {
       return ['p', decoded.data]
     }).filter((tag): tag is string[] => Boolean(tag))
     if (tags.length) await signAndPublish({ kind: 3, content: '', tags })
-    const next = typeof route.query.next === 'string' ? route.query.next : '/home'
-    await navigateTo(next.startsWith('/') ? next : '/home')
+    await openFeed()
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Could not follow those accounts.'
   } finally {

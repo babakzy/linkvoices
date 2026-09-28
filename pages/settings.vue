@@ -9,9 +9,10 @@
       <section class="mt-4 border border-neutral-200 p-4">
         <h2 class="text-lg font-semibold">Make sure you can't lose this account</h2>
         <p class="mt-2 text-sm leading-relaxed text-neutral-600">Save your recovery key and you can get back in from any device, even if you lose this one. We can't reset it for you.</p>
-        <form class="mt-4" @submit.prevent="reveal">
+        <form class="mt-4 grid gap-3" @submit.prevent="reveal">
+          <UiInput v-model="email" type="email" label="Email" autocomplete="email" description="Needed only if this visit no longer has your key in memory." />
           <UiInput v-model="password" type="password" label="Password" autocomplete="current-password" />
-          <UiButton class="mt-3" type="submit" variant="secondary" :loading="revealing">Show recovery key</UiButton>
+          <UiButton type="submit" variant="secondary" :loading="revealing">Show recovery key</UiButton>
         </form>
         <p v-if="nsec" class="mt-3 break-all border border-neutral-200 bg-spring-wood-100 p-3 font-mono text-xs">{{ nsec }}</p>
         <p v-if="revealError" class="mt-2 text-sm text-red-700">{{ revealError }}</p>
@@ -38,6 +39,7 @@ const account = useNetworkAccount()
 const { relays } = useNostr()
 const npub = ref('')
 const password = ref('')
+const email = ref('')
 const nsec = ref('')
 const revealing = ref(false)
 const revealError = ref('')
@@ -66,13 +68,12 @@ async function reveal() {
       nsec.value = nip19.nsecEncode(secret)
       return
     }
-    const email = window.prompt('Email for this account')
-    if (!email) throw new Error('Email is required to unlock the recovery key.')
-    const start = await $fetch<{ salt: string }>('/api/network/login-start', { method: 'POST', body: { email } })
+    if (!email.value.trim()) throw new Error('Email is required to unlock the recovery key.')
+    const start = await $fetch<{ salt: string }>('/api/network/login-start', { method: 'POST', body: { email: email.value } })
     const { verifierFromPassword } = await import('~/utils/network/crypto')
     const login = await $fetch<{ encryptedKey: { ciphertext: string, nonce: string } | null, wraps: Array<{ method: string, wrapped_dek: string, nonce: string }> }>('/api/network/login', {
       method: 'POST',
-      body: { email, verifier: verifierFromPassword(password.value, start.salt) },
+      body: { email: email.value, verifier: verifierFromPassword(password.value, start.salt) },
     })
     const wrap = login.wraps.find(item => item.method === 'password')
     if (!login.encryptedKey || !wrap) throw new Error('This account has no stored recovery key.')

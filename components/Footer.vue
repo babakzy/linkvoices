@@ -1,5 +1,5 @@
 <template>
-    <footer class="border-t border-black bg-spring-wood-100 py-10">
+    <footer class="border-t border-black bg-white py-10">
         <div class="md:container md:mx-auto">
             <div class="mx-4 flex flex-wrap md:mx-6">
                 <div class="mb-8 basis-full pr-6 md:basis-1/4 md:border-r md:border-black">
@@ -8,9 +8,6 @@
                             <img class="w-48 mb-4" src="@/assets/images/mainlogo.svg" alt="Linkvoices">
                         </nuxt-link>
                         <p class="mb-4 max-w-xs text-sm leading-relaxed text-ink">Find the right people. Your account stays yours.</p>
-                        <a href="https://open-launch.com/projects/linkvoices" target="_blank" rel="noopener">
-  <img class="grayscale" src="https://open-launch.com/api/badge/811ef735-c89d-4cc0-8c72-878f2c0fe5fd/featured-light.svg" alt="Featured on Open-Launch" width="200" height="50" />
-</a>
                     </div>
                 </div>
                 
@@ -27,12 +24,14 @@
 
                 <div class="mb-8 basis-full md:basis-1/4 md:border-r md:border-black md:px-6">
                     <h4 class="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.06em] text-ink">
-                        Build by <a href="https://babakzy.com/" target="_blank" rel="noopener" class="hover:text-brand-blue">Babakzy</a>
+                        For humanity
                     </h4>
                     <ul class="space-y-2">
-                        <li><a href="https://www.didon.app/" target="_blank" rel="noopener" class="text-sm text-ink hover:text-brand-blue">Didon - AI Time Tracker</a></li>
-                        <li><a href="https://nuxtz.vercel.app/" target="_blank" rel="noopener" class="text-sm text-ink hover:text-brand-blue">Nuxtz - Nuxt.js Boilerplate</a></li>
-                        <li><a href="https://www.behan.agency/" target="_blank" rel="noopener" class="text-sm text-ink hover:text-brand-blue">Behan.agency - AI Marketing Solutions</a></li>
+                        <li><nuxt-link to="/censorship-resistant-payments" class="text-sm text-ink hover:text-brand-blue">Censorship-Resistant Payments</nuxt-link></li>
+                        <li><nuxt-link to="/send-crypto-invoices-international-clients" class="text-sm text-ink hover:text-brand-blue">International Invoicing</nuxt-link></li>
+                        <li><nuxt-link to="/crypto-anarchism" class="text-sm text-ink hover:text-brand-blue">Crypto Anarchism</nuxt-link></li>
+                        <li><nuxt-link to="/decentralized-government" class="text-sm text-ink hover:text-brand-blue">Decentralized Government</nuxt-link></li>
+                        <li><nuxt-link to="/digital-freedom-rights-online" class="text-sm text-ink hover:text-brand-blue">Digital Freedom</nuxt-link></li>
                     </ul>
                 </div>
 

@@ -17,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
+import { personLabel, shortNpub } from '~/utils/network/format'
+
 definePageMeta({ layout: 'network', middleware: ['network'] })
 usePageSeo({ title: 'Search', path: '/search', noindex: true })
 
@@ -38,19 +40,12 @@ async function search() {
     const fallback = notes.length ? notes : (await query({ kinds: [1], limit: 40 })).filter(note => note.content.toLowerCase().includes(q.toLowerCase()))
     const cache = await profiles(fallback.map(note => note.pubkey))
     results.value = fallback.slice(0, 25).map((note) => {
-      const profile = cache.get(note.pubkey)
-      let name = 'Nostr profile'
-      if (profile) {
-        try {
-          const meta = JSON.parse(profile.content) as { display_name?: string, name?: string }
-          name = meta.display_name || meta.name || name
-        } catch { /* ignore */ }
-      }
+      const npub = nip19.npubEncode(note.pubkey)
       return {
         id: note.id,
-        title: name,
+        title: personLabel(cache.get(note.pubkey)?.content, shortNpub(npub)),
         detail: note.content.slice(0, 180),
-        href: `/u/${nip19.npubEncode(note.pubkey)}`,
+        href: `/u/${npub}`,
       }
     })
   } catch (err) {

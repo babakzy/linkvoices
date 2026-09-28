@@ -1,4 +1,4 @@
-import { DEFAULT_RELAYS } from '~/utils/network/constants'
+import { DEFAULT_RELAYS, PROFILE_RELAYS } from '~/utils/network/constants'
 import { getSecretKey } from '~/utils/network/keyStore'
 
 type NostrEvent = {
@@ -15,7 +15,8 @@ type SimplePool = import('nostr-tools/pool').SimplePool
 type NostrFilter = import('nostr-tools/filter').Filter
 
 let pool: SimplePool | null = null
-const profileCache = new Map<string, NostrEvent | null>()
+const profileCache = new Map<string, { event: NostrEvent | null, at: number }>()
+const PROFILE_MISS_MS = 60_000
 
 async function getPool(): Promise<SimplePool> {
   if (!pool) {
@@ -28,9 +29,9 @@ async function getPool(): Promise<SimplePool> {
 export function useNostr() {
   const relays = useState<string[]>('network-relays', () => [...DEFAULT_RELAYS])
 
-  async function query(filter: NostrFilter, maxWait = 3500) {
+  async function query(filter: NostrFilter, maxWait = 3500, relayList?: string[]) {
     const client = await getPool()
-    return client.querySync(relays.value, filter, { maxWait })
+    return client.querySync(relayList?.length ? relayList : relays.value, filter, { maxWait })
   }
 
   async function publish(event: NostrEvent) {
@@ -70,21 +71,40 @@ export function useNostr() {
   }
 
   async function profiles(pubkeys: string[]) {
-    const missing = [...new Set(pubkeys)].filter(pubkey => !profileCache.has(pubkey))
-    if (missing.length) {
-      const events = await query({ kinds: [0], authors: missing.slice(0, 80) })
-      const newest = new Map<string, NostrEvent>()
-      for (const event of events) {
-        const current = newest.get(event.pubkey)
-        if (!current || event.created_at > current.created_at) newest.set(event.pubkey, event)
+    const now = Date.now()
+    const missing = [...new Set(pubkeys)].filter((pubkey) => {
+      if (!pubkey) return false
+      const row = profileCache.get(pubkey)
+      if (!row) return true
+      if (row.event) return false
+      return now - row.at > PROFILE_MISS_MS
+    })
+    const chunks: string[][] = []
+    for (let index = 0; index < missing.length; index += 16) chunks.push(missing.slice(index, index + 16))
+    const found: NostrEvent[] = []
+    await Promise.all(chunks.map(async (slice) => {
+      try {
+        const events = await query({ kinds: [0], authors: slice }, 7000, PROFILE_RELAYS)
+        const newest = new Map<string, NostrEvent>()
+        for (const event of events) {
+          const current = newest.get(event.pubkey)
+          if (!current || event.created_at > current.created_at) newest.set(event.pubkey, event)
+        }
+        for (const pubkey of slice) {
+          const event = newest.get(pubkey) || null
+          profileCache.set(pubkey, { event, at: Date.now() })
+          if (event) found.push(event)
+        }
+      } catch {
+        /* leave the name unresolved so the next load can try again */
       }
-      for (const pubkey of missing) profileCache.set(pubkey, newest.get(pubkey) || null)
-      const found = [...newest.values()]
-      if (found.length) {
-        $fetch('/api/network/events', { method: 'POST', body: { events: found, relays: relays.value } }).catch(() => undefined)
-      }
+    }))
+    if (found.length) {
+      $fetch('/api/network/events', { method: 'POST', body: { events: found, relays: PROFILE_RELAYS } }).catch(() => undefined)
     }
-    return profileCache
+    const view = new Map<string, NostrEvent | null>()
+    for (const pubkey of pubkeys) view.set(pubkey, profileCache.get(pubkey)?.event || null)
+    return view
   }
 
   return { relays, query, publish, sign, signAndPublish, profiles }

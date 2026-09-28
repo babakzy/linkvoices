@@ -1,40 +1,40 @@
 <template>
-  <section class="border-b border-black bg-spring-wood-100 py-16 md:py-24">
-    <div class="px-4 md:container md:mx-auto md:px-6">
-      <div class="mb-12 md:mb-16">
-        <div class="mb-6 flex">
-          <img
-            src="@/assets/images/Fa7SolidFistRaised.svg"
-            alt=""
-            class="h-14 w-14 rounded-ui border border-black bg-white p-3 md:h-16 md:w-16"
-          >
-        </div>
-        <h2 class="max-w-3xl text-3xl font-semibold leading-tight tracking-[-0.03em] text-ink md:text-5xl">
-          Out of the System. On Your Terms.
+  <section class="border-b border-black bg-white py-16 md:py-24" aria-labelledby="guides-heading">
+    <div class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8">
+      <header>
+        <h2 id="guides-heading" class="text-2xl font-semibold leading-snug tracking-[-0.02em] text-ink md:text-4xl">
+          Technologies for humanity.
         </h2>
-        <p class="mt-5 max-w-2xl text-base leading-relaxed text-neutral-700 md:text-lg">
-          Five guides on getting paid, staying private, and building outside institutional control.
+        <p class="mt-4 text-base leading-relaxed text-neutral-700 md:text-lg">
+          Digital freedom means people can get paid, stay private, and organize without a company or a bank in the middle. Decentralized networks, cryptography, and public blockchains are the tools that make that possible. These pages are a short reading list on how they work.
         </p>
-      </div>
+      </header>
 
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <NuxtLink
-          v-for="page in landingPages"
-          :key="page.path"
-          :to="page.path"
-          class="group flex flex-col rounded-ui border border-black bg-white p-5 transition-colors duration-150 hover:bg-brand-blue md:p-6"
+      <ul class="mt-12 md:mt-16">
+        <li
+          v-for="(row, rowIndex) in rows"
+          :key="rowIndex"
+          class="grid grid-cols-1 border-t border-black"
+          :class="row.length > 2 ? 'md:grid-cols-3' : 'md:grid-cols-2'"
         >
-          <h3 class="mb-2 text-lg font-semibold leading-snug text-ink transition-colors group-hover:text-white">
-            {{ page.title }}
-          </h3>
-          <p class="flex-1 text-sm leading-relaxed text-neutral-700 transition-colors group-hover:text-white/85">
-            {{ page.description }}
-          </p>
-          <span class="mt-5 inline-block border-t border-black pt-3 font-mono text-xs font-medium uppercase tracking-[0.06em] text-ink transition-colors group-hover:border-white group-hover:text-white">
-            Read guide →
-          </span>
-        </NuxtLink>
-      </div>
+          <NuxtLink
+            v-for="page in row"
+            :key="page.path"
+            :to="page.path"
+            class="group block py-6 md:py-8 md:pr-10 md:last:pr-0"
+          >
+            <span class="font-mono text-xs tabular-nums text-neutral-500">
+              {{ page.number }}
+            </span>
+            <h3 class="mt-2 text-lg font-semibold leading-snug text-ink underline decoration-transparent underline-offset-4 transition-colors group-hover:text-brand-blue group-hover:decoration-brand-blue">
+              {{ page.title }}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-neutral-700">
+              {{ page.description }}
+            </p>
+          </NuxtLink>
+        </li>
+      </ul>
     </div>
   </section>
 </template>
@@ -67,6 +67,17 @@ const landingPages = [
     description: 'Online privacy, expression, and access to digital infrastructure — and why they matter for getting paid.',
   },
 ]
-</script>
 
-<style lang="scss" scoped></style>
+const rows = computed(() => {
+  const numbered = landingPages.map((page, index) => ({
+    ...page,
+    number: String(index + 1).padStart(2, '0'),
+  }))
+  const size = 3
+  const result = []
+  for (let i = 0; i < numbered.length; i += size) {
+    result.push(numbered.slice(i, i + size))
+  }
+  return result
+})
+</script>

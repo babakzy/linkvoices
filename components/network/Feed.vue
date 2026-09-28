@@ -46,13 +46,17 @@
       :npub="item.npub"
       :member="item.member"
       :owned="item.event.pubkey === account?.pubkey"
+      :stats="engagement[item.event.id]"
       @mute="mute"
+      @published="refreshEngagement(item.event.id)"
     />
   </section>
 </template>
 
 <script setup lang="ts">
 import { FEED_MODES, type FeedMode } from '~/utils/network/constants'
+import { loadEngagementForNotes, type NoteEngagement } from '~/utils/network/engagement'
+import { isEnglishBrowsePost, readProfileContent, shortNpub } from '~/utils/network/format'
 import type { NostrEvent } from '~/composables/useNostr'
 
 const props = defineProps<{
@@ -73,8 +77,11 @@ const interests = ref<string[]>([])
 const draft = ref('')
 const posting = ref(false)
 const postError = ref('')
+const pickedFeed = ref(false)
+const engagement = ref<Record<string, NoteEngagement>>({})
 
 const emptyCopy = computed(() => {
+  if (props.guest) return 'No recent English posts came back from the open network.'
   if (active.value === 'following') return 'Follow a few people. Their posts show up here, and only here, in this tab.'
   if (active.value === 'local') return location.value ? 'No recent public posts matched your location.' : 'Add a location on your profile to use Local.'
   return 'No public posts matched this feed.'
@@ -83,10 +90,11 @@ const emptyCopy = computed(() => {
 const visible = computed(() => notes.value
   .filter(event => !mutes.value.includes(event.pubkey))
   .filter(event => isReadableNote(event.content))
+  .filter(event => !props.guest || isEnglishBrowsePost(event.content, event.tags))
   .filter(event => matches(event))
   .map(event => ({
     event,
-    name: names.value[event.pubkey]?.name || 'Nostr profile',
+    name: names.value[event.pubkey]?.name || '',
     picture: names.value[event.pubkey]?.picture || '',
     npub: names.value[event.pubkey]?.npub || '',
     member: members.value.has(event.pubkey),
@@ -113,6 +121,7 @@ function matches(event: NostrEvent) {
 }
 
 async function select(mode: FeedMode) {
+  pickedFeed.value = true
   active.value = mode
   if (account.value) {
     $fetch('/api/network/preferences', { method: 'POST', body: { feedMode: mode } }).catch(() => undefined)
@@ -129,41 +138,52 @@ async function load() {
       interests.value = (me.tags || []).map(tag => tag.label)
       const loc = me.fields?.find(field => field.field_key === 'location')
       location.value = typeof loc?.value === 'string' ? loc.value : ''
-      if (me.preferences?.feed_mode) active.value = me.preferences.feed_mode
+      if (!pickedFeed.value && me.preferences?.feed_mode) active.value = me.preferences.feed_mode
       const lists = await query({ kinds: [3], authors: [account.value.pubkey], limit: 2 })
       const list = lists.sort((a, b) => b.created_at - a.created_at)[0]
       follows.value = list?.tags.filter(tag => tag[0] === 'p' && tag[1]).map(tag => tag[1] as string) || []
     }
+    const browsing = Boolean(props.guest)
     const filter = active.value === 'following' && follows.value.length
       ? { kinds: [1], authors: follows.value.slice(0, 80), limit: 40 }
-      : { kinds: [1], limit: 40 }
+      : { kinds: [1], limit: browsing ? 80 : 40 }
     if (active.value === 'following' && !follows.value.length && account.value) {
       notes.value = []
+      engagement.value = {}
       status.value = 'ready'
       return
     }
-    const events = await query(filter)
+    let events = await query(filter, browsing ? 4500 : 3500)
+    if (browsing) {
+      const english = events.filter(event => isReadableNote(event.content) && isEnglishBrowsePost(event.content, event.tags))
+      const oldest = events.reduce((min, event) => Math.min(min, event.created_at), Number.POSITIVE_INFINITY)
+      if (english.length < 8 && Number.isFinite(oldest)) {
+        const more = await query({ kinds: [1], limit: 80, until: oldest - 1 }, 4500)
+        events = [...events, ...more]
+      }
+    }
     const unique = new Map<string, NostrEvent>()
     for (const event of events) unique.set(event.id, event)
-    notes.value = [...unique.values()].sort((a, b) => b.created_at - a.created_at)
+    notes.value = [...unique.values()]
+      .filter(event => isReadableNote(event.content))
+      .filter(event => !browsing || isEnglishBrowsePost(event.content, event.tags))
+      .sort((a, b) => b.created_at - a.created_at)
     const nip19 = await import('nostr-tools/nip19')
     const cache = await profiles(notes.value.map(event => event.pubkey))
     const next: typeof names.value = {}
     for (const event of notes.value) {
       const profileEvent = cache.get(event.pubkey)
-      let name = 'Nostr profile'
-      let picture = ''
-      if (profileEvent) {
-        try {
-          const meta = JSON.parse(profileEvent.content) as { name?: string, display_name?: string, picture?: string }
-          name = meta.display_name || meta.name || name
-          picture = meta.picture || ''
-        } catch { /* unsigned profile text is ignored */ }
+      const meta = readProfileContent(profileEvent?.content)
+      const npub = nip19.npubEncode(event.pubkey)
+      next[event.pubkey] = {
+        name: meta.name || shortNpub(npub),
+        picture: meta.picture,
+        npub,
       }
-      next[event.pubkey] = { name, picture, npub: nip19.npubEncode(event.pubkey) }
     }
     names.value = next
     status.value = 'ready'
+    void refreshEngagementBatch(notes.value.map(event => event.id))
     if (notes.value.length) {
       $fetch('/api/network/events', { method: 'POST', body: { events: notes.value.slice(0, 20) } }).catch(() => undefined)
     }
@@ -183,6 +203,28 @@ async function publishPost() {
     postError.value = error instanceof Error ? error.message : 'The post did not publish.'
   } finally {
     posting.value = false
+  }
+}
+
+async function refreshEngagementBatch(noteIds: string[]) {
+  if (!noteIds.length) {
+    engagement.value = {}
+    return
+  }
+  try {
+    const counts = await loadEngagementForNotes(query, noteIds)
+    engagement.value = counts
+  } catch {
+    /* counts stay at zero */
+  }
+}
+
+async function refreshEngagement(noteId: string) {
+  try {
+    const counts = await loadEngagementForNotes(query, [noteId], 2800)
+    engagement.value = { ...engagement.value, ...counts }
+  } catch {
+    /* keep prior counts */
   }
 }
 
